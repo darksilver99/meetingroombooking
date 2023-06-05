@@ -101,6 +101,71 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'RegisterPage',
           path: '/registerPage',
           builder: (context, params) => RegisterPageWidget(),
+        ),
+        FFRoute(
+          name: 'AddMeetRoomInformationPage',
+          path: '/addMeetRoomInformationPage',
+          builder: (context, params) => AddMeetRoomInformationPageWidget(),
+        ),
+        FFRoute(
+          name: 'MeetRoomServiceListPage',
+          path: '/meetRoomServiceListPage',
+          builder: (context, params) => MeetRoomServiceListPageWidget(),
+        ),
+        FFRoute(
+          name: 'MeetDetailPage',
+          path: '/meetDetailPage',
+          builder: (context, params) => MeetDetailPageWidget(),
+        ),
+        FFRoute(
+          name: 'ProfilePage',
+          path: '/profilePage',
+          builder: (context, params) => ProfilePageWidget(),
+        ),
+        FFRoute(
+          name: 'MeetManagePage',
+          path: '/meetManagePage',
+          builder: (context, params) => MeetManagePageWidget(),
+        ),
+        FFRoute(
+          name: 'MeetComingPage',
+          path: '/meetComingPage',
+          builder: (context, params) => MeetComingPageWidget(),
+        ),
+        FFRoute(
+          name: 'MeetSelectAreaPage',
+          path: '/meetSelectAreaPage',
+          builder: (context, params) => MeetSelectAreaPageWidget(),
+        ),
+        FFRoute(
+          name: 'MeetRoomListPage',
+          path: '/meetRoomListPage',
+          builder: (context, params) => MeetRoomListPageWidget(),
+        ),
+        FFRoute(
+          name: 'BookingMeetPage',
+          path: '/bookingMeetPage',
+          builder: (context, params) => BookingMeetPageWidget(),
+        ),
+        FFRoute(
+          name: 'AddBookingPage',
+          path: '/addBookingPage',
+          builder: (context, params) => AddBookingPageWidget(),
+        ),
+        FFRoute(
+          name: 'BookingManagePage',
+          path: '/bookingManagePage',
+          builder: (context, params) => BookingManagePageWidget(),
+        ),
+        FFRoute(
+          name: 'BookingListPage',
+          path: '/bookingListPage',
+          builder: (context, params) => BookingListPageWidget(),
+        ),
+        FFRoute(
+          name: 'BookingDetailPage',
+          path: '/bookingDetailPage',
+          builder: (context, params) => BookingDetailPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

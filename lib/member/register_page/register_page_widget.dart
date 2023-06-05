@@ -90,7 +90,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                         autovalidateMode: AutovalidateMode.disabled,
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              16.0, 32.0, 16.0, 16.0),
+                              16.0, 16.0, 16.0, 32.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
