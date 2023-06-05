@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "453761745957",
+    "project_id": "meetingroombooking-bb247",
+    "storage_bucket": "meetingroombooking-bb247.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:453761745957:android:30c0bd4d0c48eb1e322bcc",
+        "android_client_info": {
+          "package_name": "com.silver.meetingroombooking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "453761745957-5rspn0iq8bitjf44dl5k8758q9l0bhjj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.silver.meetingroombooking",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "453761745957-c34ss6hgss44pui9l4dr9mbc996ktcv2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNIjnJEnuBkuklj-pLP6BOwvl9TSfRy_c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "453761745957-c34ss6hgss44pui9l4dr9mbc996ktcv2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "453761745957-ca2q2tdr7q0dt6irks3d15s4t6ktsiab.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.silver.meetingroombooking"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
