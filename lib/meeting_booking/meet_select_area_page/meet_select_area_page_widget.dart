@@ -21,7 +21,6 @@ class _MeetSelectAreaPageWidgetState extends State<MeetSelectAreaPageWidget> {
   late MeetSelectAreaPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -33,20 +32,19 @@ class _MeetSelectAreaPageWidgetState extends State<MeetSelectAreaPageWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).secondary,
-          automaticallyImplyLeading: false,
+          automaticallyImplyLeading: true,
           title: Text(
             'เลือกพื้นที่บริการ',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
@@ -100,12 +98,9 @@ class _MeetSelectAreaPageWidgetState extends State<MeetSelectAreaPageWidget> {
                                       () => _model.dropDownValue1 = val),
                                   width: double.infinity,
                                   height: 65.0,
-                                  searchHintTextStyle:
-                                      FlutterFlowTheme.of(context).labelMedium,
                                   textStyle:
                                       FlutterFlowTheme.of(context).bodyMedium,
                                   hintText: 'เลือกจังหวัด',
-                                  searchHintText: 'Search for an item...',
                                   icon: Icon(
                                     Icons.keyboard_arrow_down_rounded,
                                     color: FlutterFlowTheme.of(context)
@@ -136,13 +131,9 @@ class _MeetSelectAreaPageWidgetState extends State<MeetSelectAreaPageWidget> {
                                         () => _model.dropDownValue2 = val),
                                     width: double.infinity,
                                     height: 65.0,
-                                    searchHintTextStyle:
-                                        FlutterFlowTheme.of(context)
-                                            .labelMedium,
                                     textStyle:
                                         FlutterFlowTheme.of(context).bodyMedium,
                                     hintText: 'เลือกอำเภอ',
-                                    searchHintText: 'Search for an item...',
                                     icon: Icon(
                                       Icons.keyboard_arrow_down_rounded,
                                       color: FlutterFlowTheme.of(context)
@@ -174,13 +165,9 @@ class _MeetSelectAreaPageWidgetState extends State<MeetSelectAreaPageWidget> {
                                         () => _model.dropDownValue3 = val),
                                     width: double.infinity,
                                     height: 65.0,
-                                    searchHintTextStyle:
-                                        FlutterFlowTheme.of(context)
-                                            .labelMedium,
                                     textStyle:
                                         FlutterFlowTheme.of(context).bodyMedium,
                                     hintText: 'เลือกตำบล',
-                                    searchHintText: 'Search for an item...',
                                     icon: Icon(
                                       Icons.keyboard_arrow_down_rounded,
                                       color: FlutterFlowTheme.of(context)

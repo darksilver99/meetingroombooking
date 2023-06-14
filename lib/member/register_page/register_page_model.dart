@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 class RegisterPageModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
+  final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
   // State field(s) for fullname widget.
   TextEditingController? fullnameController;
@@ -81,12 +82,15 @@ class RegisterPageModel extends FlutterFlowModel {
   }
 
   void dispose() {
+    unfocusNode.dispose();
     fullnameController?.dispose();
     phoneController?.dispose();
     usernameController?.dispose();
     passwordController?.dispose();
     password2Controller?.dispose();
   }
+
+  /// Action blocks are added here.
 
   /// Additional helper methods are added here.
 

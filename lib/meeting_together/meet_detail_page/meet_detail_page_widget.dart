@@ -20,12 +20,6 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
   late MeetDetailPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
-  int get pageViewCurrentIndex => _model.pageViewController != null &&
-          _model.pageViewController!.hasClients &&
-          _model.pageViewController!.page != null
-      ? _model.pageViewController!.page!.round()
-      : 0;
 
   @override
   void initState() {
@@ -37,14 +31,13 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -79,7 +72,7 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
         ),
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).secondary,
-          automaticallyImplyLeading: false,
+          automaticallyImplyLeading: true,
           title: Text(
             'รายละเอียดห้องประชุม',
             style: FlutterFlowTheme.of(context).headlineMedium.override(

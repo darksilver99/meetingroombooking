@@ -98,7 +98,10 @@ class _MyAppState extends State<MyApp> {
       darkTheme: ThemeData(brightness: Brightness.dark),
       themeMode: _themeMode,
       routerConfig: _router,
-      builder: (_, child) => DynamicLinksHandler(child: child!),
+      builder: (_, child) => DynamicLinksHandler(
+        router: _router,
+        child: child!,
+      ),
     );
   }
 }

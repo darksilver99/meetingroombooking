@@ -41,8 +41,13 @@ Future<String> generateCurrentPageLink(
 }
 
 class DynamicLinksHandler extends StatefulWidget {
-  const DynamicLinksHandler({Key? key, required this.child}) : super(key: key);
+  const DynamicLinksHandler({
+    Key? key,
+    required this.router,
+    required this.child,
+  }) : super(key: key);
 
+  final GoRouter router;
   final Widget child;
 
   @override
@@ -70,7 +75,7 @@ class _DynamicLinksHandlerState extends State<DynamicLinksHandler> {
     final link = linkData.link.toString();
     final host = linkData.link.host;
     final location = link.split(host).last;
-    context.push(location);
+    widget.router.push(location);
   }
 
   @override

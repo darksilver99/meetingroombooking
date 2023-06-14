@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 class ProfilePageModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
+  final unfocusNode = FocusNode();
   // State field(s) for fullname widget.
   TextEditingController? fullnameController1;
   String? Function(BuildContext, String?)? fullnameController1Validator;
@@ -24,10 +25,13 @@ class ProfilePageModel extends FlutterFlowModel {
   void initState(BuildContext context) {}
 
   void dispose() {
+    unfocusNode.dispose();
     fullnameController1?.dispose();
     fullnameController2?.dispose();
     fullnameController3?.dispose();
   }
+
+  /// Action blocks are added here.
 
   /// Additional helper methods are added here.
 

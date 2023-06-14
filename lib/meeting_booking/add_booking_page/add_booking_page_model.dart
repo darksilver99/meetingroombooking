@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 class AddBookingPageModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
+  final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
   // State field(s) for username widget.
   TextEditingController? usernameController1;
@@ -21,9 +22,12 @@ class AddBookingPageModel extends FlutterFlowModel {
   void initState(BuildContext context) {}
 
   void dispose() {
+    unfocusNode.dispose();
     usernameController1?.dispose();
     usernameController2?.dispose();
   }
+
+  /// Action blocks are added here.
 
   /// Additional helper methods are added here.
 

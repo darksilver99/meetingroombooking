@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 class BookingMeetPageModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
+  final unfocusNode = FocusNode();
   // State field(s) for Calendar widget.
   DateTimeRange? calendarSelectedDay;
 
@@ -20,7 +21,11 @@ class BookingMeetPageModel extends FlutterFlowModel {
     );
   }
 
-  void dispose() {}
+  void dispose() {
+    unfocusNode.dispose();
+  }
+
+  /// Action blocks are added here.
 
   /// Additional helper methods are added here.
 

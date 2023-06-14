@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 class MeetComingPageModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
+  final unfocusNode = FocusNode();
   // State field(s) for username widget.
   TextEditingController? usernameController;
   String? Function(BuildContext, String?)? usernameControllerValidator;
@@ -18,8 +19,11 @@ class MeetComingPageModel extends FlutterFlowModel {
   void initState(BuildContext context) {}
 
   void dispose() {
+    unfocusNode.dispose();
     usernameController?.dispose();
   }
+
+  /// Action blocks are added here.
 
   /// Additional helper methods are added here.
 

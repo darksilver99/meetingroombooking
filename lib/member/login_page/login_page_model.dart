@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 class LoginPageModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
+  final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
   // State field(s) for username widget.
   TextEditingController? usernameController;
@@ -44,9 +45,12 @@ class LoginPageModel extends FlutterFlowModel {
   }
 
   void dispose() {
+    unfocusNode.dispose();
     usernameController?.dispose();
     passwordController?.dispose();
   }
+
+  /// Action blocks are added here.
 
   /// Additional helper methods are added here.
 
