@@ -71,10 +71,7 @@ class _MeetComingPageWidgetState extends State<MeetComingPageWidget> {
                       child: Container(
                         width: double.infinity,
                         height: 52.0,
-                        decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
-                        ),
+                        decoration: BoxDecoration(),
                         child: TextFormField(
                           controller: _model.usernameController,
                           obscureText: false,

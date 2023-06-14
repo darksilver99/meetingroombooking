@@ -71,71 +71,81 @@ class _MeetRoomListPageWidgetState extends State<MeetRoomListPageWidget> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Expanded(
-                      child: TextFormField(
-                        controller: _model.usernameController,
-                        onChanged: (_) => EasyDebounce.debounce(
-                          '_model.usernameController',
-                          Duration(milliseconds: 2000),
-                          () => setState(() {}),
+                      child: Container(
+                        width: double.infinity,
+                        height: 52.0,
+                        decoration: BoxDecoration(),
+                        child: TextFormField(
+                          controller: _model.usernameController,
+                          onChanged: (_) => EasyDebounce.debounce(
+                            '_model.usernameController',
+                            Duration(milliseconds: 2000),
+                            () => setState(() {}),
+                          ),
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelStyle:
+                                FlutterFlowTheme.of(context).labelMedium,
+                            hintText: 'ค้นหาจากชื่อ',
+                            hintStyle: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .override(
+                                  fontFamily: 'Kanit',
+                                  fontSize: 12.0,
+                                ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).line,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).alternate,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            filled: true,
+                            fillColor: Colors.white,
+                            prefixIcon: Icon(
+                              Icons.search_rounded,
+                              size: 24.0,
+                            ),
+                            suffixIcon: _model
+                                    .usernameController!.text.isNotEmpty
+                                ? InkWell(
+                                    onTap: () async {
+                                      _model.usernameController?.clear();
+                                      setState(() {});
+                                    },
+                                    child: Icon(
+                                      Icons.clear,
+                                      color: FlutterFlowTheme.of(context).error,
+                                      size: 24.0,
+                                    ),
+                                  )
+                                : null,
+                          ),
+                          style: FlutterFlowTheme.of(context).bodyMedium,
+                          validator: _model.usernameControllerValidator
+                              .asValidator(context),
                         ),
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          labelStyle: FlutterFlowTheme.of(context).labelMedium,
-                          hintText: 'ค้นหาจากชื่อ',
-                          hintStyle:
-                              FlutterFlowTheme.of(context).labelMedium.override(
-                                    fontFamily: 'Kanit',
-                                    fontSize: 12.0,
-                                  ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).line,
-                              width: 1.0,
-                            ),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).alternate,
-                              width: 1.0,
-                            ),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).error,
-                              width: 1.0,
-                            ),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).error,
-                              width: 1.0,
-                            ),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          prefixIcon: Icon(
-                            Icons.search_rounded,
-                            size: 24.0,
-                          ),
-                          suffixIcon: _model.usernameController!.text.isNotEmpty
-                              ? InkWell(
-                                  onTap: () async {
-                                    _model.usernameController?.clear();
-                                    setState(() {});
-                                  },
-                                  child: Icon(
-                                    Icons.clear,
-                                    color: FlutterFlowTheme.of(context).error,
-                                    size: 24.0,
-                                  ),
-                                )
-                              : null,
-                        ),
-                        style: FlutterFlowTheme.of(context).bodyMedium,
-                        validator: _model.usernameControllerValidator
-                            .asValidator(context),
                       ),
                     ),
                     Padding(
