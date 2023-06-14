@@ -14,11 +14,6 @@ class AmphurRecord extends FirestoreRecord {
     _initializeFields();
   }
 
-  // "id" field.
-  int? _id;
-  int get id => _id ?? 0;
-  bool hasId() => _id != null;
-
   // "name" field.
   String? _name;
   String get name => _name ?? '';
@@ -29,10 +24,15 @@ class AmphurRecord extends FirestoreRecord {
   int get provinceId => _provinceId ?? 0;
   bool hasProvinceId() => _provinceId != null;
 
+  // "id" field.
+  int? _id;
+  int get id => _id ?? 0;
+  bool hasId() => _id != null;
+
   void _initializeFields() {
-    _id = snapshotData['id'] as int?;
     _name = snapshotData['name'] as String?;
     _provinceId = snapshotData['province_id'] as int?;
+    _id = snapshotData['id'] as int?;
   }
 
   static CollectionReference get collection =>
@@ -69,15 +69,15 @@ class AmphurRecord extends FirestoreRecord {
 }
 
 Map<String, dynamic> createAmphurRecordData({
-  int? id,
   String? name,
   int? provinceId,
+  int? id,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
-      'id': id,
       'name': name,
       'province_id': provinceId,
+      'id': id,
     }.withoutNulls,
   );
 
