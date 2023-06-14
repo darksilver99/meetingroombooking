@@ -467,65 +467,62 @@ class _AddMeetRoomInformationPageWidgetState
                                       ),
                                 ),
                               ),
-                              if (FFAppState().provinceSelected != 0)
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 8.0, 0.0, 0.0),
-                                  child: StreamBuilder<List<ProvinceRecord>>(
-                                    stream: queryProvinceRecord(),
-                                    builder: (context, snapshot) {
-                                      // Customize what your widget looks like when it's loading.
-                                      if (!snapshot.hasData) {
-                                        return Center(
-                                          child: SizedBox(
-                                            width: 50.0,
-                                            height: 50.0,
-                                            child: CircularProgressIndicator(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                            ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 8.0, 0.0, 0.0),
+                                child: StreamBuilder<List<ProvinceRecord>>(
+                                  stream: queryProvinceRecord(),
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 50.0,
+                                          height: 50.0,
+                                          child: CircularProgressIndicator(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
                                           ),
-                                        );
-                                      }
-                                      List<ProvinceRecord>
-                                          provinceProvinceRecordList =
-                                          snapshot.data!;
-                                      return FlutterFlowDropDown<String>(
-                                        controller: _model
-                                                .provinceValueController ??=
-                                            FormFieldController<String>(null),
-                                        options: provinceProvinceRecordList
-                                            .map((e) => e.name)
-                                            .toList(),
-                                        onChanged: (val) => setState(
-                                            () => _model.provinceValue = val),
-                                        width: double.infinity,
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium,
-                                        hintText: 'เลือกจังหวัด',
-                                        icon: Icon(
-                                          Icons.keyboard_arrow_down_rounded,
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                          size: 24.0,
                                         ),
-                                        fillColor: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        elevation: 2.0,
-                                        borderColor:
-                                            FlutterFlowTheme.of(context)
-                                                .alternate,
-                                        borderWidth: 2.0,
-                                        borderRadius: 8.0,
-                                        margin: EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 4.0, 16.0, 4.0),
-                                        hidesUnderline: true,
-                                        isSearchable: false,
                                       );
-                                    },
-                                  ),
+                                    }
+                                    List<ProvinceRecord>
+                                        provinceProvinceRecordList =
+                                        snapshot.data!;
+                                    return FlutterFlowDropDown<String>(
+                                      controller:
+                                          _model.provinceValueController ??=
+                                              FormFieldController<String>(null),
+                                      options: provinceProvinceRecordList
+                                          .map((e) => e.name)
+                                          .toList(),
+                                      onChanged: (val) => setState(
+                                          () => _model.provinceValue = val),
+                                      width: double.infinity,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium,
+                                      hintText: 'เลือกจังหวัด',
+                                      icon: Icon(
+                                        Icons.keyboard_arrow_down_rounded,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        size: 24.0,
+                                      ),
+                                      fillColor: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      elevation: 2.0,
+                                      borderColor: FlutterFlowTheme.of(context)
+                                          .alternate,
+                                      borderWidth: 2.0,
+                                      borderRadius: 8.0,
+                                      margin: EdgeInsetsDirectional.fromSTEB(
+                                          16.0, 4.0, 16.0, 4.0),
+                                      hidesUnderline: true,
+                                      isSearchable: false,
+                                    );
+                                  },
                                 ),
+                              ),
                               if (FFAppState().provinceSelected != 0)
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
