@@ -14,11 +14,6 @@ class TambonRecord extends FirestoreRecord {
     _initializeFields();
   }
 
-  // "id" field.
-  int? _id;
-  int get id => _id ?? 0;
-  bool hasId() => _id != null;
-
   // "name" field.
   String? _name;
   String get name => _name ?? '';
@@ -29,10 +24,15 @@ class TambonRecord extends FirestoreRecord {
   int get amphureId => _amphureId ?? 0;
   bool hasAmphureId() => _amphureId != null;
 
+  // "id" field.
+  int? _id;
+  int get id => _id ?? 0;
+  bool hasId() => _id != null;
+
   void _initializeFields() {
-    _id = snapshotData['id'] as int?;
     _name = snapshotData['name'] as String?;
     _amphureId = snapshotData['amphure_id'] as int?;
+    _id = snapshotData['id'] as int?;
   }
 
   static CollectionReference get collection =>
@@ -69,15 +69,15 @@ class TambonRecord extends FirestoreRecord {
 }
 
 Map<String, dynamic> createTambonRecordData({
-  int? id,
   String? name,
   int? amphureId,
+  int? id,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
-      'id': id,
       'name': name,
       'amphure_id': amphureId,
+      'id': id,
     }.withoutNulls,
   );
 

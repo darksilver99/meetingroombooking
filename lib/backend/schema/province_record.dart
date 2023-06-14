@@ -14,19 +14,19 @@ class ProvinceRecord extends FirestoreRecord {
     _initializeFields();
   }
 
-  // "id" field.
-  int? _id;
-  int get id => _id ?? 0;
-  bool hasId() => _id != null;
-
   // "name" field.
   String? _name;
   String get name => _name ?? '';
   bool hasName() => _name != null;
 
+  // "id" field.
+  int? _id;
+  int get id => _id ?? 0;
+  bool hasId() => _id != null;
+
   void _initializeFields() {
-    _id = snapshotData['id'] as int?;
     _name = snapshotData['name'] as String?;
+    _id = snapshotData['id'] as int?;
   }
 
   static CollectionReference get collection =>
@@ -64,13 +64,13 @@ class ProvinceRecord extends FirestoreRecord {
 }
 
 Map<String, dynamic> createProvinceRecordData({
-  int? id,
   String? name,
+  int? id,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
-      'id': id,
       'name': name,
+      'id': id,
     }.withoutNulls,
   );
 
