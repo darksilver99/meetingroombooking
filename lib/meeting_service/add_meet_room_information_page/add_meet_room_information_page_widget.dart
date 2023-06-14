@@ -467,69 +467,66 @@ class _AddMeetRoomInformationPageWidgetState
                                       ),
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 8.0, 0.0, 0.0),
-                                child: StreamBuilder<List<ProvinceRecord>>(
-                                  stream: queryProvinceRecord(),
-                                  builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
-                                    if (!snapshot.hasData) {
-                                      return Center(
-                                        child: SizedBox(
-                                          width: 50.0,
-                                          height: 50.0,
-                                          child: CircularProgressIndicator(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
+                              if (FFAppState().provinceSelected != 0)
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 8.0, 0.0, 0.0),
+                                  child: StreamBuilder<List<ProvinceRecord>>(
+                                    stream: queryProvinceRecord(),
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 50.0,
+                                            height: 50.0,
+                                            child: CircularProgressIndicator(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                            ),
                                           ),
+                                        );
+                                      }
+                                      List<ProvinceRecord>
+                                          provinceProvinceRecordList =
+                                          snapshot.data!;
+                                      return FlutterFlowDropDown<String>(
+                                        controller: _model
+                                                .provinceValueController ??=
+                                            FormFieldController<String>(null),
+                                        options: provinceProvinceRecordList
+                                            .map((e) => e.name)
+                                            .toList(),
+                                        onChanged: (val) => setState(
+                                            () => _model.provinceValue = val),
+                                        width: double.infinity,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium,
+                                        hintText: 'เลือกจังหวัด',
+                                        icon: Icon(
+                                          Icons.keyboard_arrow_down_rounded,
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          size: 24.0,
                                         ),
+                                        fillColor: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        elevation: 2.0,
+                                        borderColor:
+                                            FlutterFlowTheme.of(context)
+                                                .alternate,
+                                        borderWidth: 2.0,
+                                        borderRadius: 8.0,
+                                        margin: EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 4.0, 16.0, 4.0),
+                                        hidesUnderline: true,
+                                        isSearchable: false,
                                       );
-                                    }
-                                    List<ProvinceRecord>
-                                        provinceProvinceRecordList =
-                                        snapshot.data!;
-                                    return FlutterFlowDropDown<String>(
-                                      controller:
-                                          _model.provinceValueController ??=
-                                              FormFieldController<String>(null),
-                                      options: provinceProvinceRecordList
-                                          .map((e) => e.name)
-                                          .toList(),
-                                      onChanged: (val) async {
-                                        setState(
-                                            () => _model.provinceValue = val);
-                                        setState(() {
-                                          FFAppState().provinceSelected =
-                                              provinceProvinceRecordList.length;
-                                        });
-                                      },
-                                      width: double.infinity,
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium,
-                                      hintText: 'เลือกจังหวัด',
-                                      icon: Icon(
-                                        Icons.keyboard_arrow_down_rounded,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                        size: 24.0,
-                                      ),
-                                      fillColor: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      elevation: 2.0,
-                                      borderColor: FlutterFlowTheme.of(context)
-                                          .alternate,
-                                      borderWidth: 2.0,
-                                      borderRadius: 8.0,
-                                      margin: EdgeInsetsDirectional.fromSTEB(
-                                          16.0, 4.0, 16.0, 4.0),
-                                      hidesUnderline: true,
-                                      isSearchable: false,
-                                    );
-                                  },
+                                    },
+                                  ),
                                 ),
-                              ),
-                              if (FFAppState().provinceSelected != null)
+                              if (FFAppState().provinceSelected != 0)
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 8.0, 0.0, 0.0),
@@ -562,15 +559,11 @@ class _AddMeetRoomInformationPageWidgetState
                                         controller: _model
                                                 .amphureValueController ??=
                                             FormFieldController<String>(null),
-                                        options: ['Option 1'],
-                                        onChanged: (val) async {
-                                          setState(
-                                              () => _model.amphureValue = val);
-                                          setState(() {
-                                            FFAppState().amphureSelected =
-                                                amphureAmphurRecordList.length;
-                                          });
-                                        },
+                                        options: amphureAmphurRecordList
+                                            .map((e) => e.name)
+                                            .toList(),
+                                        onChanged: (val) => setState(
+                                            () => _model.amphureValue = val),
                                         width: double.infinity,
                                         textStyle: FlutterFlowTheme.of(context)
                                             .bodyMedium,
@@ -597,7 +590,7 @@ class _AddMeetRoomInformationPageWidgetState
                                     },
                                   ),
                                 ),
-                              if (FFAppState().amphureSelected != null)
+                              if (FFAppState().amphureSelected != 0)
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 8.0, 0.0, 0.0),
@@ -630,7 +623,9 @@ class _AddMeetRoomInformationPageWidgetState
                                         controller: _model
                                                 .tambonValueController ??=
                                             FormFieldController<String>(null),
-                                        options: ['Option 1'],
+                                        options: tambonTambonRecordList
+                                            .map((e) => e.name)
+                                            .toList(),
                                         onChanged: (val) => setState(
                                             () => _model.tambonValue = val),
                                         width: double.infinity,
@@ -807,12 +802,35 @@ class _AddMeetRoomInformationPageWidgetState
                                             .validate()) {
                                       return;
                                     }
+                                    if (_model.uploadedFileUrls == null ||
+                                        _model.uploadedFileUrls.isEmpty) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'กรุณาอัพโหลดรูปภาพ',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Kanit',
+                                                  color: Colors.white,
+                                                ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 2000),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .error,
+                                        ),
+                                      );
+                                      return;
+                                    }
                                     if (_model.provinceValue == null) {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         SnackBar(
                                           content: Text(
-                                            'เลือกจังหวัด',
+                                            'กรุณาเลือกจังหวัด',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -834,7 +852,7 @@ class _AddMeetRoomInformationPageWidgetState
                                           .showSnackBar(
                                         SnackBar(
                                           content: Text(
-                                            'เลือกอำเภอ',
+                                            'กรุณาเลือกอำเภอ',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -856,7 +874,7 @@ class _AddMeetRoomInformationPageWidgetState
                                           .showSnackBar(
                                         SnackBar(
                                           content: Text(
-                                            'เลือกตำบล',
+                                            'กรุณาเลือกตำบล',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -883,9 +901,6 @@ class _AddMeetRoomInformationPageWidgetState
                                         detail: _model.detailController.text,
                                         supportTotal: int.tryParse(
                                             _model.supportTotalController.text),
-                                        province: _model.provinceValue,
-                                        amphur: _model.amphureValue,
-                                        tambon: _model.tambonValue,
                                       ),
                                       'photo': _model.uploadedFileUrls,
                                       'tools': _model.choiceChipsValues,
