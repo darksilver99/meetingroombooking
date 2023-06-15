@@ -873,29 +873,6 @@ class _AddMeetRoomInformationPageWidgetState
                                             .validate()) {
                                       return;
                                     }
-                                    if (_model.uploadedFileUrl == null ||
-                                        _model.uploadedFileUrl.isEmpty) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'กรุณาอัพโหลดรูปภาพ',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Kanit',
-                                                  color: Colors.white,
-                                                ),
-                                          ),
-                                          duration:
-                                              Duration(milliseconds: 2000),
-                                          backgroundColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .error,
-                                        ),
-                                      );
-                                      return;
-                                    }
                                     if (_model.provinceValue == null) {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
@@ -962,47 +939,71 @@ class _AddMeetRoomInformationPageWidgetState
                                       );
                                       return;
                                     }
-
-                                    final meetingRoomListCreateData = {
-                                      ...createMeetingRoomListRecordData(
-                                        createDate: getCurrentTimestamp,
-                                        createBy: currentUserReference,
-                                        status: 1,
-                                        name: _model.nameController.text,
-                                        detail: _model.detailController.text,
-                                        supportTotal: int.tryParse(
-                                            _model.supportTotalController.text),
-                                        province: _model.provinceValue,
-                                        amphur: _model.amphureValue,
-                                        tambon: _model.tambonValue,
-                                      ),
-                                      'photo': FFAppState().imageUploadList,
-                                      'tools': _model.choiceChipsValues,
-                                    };
-                                    await MeetingRoomListRecord.collection
-                                        .doc()
-                                        .set(meetingRoomListCreateData);
-                                    setState(() {
-                                      FFAppState().imageUploadList = [];
-                                    });
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          'บันทึกข้อมูลเรียนร้อยแล้ว',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Kanit',
-                                                color: Colors.white,
-                                              ),
+                                    if (FFAppState().imageUploadList.length >
+                                        0) {
+                                      final meetingRoomListCreateData = {
+                                        ...createMeetingRoomListRecordData(
+                                          createDate: getCurrentTimestamp,
+                                          createBy: currentUserReference,
+                                          status: 1,
+                                          name: _model.nameController.text,
+                                          detail: _model.detailController.text,
+                                          supportTotal: int.tryParse(_model
+                                              .supportTotalController.text),
+                                          province: _model.provinceValue,
+                                          amphur: _model.amphureValue,
+                                          tambon: _model.tambonValue,
                                         ),
-                                        duration: Duration(milliseconds: 2000),
-                                        backgroundColor:
-                                            FlutterFlowTheme.of(context)
-                                                .secondary,
-                                      ),
-                                    );
-                                    context.safePop();
+                                        'photo': FFAppState().imageUploadList,
+                                        'tools': _model.choiceChipsValues,
+                                      };
+                                      await MeetingRoomListRecord.collection
+                                          .doc()
+                                          .set(meetingRoomListCreateData);
+                                      setState(() {
+                                        FFAppState().imageUploadList = [];
+                                      });
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'บันทึกข้อมูลเรียนร้อยแล้ว',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Kanit',
+                                                  color: Colors.white,
+                                                ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 2000),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondary,
+                                        ),
+                                      );
+                                      context.safePop();
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'กรุณาอัพโหลดรูปภาพ',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Kanit',
+                                                  color: Colors.white,
+                                                ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 2000),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .error,
+                                        ),
+                                      );
+                                    }
                                   },
                                   text: 'บันทึกข้อมูล',
                                   options: FFButtonOptions(
