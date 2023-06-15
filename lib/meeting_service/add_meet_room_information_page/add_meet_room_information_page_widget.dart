@@ -306,9 +306,7 @@ class _AddMeetRoomInformationPageWidgetState
                                             final uploadPhotoItem =
                                                 uploadPhoto[uploadPhotoIndex];
                                             return Visibility(
-                                              visible:
-                                                  uploadPhotoItem != null &&
-                                                      uploadPhotoItem != '',
+                                              visible: uploadPhotoIndex != null,
                                               child: Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(

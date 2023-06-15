@@ -36,6 +36,31 @@ class FFAppState extends ChangeNotifier {
   set tambonSelected(int _value) {
     _tambonSelected = _value;
   }
+
+  List<String> _imageUploadList = [];
+  List<String> get imageUploadList => _imageUploadList;
+  set imageUploadList(List<String> _value) {
+    _imageUploadList = _value;
+  }
+
+  void addToImageUploadList(String _value) {
+    _imageUploadList.add(_value);
+  }
+
+  void removeFromImageUploadList(String _value) {
+    _imageUploadList.remove(_value);
+  }
+
+  void removeAtIndexFromImageUploadList(int _index) {
+    _imageUploadList.removeAt(_index);
+  }
+
+  void updateImageUploadListAtIndex(
+    int _index,
+    String Function(String) updateFn,
+  ) {
+    _imageUploadList[_index] = updateFn(_imageUploadList[_index]);
+  }
 }
 
 LatLng? _latLngFromString(String? val) {
