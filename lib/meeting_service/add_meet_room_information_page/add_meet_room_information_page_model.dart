@@ -48,8 +48,9 @@ class AddMeetRoomInformationPageModel extends FlutterFlowModel {
   TextEditingController? detailController;
   String? Function(BuildContext, String?)? detailControllerValidator;
   bool isDataUploading = false;
-  List<FFUploadedFile> uploadedLocalFiles = [];
-  List<String> uploadedFileUrls = [];
+  FFUploadedFile uploadedLocalFile =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+  String uploadedFileUrl = '';
 
   // State field(s) for province widget.
   String? provinceValue;
