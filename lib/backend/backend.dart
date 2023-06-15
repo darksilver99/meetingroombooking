@@ -9,9 +9,9 @@ import 'schema/users_record.dart';
 import 'schema/meeting_room_list_record.dart';
 import 'schema/booking_list_record.dart';
 import 'schema/province_record.dart';
-import 'schema/amphur_record.dart';
 import 'schema/tambon_record.dart';
 import 'schema/tools_list_record.dart';
+import 'schema/amphure_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart';
@@ -23,9 +23,9 @@ export 'schema/users_record.dart';
 export 'schema/meeting_room_list_record.dart';
 export 'schema/booking_list_record.dart';
 export 'schema/province_record.dart';
-export 'schema/amphur_record.dart';
 export 'schema/tambon_record.dart';
 export 'schema/tools_list_record.dart';
+export 'schema/amphure_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({
@@ -235,58 +235,6 @@ Future<FFFirestorePage<ProvinceRecord>> queryProvinceRecordPage({
       isStream: isStream,
     );
 
-/// Functions to query AmphurRecords (as a Stream and as a Future).
-Future<int> queryAmphurRecordCount({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-}) =>
-    queryCollectionCount(
-      AmphurRecord.collection,
-      queryBuilder: queryBuilder,
-      limit: limit,
-    );
-
-Stream<List<AmphurRecord>> queryAmphurRecord({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollection(
-      AmphurRecord.collection,
-      AmphurRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<List<AmphurRecord>> queryAmphurRecordOnce({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollectionOnce(
-      AmphurRecord.collection,
-      AmphurRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<FFFirestorePage<AmphurRecord>> queryAmphurRecordPage({
-  Query Function(Query)? queryBuilder,
-  DocumentSnapshot? nextPageMarker,
-  required int pageSize,
-  required bool isStream,
-}) =>
-    queryCollectionPage(
-      AmphurRecord.collection,
-      AmphurRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      nextPageMarker: nextPageMarker,
-      pageSize: pageSize,
-      isStream: isStream,
-    );
-
 /// Functions to query TambonRecords (as a Stream and as a Future).
 Future<int> queryTambonRecordCount({
   Query Function(Query)? queryBuilder,
@@ -385,6 +333,58 @@ Future<FFFirestorePage<ToolsListRecord>> queryToolsListRecordPage({
     queryCollectionPage(
       ToolsListRecord.collection,
       ToolsListRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query AmphureRecords (as a Stream and as a Future).
+Future<int> queryAmphureRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      AmphureRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<AmphureRecord>> queryAmphureRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      AmphureRecord.collection,
+      AmphureRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<AmphureRecord>> queryAmphureRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      AmphureRecord.collection,
+      AmphureRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<AmphureRecord>> queryAmphureRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      AmphureRecord.collection,
+      AmphureRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,
