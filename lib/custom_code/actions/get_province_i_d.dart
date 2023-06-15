@@ -9,4 +9,9 @@ import 'package:flutter/material.dart';
 
 Future<int> getProvinceID(String? province) async {
   // Add your function code here!
+  var rs = await FirebaseFirestore.instance
+      .collection("province")
+      .where("name", isEqualTo: province)
+      .get();
+  return rs.docs[0].data()["id"];
 }

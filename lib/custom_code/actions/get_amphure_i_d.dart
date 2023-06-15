@@ -9,4 +9,9 @@ import 'package:flutter/material.dart';
 
 Future<int> getAmphureID(String? amphure) async {
   // Add your function code here!
+  var rs = await FirebaseFirestore.instance
+      .collection("amphure")
+      .where("name", isEqualTo: amphure)
+      .get();
+  return rs.docs[0].data()["id"];
 }
