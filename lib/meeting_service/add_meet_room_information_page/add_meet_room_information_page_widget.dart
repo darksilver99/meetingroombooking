@@ -933,6 +933,9 @@ class _AddMeetRoomInformationPageWidgetState
                                         detail: _model.detailController.text,
                                         supportTotal: int.tryParse(
                                             _model.supportTotalController.text),
+                                        province: _model.provinceValue,
+                                        amphur: _model.amphureValue,
+                                        tambon: _model.tambonValue,
                                       ),
                                       'photo': _model.uploadedFileUrls,
                                       'tools': _model.choiceChipsValues,
