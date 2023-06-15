@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -52,9 +53,13 @@ class AddMeetRoomInformationPageModel extends FlutterFlowModel {
   // State field(s) for province widget.
   String? provinceValue;
   FormFieldController<String>? provinceValueController;
+  // Stores action output result for [Custom Action - getProvinceID] action in province widget.
+  int? provinceID;
   // State field(s) for amphure widget.
   String? amphureValue;
   FormFieldController<String>? amphureValueController;
+  // Stores action output result for [Custom Action - getProvinceID] action in amphure widget.
+  int? amphureID;
   // State field(s) for tambon widget.
   String? tambonValue;
   FormFieldController<String>? tambonValueController;

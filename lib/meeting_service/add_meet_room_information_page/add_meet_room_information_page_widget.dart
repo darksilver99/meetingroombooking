@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -496,8 +497,20 @@ class _AddMeetRoomInformationPageWidgetState
                                       options: provinceProvinceRecordList
                                           .map((e) => e.name)
                                           .toList(),
-                                      onChanged: (val) => setState(
-                                          () => _model.provinceValue = val),
+                                      onChanged: (val) async {
+                                        setState(
+                                            () => _model.provinceValue = val);
+                                        _model.provinceID =
+                                            await actions.getProvinceID(
+                                          _model.provinceValue,
+                                        );
+                                        setState(() {
+                                          FFAppState().provinceSelected =
+                                              _model.provinceID!;
+                                        });
+
+                                        setState(() {});
+                                      },
                                       width: double.infinity,
                                       textStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium,
@@ -559,8 +572,20 @@ class _AddMeetRoomInformationPageWidgetState
                                         options: amphureAmphurRecordList
                                             .map((e) => e.name)
                                             .toList(),
-                                        onChanged: (val) => setState(
-                                            () => _model.amphureValue = val),
+                                        onChanged: (val) async {
+                                          setState(
+                                              () => _model.amphureValue = val);
+                                          _model.amphureID =
+                                              await actions.getProvinceID(
+                                            _model.amphureValue,
+                                          );
+                                          setState(() {
+                                            FFAppState().amphureSelected =
+                                                _model.amphureID!;
+                                          });
+
+                                          setState(() {});
+                                        },
                                         width: double.infinity,
                                         textStyle: FlutterFlowTheme.of(context)
                                             .bodyMedium,
