@@ -58,7 +58,7 @@ class AddMeetRoomInformationPageModel extends FlutterFlowModel {
   // State field(s) for amphure widget.
   String? amphureValue;
   FormFieldController<String>? amphureValueController;
-  // Stores action output result for [Custom Action - getProvinceID] action in amphure widget.
+  // Stores action output result for [Custom Action - getAmphureID] action in amphure widget.
   int? amphureID;
   // State field(s) for tambon widget.
   String? tambonValue;

@@ -576,7 +576,7 @@ class _AddMeetRoomInformationPageWidgetState
                                           setState(
                                               () => _model.amphureValue = val);
                                           _model.amphureID =
-                                              await actions.getProvinceID(
+                                              await actions.getAmphureID(
                                             _model.amphureValue,
                                           );
                                           setState(() {
