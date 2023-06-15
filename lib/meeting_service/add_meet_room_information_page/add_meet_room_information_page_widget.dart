@@ -354,6 +354,14 @@ class _AddMeetRoomInformationPageWidgetState
                                                                 .refFromURL(
                                                                     uploadPhotoItem)
                                                                 .delete();
+                                                            setState(() {
+                                                              _model.isDataUploading =
+                                                                  false;
+                                                              _model.uploadedLocalFiles =
+                                                                  [];
+                                                              _model.uploadedFileUrls =
+                                                                  [];
+                                                            });
                                                           },
                                                           child: Icon(
                                                             Icons.cancel,
