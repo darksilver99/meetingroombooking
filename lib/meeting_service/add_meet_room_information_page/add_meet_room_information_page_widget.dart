@@ -12,6 +12,7 @@ import '/custom_code/actions/index.dart' as actions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -36,6 +37,14 @@ class _AddMeetRoomInformationPageWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => AddMeetRoomInformationPageModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      setState(() {
+        FFAppState().provinceSelected = 0;
+        FFAppState().amphureSelected = 0;
+      });
+    });
 
     _model.nameController ??= TextEditingController();
     _model.supportTotalController ??= TextEditingController();
@@ -540,8 +549,8 @@ class _AddMeetRoomInformationPageWidgetState
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 8.0, 0.0, 0.0),
-                                  child: StreamBuilder<List<AmphurRecord>>(
-                                    stream: queryAmphurRecord(
+                                  child: FutureBuilder<List<AmphurRecord>>(
+                                    future: queryAmphurRecordOnce(
                                       queryBuilder: (amphurRecord) =>
                                           amphurRecord.where('province_id',
                                               isEqualTo: 1),
@@ -615,8 +624,8 @@ class _AddMeetRoomInformationPageWidgetState
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 8.0, 0.0, 0.0),
-                                  child: StreamBuilder<List<TambonRecord>>(
-                                    stream: queryTambonRecord(
+                                  child: FutureBuilder<List<TambonRecord>>(
+                                    future: queryTambonRecordOnce(
                                       queryBuilder: (tambonRecord) =>
                                           tambonRecord.where('amphure_id',
                                               isEqualTo:
