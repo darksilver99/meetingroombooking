@@ -544,8 +544,7 @@ class _AddMeetRoomInformationPageWidgetState
                                     stream: queryAmphurRecord(
                                       queryBuilder: (amphurRecord) =>
                                           amphurRecord.where('province_id',
-                                              isEqualTo: FFAppState()
-                                                  .provinceSelected),
+                                              isEqualTo: 1),
                                     ),
                                     builder: (context, snapshot) {
                                       // Customize what your widget looks like when it's loading.
