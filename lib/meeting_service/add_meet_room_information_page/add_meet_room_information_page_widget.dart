@@ -305,63 +305,70 @@ class _AddMeetRoomInformationPageWidgetState
                                                   (uploadPhotoIndex) {
                                             final uploadPhotoItem =
                                                 uploadPhoto[uploadPhotoIndex];
-                                            return Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 8.0, 0.0),
-                                              child: Stack(
-                                                alignment: AlignmentDirectional(
-                                                    1.0, -1.0),
-                                                children: [
-                                                  ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8.0),
-                                                    child: Image.network(
-                                                      uploadPhotoItem,
-                                                      width: 80.0,
-                                                      height: 80.0,
-                                                      fit: BoxFit.cover,
+                                            return Visibility(
+                                              visible:
+                                                  uploadPhotoItem != null &&
+                                                      uploadPhotoItem != '',
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 8.0, 0.0),
+                                                child: Stack(
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          1.0, -1.0),
+                                                  children: [
+                                                    ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8.0),
+                                                      child: Image.network(
+                                                        uploadPhotoItem,
+                                                        width: 80.0,
+                                                        height: 80.0,
+                                                        fit: BoxFit.cover,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  Align(
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                            0.0, 0.0),
-                                                    child: Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  4.0,
-                                                                  4.0,
-                                                                  0.0),
-                                                      child: InkWell(
-                                                        splashColor:
-                                                            Colors.transparent,
-                                                        focusColor:
-                                                            Colors.transparent,
-                                                        hoverColor:
-                                                            Colors.transparent,
-                                                        highlightColor:
-                                                            Colors.transparent,
-                                                        onTap: () async {
-                                                          await FirebaseStorage
-                                                              .instance
-                                                              .refFromURL(
-                                                                  uploadPhotoItem)
-                                                              .delete();
-                                                        },
-                                                        child: Icon(
-                                                          Icons.cancel,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .error,
-                                                          size: 24.0,
+                                                    Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              0.0, 0.0),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    4.0,
+                                                                    4.0,
+                                                                    0.0),
+                                                        child: InkWell(
+                                                          splashColor: Colors
+                                                              .transparent,
+                                                          focusColor: Colors
+                                                              .transparent,
+                                                          hoverColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
+                                                          onTap: () async {
+                                                            await FirebaseStorage
+                                                                .instance
+                                                                .refFromURL(
+                                                                    uploadPhotoItem)
+                                                                .delete();
+                                                          },
+                                                          child: Icon(
+                                                            Icons.cancel,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .error,
+                                                            size: 24.0,
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             );
                                           }),
