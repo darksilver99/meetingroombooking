@@ -36,24 +36,6 @@ class FFAppState extends ChangeNotifier {
   set tambonSelected(int _value) {
     _tambonSelected = _value;
   }
-
-  String _provinceTextSelected = '';
-  String get provinceTextSelected => _provinceTextSelected;
-  set provinceTextSelected(String _value) {
-    _provinceTextSelected = _value;
-  }
-
-  String _amphureTextSelected = '';
-  String get amphureTextSelected => _amphureTextSelected;
-  set amphureTextSelected(String _value) {
-    _amphureTextSelected = _value;
-  }
-
-  String _tambonTextSelected = '';
-  String get tambonTextSelected => _tambonTextSelected;
-  set tambonTextSelected(String _value) {
-    _tambonTextSelected = _value;
-  }
 }
 
 LatLng? _latLngFromString(String? val) {
