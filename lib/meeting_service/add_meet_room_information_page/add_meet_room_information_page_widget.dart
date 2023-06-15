@@ -43,6 +43,7 @@ class _AddMeetRoomInformationPageWidgetState
       setState(() {
         FFAppState().provinceSelected = 0;
         FFAppState().amphureSelected = 0;
+        FFAppState().imageUploadList = [];
       });
     });
 
@@ -957,6 +958,9 @@ class _AddMeetRoomInformationPageWidgetState
                                     await MeetingRoomListRecord.collection
                                         .doc()
                                         .set(meetingRoomListCreateData);
+                                    setState(() {
+                                      FFAppState().imageUploadList = [];
+                                    });
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
