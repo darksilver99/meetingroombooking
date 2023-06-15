@@ -516,6 +516,7 @@ class _AddMeetRoomInformationPageWidgetState
                                         setState(() {
                                           FFAppState().provinceSelected =
                                               _model.provinceID!;
+                                          FFAppState().amphureSelected = 0;
                                         });
 
                                         setState(() {});
