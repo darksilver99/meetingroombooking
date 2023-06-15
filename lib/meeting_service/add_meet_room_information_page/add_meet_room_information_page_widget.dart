@@ -294,87 +294,82 @@ class _AddMeetRoomInformationPageWidgetState
                                   ),
                                   child: Builder(
                                     builder: (context) {
-                                      final uploadPhoto =
-                                          _model.uploadedFileUrls.toList();
+                                      final uploadImageList =
+                                          FFAppState().imageUploadList.toList();
                                       return SingleChildScrollView(
                                         scrollDirection: Axis.horizontal,
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
-                                          children:
-                                              List.generate(uploadPhoto.length,
-                                                  (uploadPhotoIndex) {
-                                            final uploadPhotoItem =
-                                                uploadPhoto[uploadPhotoIndex];
-                                            return Visibility(
-                                              visible: uploadPhotoIndex != null,
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 8.0, 0.0),
-                                                child: Stack(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          1.0, -1.0),
-                                                  children: [
-                                                    ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                      child: Image.network(
-                                                        uploadPhotoItem,
-                                                        width: 80.0,
-                                                        height: 80.0,
-                                                        fit: BoxFit.cover,
-                                                      ),
+                                          children: List.generate(
+                                              uploadImageList.length,
+                                              (uploadImageListIndex) {
+                                            final uploadImageListItem =
+                                                uploadImageList[
+                                                    uploadImageListIndex];
+                                            return Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 8.0, 0.0),
+                                              child: Stack(
+                                                alignment: AlignmentDirectional(
+                                                    1.0, -1.0),
+                                                children: [
+                                                  ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.0),
+                                                    child: Image.network(
+                                                      FFAppState()
+                                                              .imageUploadList[
+                                                          uploadImageListIndex],
+                                                      width: 80.0,
+                                                      height: 80.0,
+                                                      fit: BoxFit.cover,
                                                     ),
-                                                    Align(
-                                                      alignment:
-                                                          AlignmentDirectional(
-                                                              0.0, 0.0),
-                                                      child: Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    4.0,
-                                                                    4.0,
-                                                                    0.0),
-                                                        child: InkWell(
-                                                          splashColor: Colors
-                                                              .transparent,
-                                                          focusColor: Colors
-                                                              .transparent,
-                                                          hoverColor: Colors
-                                                              .transparent,
-                                                          highlightColor: Colors
-                                                              .transparent,
-                                                          onTap: () async {
-                                                            await FirebaseStorage
-                                                                .instance
-                                                                .refFromURL(
-                                                                    uploadPhotoItem)
-                                                                .delete();
-                                                            setState(() {
-                                                              _model.isDataUploading =
-                                                                  false;
-                                                              _model.uploadedLocalFiles =
-                                                                  [];
-                                                              _model.uploadedFileUrls =
-                                                                  [];
-                                                            });
-                                                          },
-                                                          child: Icon(
-                                                            Icons.cancel,
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .error,
-                                                            size: 24.0,
-                                                          ),
+                                                  ),
+                                                  Align(
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                            0.0, 0.0),
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  4.0,
+                                                                  4.0,
+                                                                  0.0),
+                                                      child: InkWell(
+                                                        splashColor:
+                                                            Colors.transparent,
+                                                        focusColor:
+                                                            Colors.transparent,
+                                                        hoverColor:
+                                                            Colors.transparent,
+                                                        highlightColor:
+                                                            Colors.transparent,
+                                                        onTap: () async {
+                                                          await FirebaseStorage
+                                                              .instance
+                                                              .refFromURL(
+                                                                  uploadImageListItem)
+                                                              .delete();
+                                                          setState(() {
+                                                            FFAppState()
+                                                                .removeFromImageUploadList(
+                                                                    uploadImageListItem);
+                                                          });
+                                                        },
+                                                        child: Icon(
+                                                          Icons.cancel,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .error,
+                                                          size: 24.0,
                                                         ),
                                                       ),
                                                     ),
-                                                  ],
-                                                ),
+                                                  ),
+                                                ],
                                               ),
                                             );
                                           }),
@@ -389,11 +384,12 @@ class _AddMeetRoomInformationPageWidgetState
                                     0.0, 8.0, 0.0, 0.0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
-                                    final selectedMedia = await selectMedia(
+                                    final selectedMedia =
+                                        await selectMediaWithSourceBottomSheet(
+                                      context: context,
                                       maxWidth: 1600.00,
                                       imageQuality: 80,
-                                      mediaSource: MediaSource.photoGallery,
-                                      multiImage: true,
+                                      allowPhoto: true,
                                     );
                                     if (selectedMedia != null &&
                                         selectedMedia.every((m) =>
@@ -434,16 +430,21 @@ class _AddMeetRoomInformationPageWidgetState
                                           downloadUrls.length ==
                                               selectedMedia.length) {
                                         setState(() {
-                                          _model.uploadedLocalFiles =
-                                              selectedUploadedFiles;
-                                          _model.uploadedFileUrls =
-                                              downloadUrls;
+                                          _model.uploadedLocalFile =
+                                              selectedUploadedFiles.first;
+                                          _model.uploadedFileUrl =
+                                              downloadUrls.first;
                                         });
                                       } else {
                                         setState(() {});
                                         return;
                                       }
                                     }
+
+                                    setState(() {
+                                      FFAppState().addToImageUploadList(
+                                          _model.uploadedFileUrl);
+                                    });
                                   },
                                   text: 'อัพโหลดรูปภาพ',
                                   icon: Icon(
@@ -847,8 +848,8 @@ class _AddMeetRoomInformationPageWidgetState
                                             .validate()) {
                                       return;
                                     }
-                                    if (_model.uploadedFileUrls == null ||
-                                        _model.uploadedFileUrls.isEmpty) {
+                                    if (_model.uploadedFileUrl == null ||
+                                        _model.uploadedFileUrl.isEmpty) {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         SnackBar(
@@ -950,7 +951,7 @@ class _AddMeetRoomInformationPageWidgetState
                                         amphur: _model.amphureValue,
                                         tambon: _model.tambonValue,
                                       ),
-                                      'photo': _model.uploadedFileUrls,
+                                      'photo': FFAppState().imageUploadList,
                                       'tools': _model.choiceChipsValues,
                                     };
                                     await MeetingRoomListRecord.collection
