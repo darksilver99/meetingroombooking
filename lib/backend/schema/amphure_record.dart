@@ -6,8 +6,8 @@ import '/backend/schema/util/schema_util.dart';
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
-class AmphurRecord extends FirestoreRecord {
-  AmphurRecord._(
+class AmphureRecord extends FirestoreRecord {
+  AmphureRecord._(
     DocumentReference reference,
     Map<String, dynamic> data,
   ) : super(reference, data) {
@@ -36,39 +36,40 @@ class AmphurRecord extends FirestoreRecord {
   }
 
   static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('amphur');
+      FirebaseFirestore.instance.collection('amphure');
 
-  static Stream<AmphurRecord> getDocument(DocumentReference ref) =>
-      ref.snapshots().map((s) => AmphurRecord.fromSnapshot(s));
+  static Stream<AmphureRecord> getDocument(DocumentReference ref) =>
+      ref.snapshots().map((s) => AmphureRecord.fromSnapshot(s));
 
-  static Future<AmphurRecord> getDocumentOnce(DocumentReference ref) =>
-      ref.get().then((s) => AmphurRecord.fromSnapshot(s));
+  static Future<AmphureRecord> getDocumentOnce(DocumentReference ref) =>
+      ref.get().then((s) => AmphureRecord.fromSnapshot(s));
 
-  static AmphurRecord fromSnapshot(DocumentSnapshot snapshot) => AmphurRecord._(
+  static AmphureRecord fromSnapshot(DocumentSnapshot snapshot) =>
+      AmphureRecord._(
         snapshot.reference,
         mapFromFirestore(snapshot.data() as Map<String, dynamic>),
       );
 
-  static AmphurRecord getDocumentFromData(
+  static AmphureRecord getDocumentFromData(
     Map<String, dynamic> data,
     DocumentReference reference,
   ) =>
-      AmphurRecord._(reference, mapFromFirestore(data));
+      AmphureRecord._(reference, mapFromFirestore(data));
 
   @override
   String toString() =>
-      'AmphurRecord(reference: ${reference.path}, data: $snapshotData)';
+      'AmphureRecord(reference: ${reference.path}, data: $snapshotData)';
 
   @override
   int get hashCode => reference.path.hashCode;
 
   @override
   bool operator ==(other) =>
-      other is AmphurRecord &&
+      other is AmphureRecord &&
       reference.path.hashCode == other.reference.path.hashCode;
 }
 
-Map<String, dynamic> createAmphurRecordData({
+Map<String, dynamic> createAmphureRecordData({
   String? name,
   int? provinceId,
   int? id,

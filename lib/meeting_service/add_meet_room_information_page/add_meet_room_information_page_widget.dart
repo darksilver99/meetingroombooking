@@ -549,11 +549,12 @@ class _AddMeetRoomInformationPageWidgetState
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 8.0, 0.0, 0.0),
-                                  child: FutureBuilder<List<AmphurRecord>>(
-                                    future: queryAmphurRecordOnce(
-                                      queryBuilder: (amphurRecord) =>
-                                          amphurRecord.where('province_id',
-                                              isEqualTo: 1),
+                                  child: StreamBuilder<List<AmphureRecord>>(
+                                    stream: queryAmphureRecord(
+                                      queryBuilder: (amphureRecord) =>
+                                          amphureRecord.where('province_id',
+                                              isEqualTo: FFAppState()
+                                                  .provinceSelected),
                                     ),
                                     builder: (context, snapshot) {
                                       // Customize what your widget looks like when it's loading.
@@ -570,14 +571,14 @@ class _AddMeetRoomInformationPageWidgetState
                                           ),
                                         );
                                       }
-                                      List<AmphurRecord>
-                                          amphureAmphurRecordList =
+                                      List<AmphureRecord>
+                                          amphureAmphureRecordList =
                                           snapshot.data!;
                                       return FlutterFlowDropDown<String>(
                                         controller: _model
                                                 .amphureValueController ??=
                                             FormFieldController<String>(null),
-                                        options: amphureAmphurRecordList
+                                        options: amphureAmphureRecordList
                                             .map((e) => e.name)
                                             .toList(),
                                         onChanged: (val) async {
@@ -624,8 +625,8 @@ class _AddMeetRoomInformationPageWidgetState
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 8.0, 0.0, 0.0),
-                                  child: FutureBuilder<List<TambonRecord>>(
-                                    future: queryTambonRecordOnce(
+                                  child: StreamBuilder<List<TambonRecord>>(
+                                    stream: queryTambonRecord(
                                       queryBuilder: (tambonRecord) =>
                                           tambonRecord.where('amphure_id',
                                               isEqualTo:
