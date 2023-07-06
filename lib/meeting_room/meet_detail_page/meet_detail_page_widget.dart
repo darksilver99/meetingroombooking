@@ -293,14 +293,12 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
-                                        setState(() {
-                                          FFAppState().meetingRoomSelectedRef =
-                                              widget.meetingRoomParamameter!
-                                                  .reference;
-                                          FFAppState().onwerRoomSelectedRef =
-                                              widget.meetingRoomParamameter!
-                                                  .createBy;
-                                        });
+                                        FFAppState().meetingRoomSelectedRef =
+                                            widget.meetingRoomParamameter!
+                                                .reference;
+                                        FFAppState().onwerRoomSelectedRef =
+                                            widget.meetingRoomParamameter!
+                                                .createBy;
 
                                         context.pushNamed('BookingMeetPage');
                                       },

@@ -36,6 +36,9 @@ class _MeetSelectAreaPageWidgetState extends State<MeetSelectAreaPageWidget> {
         FFAppState().provinceSelected = 0;
         FFAppState().amphureSelected = 0;
         FFAppState().tambonSelected = 0;
+        FFAppState().provinceSelectedValue = '';
+        FFAppState().amphurSelectedValue = '';
+        FFAppState().tambonSelectedValue = '';
       });
     });
   }
@@ -145,6 +148,10 @@ class _MeetSelectAreaPageWidgetState extends State<MeetSelectAreaPageWidget> {
                                                 _model.provinceID!;
                                             FFAppState().amphureSelected = 0;
                                           });
+                                          FFAppState().provinceSelectedValue =
+                                              _model.provinceValue!;
+                                          FFAppState().amphurSelectedValue = '';
+                                          FFAppState().tambonSelectedValue = '';
 
                                           setState(() {});
                                         },
@@ -222,6 +229,10 @@ class _MeetSelectAreaPageWidgetState extends State<MeetSelectAreaPageWidget> {
                                               FFAppState().amphureSelected =
                                                   _model.amphureID!;
                                             });
+                                            FFAppState().amphurSelectedValue =
+                                                _model.amphureValue!;
+                                            FFAppState().tambonSelectedValue =
+                                                '';
 
                                             setState(() {});
                                           },
@@ -290,8 +301,12 @@ class _MeetSelectAreaPageWidgetState extends State<MeetSelectAreaPageWidget> {
                                           options: tambonTambonRecordList
                                               .map((e) => e.name)
                                               .toList(),
-                                          onChanged: (val) => setState(
-                                              () => _model.tambonValue = val),
+                                          onChanged: (val) async {
+                                            setState(
+                                                () => _model.tambonValue = val);
+                                            FFAppState().tambonSelectedValue =
+                                                _model.tambonValue!;
+                                          },
                                           width: double.infinity,
                                           textStyle:
                                               FlutterFlowTheme.of(context)
@@ -338,61 +353,76 @@ class _MeetSelectAreaPageWidgetState extends State<MeetSelectAreaPageWidget> {
                                       0.0, 8.0, 0.0, 0.0),
                                   child: FFButtonWidget(
                                     onPressed: () async {
-                                      if (_model.tambonValue != null &&
-                                          _model.tambonValue != '') {
+                                      if (FFAppState().tambonSelectedValue !=
+                                              null &&
+                                          FFAppState().tambonSelectedValue !=
+                                              '') {
                                         context.pushNamed(
                                           'MeetRoomListTambonPage',
                                           queryParameters: {
                                             'province': serializeParam(
-                                              _model.provinceValue,
+                                              FFAppState()
+                                                  .provinceSelectedValue,
                                               ParamType.String,
                                             ),
                                             'amphur': serializeParam(
-                                              _model.amphureValue,
+                                              FFAppState().amphurSelectedValue,
                                               ParamType.String,
                                             ),
                                             'tambon': serializeParam(
-                                              _model.tambonValue,
+                                              FFAppState().tambonSelectedValue,
                                               ParamType.String,
                                             ),
                                           }.withoutNulls,
                                         );
                                       } else {
-                                        if (_model.amphureValue != null &&
-                                            _model.amphureValue != '') {
+                                        if (FFAppState().amphurSelectedValue !=
+                                                null &&
+                                            FFAppState().amphurSelectedValue !=
+                                                '') {
                                           context.pushNamed(
                                             'MeetRoomListAmphurPage',
                                             queryParameters: {
                                               'province': serializeParam(
-                                                _model.provinceValue,
+                                                FFAppState()
+                                                    .provinceSelectedValue,
                                                 ParamType.String,
                                               ),
                                               'amphur': serializeParam(
-                                                _model.amphureValue,
+                                                FFAppState()
+                                                    .amphurSelectedValue,
                                                 ParamType.String,
                                               ),
                                               'tambon': serializeParam(
-                                                _model.tambonValue,
+                                                FFAppState()
+                                                    .tambonSelectedValue,
                                                 ParamType.String,
                                               ),
                                             }.withoutNulls,
                                           );
                                         } else {
-                                          if (_model.provinceValue != null &&
-                                              _model.provinceValue != '') {
+                                          if (FFAppState()
+                                                      .provinceSelectedValue !=
+                                                  null &&
+                                              FFAppState()
+                                                      .provinceSelectedValue !=
+                                                  '') {
                                             context.pushNamed(
                                               'MeetRoomListProvincePage',
                                               queryParameters: {
                                                 'province': serializeParam(
-                                                  _model.provinceValue,
+                                                  FFAppState()
+                                                      .provinceSelectedValue,
                                                   ParamType.String,
                                                 ),
                                                 'amphur': serializeParam(
-                                                  _model.amphureValue,
+                                                  FFAppState()
+                                                      .amphurSelectedValue,
                                                   ParamType.String,
                                                 ),
                                                 'tambon': serializeParam(
-                                                  _model.tambonValue,
+                                                  FFAppState()
+                                                      .tambonSelectedValue,
                                                   ParamType.String,
                                                 ),
                                               }.withoutNulls,
