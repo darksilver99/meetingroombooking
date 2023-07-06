@@ -456,15 +456,14 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                                           backgroundColor:
                                               FlutterFlowTheme.of(context)
                                                   .secondary,
-                                          textStyle: FlutterFlowTheme.of(
-                                                  context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Kanit',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                              ),
+                                          textStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Kanit',
+                                                    color: Colors.white,
+                                                    fontSize: 18.0,
+                                                  ),
                                           iconColor: Colors.white,
                                           iconSize: 18.0,
                                           elevation: 4.0,
