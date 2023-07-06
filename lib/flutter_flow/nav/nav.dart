@@ -213,7 +213,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'MapPickerPage',
           path: '/mapPickerPage',
           builder: (context, params) => MapPickerPageWidget(
-            currentLoation: params.getParam('currentLoation', ParamType.LatLng),
+            currentLocation:
+                params.getParam('currentLocation', ParamType.LatLng),
           ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),

@@ -743,7 +743,7 @@ class _AddMeetRoomInformationPageWidgetState
                                       context.pushNamed(
                                         'MapPickerPage',
                                         queryParameters: {
-                                          'currentLoation': serializeParam(
+                                          'currentLocation': serializeParam(
                                             currentUserLocationValue,
                                             ParamType.LatLng,
                                           ),
