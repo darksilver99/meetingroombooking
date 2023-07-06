@@ -194,12 +194,20 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'MeetRoomListAmphurPage',
           path: '/meetRoomListAmphurPage',
-          builder: (context, params) => MeetRoomListAmphurPageWidget(),
+          builder: (context, params) => MeetRoomListAmphurPageWidget(
+            province: params.getParam('province', ParamType.String),
+            amphur: params.getParam('amphur', ParamType.String),
+            tambon: params.getParam('tambon', ParamType.String),
+          ),
         ),
         FFRoute(
           name: 'MeetRoomListTambonPage',
           path: '/meetRoomListTambonPage',
-          builder: (context, params) => MeetRoomListTambonPageWidget(),
+          builder: (context, params) => MeetRoomListTambonPageWidget(
+            province: params.getParam('province', ParamType.String),
+            amphur: params.getParam('amphur', ParamType.String),
+            tambon: params.getParam('tambon', ParamType.String),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

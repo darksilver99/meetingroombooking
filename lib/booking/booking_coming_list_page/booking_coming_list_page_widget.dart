@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/no_data_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -125,6 +126,9 @@ class _BookingComingListPageWidgetState
                                 List<BookingListRecord>
                                     listViewBookingListRecordList =
                                     snapshot.data!;
+                                if (listViewBookingListRecordList.isEmpty) {
+                                  return NoDataWidget();
+                                }
                                 return ListView.builder(
                                   padding: EdgeInsets.zero,
                                   scrollDirection: Axis.vertical,
@@ -318,6 +322,9 @@ class _BookingComingListPageWidgetState
                                 List<BookingListRecord>
                                     listViewBookingListRecordList =
                                     snapshot.data!;
+                                if (listViewBookingListRecordList.isEmpty) {
+                                  return NoDataWidget();
+                                }
                                 return ListView.builder(
                                   padding: EdgeInsets.zero,
                                   scrollDirection: Axis.vertical,
@@ -428,15 +435,25 @@ class _BookingComingListPageWidgetState
                                                                 .override(
                                                                   fontFamily:
                                                                       'Kanit',
-                                                                  color: listViewBookingListRecord
-                                                                              .status ==
-                                                                          0
-                                                                      ? FlutterFlowTheme.of(
+                                                                  color: () {
+                                                                    if (listViewBookingListRecord
+                                                                            .status ==
+                                                                        0) {
+                                                                      return FlutterFlowTheme.of(
                                                                               context)
-                                                                          .tertiary
-                                                                      : FlutterFlowTheme.of(
+                                                                          .tertiary;
+                                                                    } else if (listViewBookingListRecord
+                                                                            .status ==
+                                                                        3) {
+                                                                      return FlutterFlowTheme.of(
                                                                               context)
-                                                                          .success,
+                                                                          .error;
+                                                                    } else {
+                                                                      return FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .success;
+                                                                    }
+                                                                  }(),
                                                                 ),
                                                       ),
                                                     ],
