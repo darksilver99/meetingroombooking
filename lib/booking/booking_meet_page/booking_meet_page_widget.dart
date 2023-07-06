@@ -87,14 +87,33 @@ class _BookingMeetPageWidgetState extends State<BookingMeetPageWidget> {
                             weekFormat: false,
                             weekStartsMonday: false,
                             rowHeight: 64.0,
-                            onChange: (DateTimeRange? newSelectedDate) {
-                              setState(() =>
-                                  _model.calendarSelectedDay = newSelectedDate);
+                            onChange: (DateTimeRange? newSelectedDate) async {
+                              _model.calendarSelectedDay = newSelectedDate;
+
+                              context.pushNamed(
+                                'AddBookingPage',
+                                queryParameters: {
+                                  'dateSeleceteParameter': serializeParam(
+                                    _model.calendarSelectedDay?.start,
+                                    ParamType.DateTime,
+                                  ),
+                                }.withoutNulls,
+                              );
+
+                              setState(() {});
                             },
-                            titleStyle:
-                                FlutterFlowTheme.of(context).headlineSmall,
-                            dayOfWeekStyle:
-                                FlutterFlowTheme.of(context).labelLarge,
+                            titleStyle: FlutterFlowTheme.of(context)
+                                .headlineSmall
+                                .override(
+                                  fontFamily: 'Kanit',
+                                  fontSize: 24.0,
+                                ),
+                            dayOfWeekStyle: FlutterFlowTheme.of(context)
+                                .labelLarge
+                                .override(
+                                  fontFamily: 'Kanit',
+                                  fontSize: 14.0,
+                                ),
                             dateStyle: FlutterFlowTheme.of(context).bodyMedium,
                             selectedDateStyle:
                                 FlutterFlowTheme.of(context).titleSmall,

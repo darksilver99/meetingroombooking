@@ -1,6 +1,9 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -8,7 +11,12 @@ import 'add_booking_page_model.dart';
 export 'add_booking_page_model.dart';
 
 class AddBookingPageWidget extends StatefulWidget {
-  const AddBookingPageWidget({Key? key}) : super(key: key);
+  const AddBookingPageWidget({
+    Key? key,
+    required this.dateSeleceteParameter,
+  }) : super(key: key);
+
+  final DateTime? dateSeleceteParameter;
 
   @override
   _AddBookingPageWidgetState createState() => _AddBookingPageWidgetState();
@@ -24,8 +32,9 @@ class _AddBookingPageWidgetState extends State<AddBookingPageWidget> {
     super.initState();
     _model = createModel(context, () => AddBookingPageModel());
 
-    _model.usernameController1 ??= TextEditingController();
-    _model.usernameController2 ??= TextEditingController();
+    _model.startTimeController ??= TextEditingController();
+    _model.endTimeController ??= TextEditingController();
+    _model.remarkUsersController ??= TextEditingController();
   }
 
   @override
@@ -89,14 +98,28 @@ class _AddBookingPageWidgetState extends State<AddBookingPageWidget> {
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
+                              Align(
+                                alignment: AlignmentDirectional(-1.0, 0.0),
+                                child: Text(
+                                  dateTimeFormat(
+                                      'd/M/y', widget.dateSeleceteParameter),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                ),
+                              ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 8.0, 0.0, 0.0),
                                 child: TextFormField(
-                                  controller: _model.usernameController1,
+                                  controller: _model.startTimeController,
                                   obscureText: false,
                                   decoration: InputDecoration(
-                                    labelText: 'เวลาที่จอง',
+                                    labelText: 'เวลาเริ่มต้น เช่น 08.00',
                                     labelStyle: FlutterFlowTheme.of(context)
                                         .labelMedium,
                                     hintStyle: FlutterFlowTheme.of(context)
@@ -136,7 +159,8 @@ class _AddBookingPageWidgetState extends State<AddBookingPageWidget> {
                                   ),
                                   style:
                                       FlutterFlowTheme.of(context).bodyMedium,
-                                  validator: _model.usernameController1Validator
+                                  keyboardType: TextInputType.number,
+                                  validator: _model.startTimeControllerValidator
                                       .asValidator(context),
                                 ),
                               ),
@@ -144,7 +168,59 @@ class _AddBookingPageWidgetState extends State<AddBookingPageWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 8.0, 0.0, 0.0),
                                 child: TextFormField(
-                                  controller: _model.usernameController2,
+                                  controller: _model.endTimeController,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    labelText: 'ถึงเวลา เช่น 10.00',
+                                    labelStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium,
+                                    hintStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium,
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color:
+                                            FlutterFlowTheme.of(context).line,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color:
+                                            FlutterFlowTheme.of(context).error,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color:
+                                            FlutterFlowTheme.of(context).error,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                  ),
+                                  style:
+                                      FlutterFlowTheme.of(context).bodyMedium,
+                                  keyboardType: TextInputType.number,
+                                  validator: _model.endTimeControllerValidator
+                                      .asValidator(context),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 8.0, 0.0, 0.0),
+                                child: TextFormField(
+                                  controller: _model.remarkUsersController,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText:
@@ -190,7 +266,8 @@ class _AddBookingPageWidgetState extends State<AddBookingPageWidget> {
                                       FlutterFlowTheme.of(context).bodyMedium,
                                   maxLines: 5,
                                   minLines: 5,
-                                  validator: _model.usernameController2Validator
+                                  validator: _model
+                                      .remarkUsersControllerValidator
                                       .asValidator(context),
                                 ),
                               ),
@@ -198,8 +275,54 @@ class _AddBookingPageWidgetState extends State<AddBookingPageWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 16.0, 0.0, 0.0),
                                 child: FFButtonWidget(
-                                  onPressed: () {
-                                    print('Button pressed ...');
+                                  onPressed: () async {
+                                    if (_model.formKey.currentState == null ||
+                                        !_model.formKey.currentState!
+                                            .validate()) {
+                                      return;
+                                    }
+
+                                    await BookingListRecord.collection
+                                        .doc()
+                                        .set(createBookingListRecordData(
+                                          createDate: getCurrentTimestamp,
+                                          createBy: currentUserReference,
+                                          status: 0,
+                                          bookingDate:
+                                              widget.dateSeleceteParameter,
+                                          bookingStartTime:
+                                              _model.startTimeController.text,
+                                          bookingEndTime:
+                                              _model.endTimeController.text,
+                                          meetingRoomDoc: FFAppState()
+                                              .meetingRoomSelectedRef,
+                                          remarkUser:
+                                              _model.remarkUsersController.text,
+                                          ownerRef:
+                                              FFAppState().onwerRoomSelectedRef,
+                                        ));
+                                    FFAppState().meetingRoomSelectedRef = null;
+                                    FFAppState().onwerRoomSelectedRef = null;
+                                    await showDialog(
+                                      context: context,
+                                      builder: (alertDialogContext) {
+                                        return AlertDialog(
+                                          title: Text(
+                                              'จองห้องประชุมเรียบร้อยแล้ว'),
+                                          content: Text(
+                                              'ตรวจสอบรายการของของคุณโดยเลือกเมนู \"ต้องการหาห้องประชุม ?\" จากนั้นเลือก \"รายการจองของคุณ\"'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  alertDialogContext),
+                                              child: Text('Ok'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+
+                                    context.goNamed('HomePage');
                                   },
                                   text: 'จองห้องประชุม',
                                   options: FFButtonOptions(

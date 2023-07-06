@@ -81,6 +81,11 @@ class BookingListRecord extends FirestoreRecord {
   String get remarkOwner => _remarkOwner ?? '';
   bool hasRemarkOwner() => _remarkOwner != null;
 
+  // "owner_ref" field.
+  DocumentReference? _ownerRef;
+  DocumentReference? get ownerRef => _ownerRef;
+  bool hasOwnerRef() => _ownerRef != null;
+
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _createBy = snapshotData['create_by'] as DocumentReference?;
@@ -95,6 +100,7 @@ class BookingListRecord extends FirestoreRecord {
     _meetingRoomDoc = snapshotData['meeting_room_doc'] as DocumentReference?;
     _remarkUser = snapshotData['remark_user'] as String?;
     _remarkOwner = snapshotData['remark_owner'] as String?;
+    _ownerRef = snapshotData['owner_ref'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
@@ -145,6 +151,7 @@ Map<String, dynamic> createBookingListRecordData({
   DocumentReference? meetingRoomDoc,
   String? remarkUser,
   String? remarkOwner,
+  DocumentReference? ownerRef,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -161,6 +168,7 @@ Map<String, dynamic> createBookingListRecordData({
       'meeting_room_doc': meetingRoomDoc,
       'remark_user': remarkUser,
       'remark_owner': remarkOwner,
+      'owner_ref': ownerRef,
     }.withoutNulls,
   );
 
@@ -184,7 +192,8 @@ class BookingListRecordDocumentEquality implements Equality<BookingListRecord> {
         e1?.bookingEndTime == e2?.bookingEndTime &&
         e1?.meetingRoomDoc == e2?.meetingRoomDoc &&
         e1?.remarkUser == e2?.remarkUser &&
-        e1?.remarkOwner == e2?.remarkOwner;
+        e1?.remarkOwner == e2?.remarkOwner &&
+        e1?.ownerRef == e2?.ownerRef;
   }
 
   @override
@@ -201,7 +210,8 @@ class BookingListRecordDocumentEquality implements Equality<BookingListRecord> {
         e?.bookingEndTime,
         e?.meetingRoomDoc,
         e?.remarkUser,
-        e?.remarkOwner
+        e?.remarkOwner,
+        e?.ownerRef
       ]);
 
   @override

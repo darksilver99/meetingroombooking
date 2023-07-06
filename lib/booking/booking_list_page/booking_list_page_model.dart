@@ -1,18 +1,15 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class MeetComingPageModel extends FlutterFlowModel {
+class BookingListPageModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // State field(s) for username widget.
-  TextEditingController? usernameController;
-  String? Function(BuildContext, String?)? usernameControllerValidator;
 
   /// Initialization and disposal methods.
 
@@ -20,7 +17,6 @@ class MeetComingPageModel extends FlutterFlowModel {
 
   void dispose() {
     unfocusNode.dispose();
-    usernameController?.dispose();
   }
 
   /// Action blocks are added here.
