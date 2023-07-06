@@ -485,10 +485,13 @@ class _EditMeetRoomInformationPageWidgetState
                                         }
                                       }
 
-                                      setState(() {
-                                        FFAppState().addToImageUploadList(
-                                            _model.uploadedFileUrl);
-                                      });
+                                      if (_model.uploadedFileUrl != null &&
+                                          _model.uploadedFileUrl != '') {
+                                        setState(() {
+                                          FFAppState().addToImageUploadList(
+                                              _model.uploadedFileUrl);
+                                        });
+                                      }
                                     } else {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
