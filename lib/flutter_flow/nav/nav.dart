@@ -208,6 +208,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             amphur: params.getParam('amphur', ParamType.String),
             tambon: params.getParam('tambon', ParamType.String),
           ),
+        ),
+        FFRoute(
+          name: 'MapPickerPage',
+          path: '/mapPickerPage',
+          builder: (context, params) => MapPickerPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

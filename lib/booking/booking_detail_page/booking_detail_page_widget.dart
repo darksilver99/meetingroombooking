@@ -774,9 +774,10 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                               ),
                               TextFormField(
                                 controller: _model.usernameController7,
-                                readOnly:
-                                    widget.bookingDetailParameter!.ownerRef !=
-                                        currentUserReference,
+                                readOnly: (widget
+                                            .bookingDetailParameter!.ownerRef !=
+                                        currentUserReference) ||
+                                    (widget.bookingDetailParameter!.status > 2),
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'รายละเอียดถึงผู้จอง(หากมี)',

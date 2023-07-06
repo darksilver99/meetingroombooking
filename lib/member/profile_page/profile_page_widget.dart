@@ -106,7 +106,8 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                       FlutterFlowTheme.of(context).labelMedium,
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).line,
+                                      color: FlutterFlowTheme.of(context)
+                                          .alternate,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),

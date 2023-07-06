@@ -105,6 +105,12 @@ class FFAppState extends ChangeNotifier {
   set isFullList(bool _value) {
     _isFullList = _value;
   }
+
+  LatLng? _locationSelected;
+  LatLng? get locationSelected => _locationSelected;
+  set locationSelected(LatLng? _value) {
+    _locationSelected = _value;
+  }
 }
 
 LatLng? _latLngFromString(String? val) {
