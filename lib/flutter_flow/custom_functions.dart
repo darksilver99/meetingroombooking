@@ -20,3 +20,12 @@ String? getMeetingStatusText(int? status) {
 
   return resultList[0]["name"];
 }
+
+String? getSplitLatLng(
+  String? type,
+  LatLng? location,
+) {
+  return type == "lat"
+      ? location!.latitude.toString()
+      : location!.longitude.toString();
+}
