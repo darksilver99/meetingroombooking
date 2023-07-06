@@ -40,10 +40,9 @@ class _NoDataWidgetState extends State<NoDataWidget> {
     context.watch<FFAppState>();
 
     return Container(
-      width: double.infinity,
       decoration: BoxDecoration(),
       child: Column(
-        mainAxisSize: MainAxisSize.max,
+        mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(
