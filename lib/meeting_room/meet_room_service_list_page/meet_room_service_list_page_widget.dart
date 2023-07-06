@@ -79,11 +79,12 @@ class _MeetRoomServiceListPageWidgetState
             mainAxisSize: MainAxisSize.max,
             children: [
               Expanded(
-                child: StreamBuilder<List<MeetingRoomListRecord>>(
-                  stream: queryMeetingRoomListRecord(
+                child: FutureBuilder<List<MeetingRoomListRecord>>(
+                  future: queryMeetingRoomListRecordOnce(
                     queryBuilder: (meetingRoomListRecord) =>
-                        meetingRoomListRecord.where('create_by',
-                            isEqualTo: currentUserReference),
+                        meetingRoomListRecord
+                            .where('create_by', isEqualTo: currentUserReference)
+                            .orderBy('create_date', descending: true),
                   ),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
