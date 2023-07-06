@@ -775,7 +775,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                               TextFormField(
                                 controller: _model.usernameController7,
                                 readOnly:
-                                    widget.bookingDetailParameter!.ownerRef ==
+                                    widget.bookingDetailParameter!.ownerRef !=
                                         currentUserReference,
                                 obscureText: false,
                                 decoration: InputDecoration(

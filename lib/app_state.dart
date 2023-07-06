@@ -99,6 +99,12 @@ class FFAppState extends ChangeNotifier {
   ) {
     _bookingStatus[_index] = updateFn(_bookingStatus[_index]);
   }
+
+  bool _isFullList = true;
+  bool get isFullList => _isFullList;
+  set isFullList(bool _value) {
+    _isFullList = _value;
+  }
 }
 
 LatLng? _latLngFromString(String? val) {

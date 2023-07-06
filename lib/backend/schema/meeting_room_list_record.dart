@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:from_css_color/from_css_color.dart';
+import '/backend/algolia/algolia_manager.dart';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -135,6 +137,71 @@ class MeetingRoomListRecord extends FirestoreRecord {
     DocumentReference reference,
   ) =>
       MeetingRoomListRecord._(reference, mapFromFirestore(data));
+
+  static MeetingRoomListRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) =>
+      MeetingRoomListRecord.getDocumentFromData(
+        {
+          'create_date': safeGet(
+            () => DateTime.fromMillisecondsSinceEpoch(
+                snapshot.data['create_date']),
+          ),
+          'create_by': safeGet(
+            () => toRef(snapshot.data['create_by']),
+          ),
+          'update_date': safeGet(
+            () => DateTime.fromMillisecondsSinceEpoch(
+                snapshot.data['update_date']),
+          ),
+          'update_by': safeGet(
+            () => toRef(snapshot.data['update_by']),
+          ),
+          'delete_date': safeGet(
+            () => DateTime.fromMillisecondsSinceEpoch(
+                snapshot.data['delete_date']),
+          ),
+          'delete_by': safeGet(
+            () => toRef(snapshot.data['delete_by']),
+          ),
+          'status': snapshot.data['status']?.round(),
+          'name': snapshot.data['name'],
+          'detail': snapshot.data['detail'],
+          'support_total': snapshot.data['support_total']?.round(),
+          'province': snapshot.data['province'],
+          'amphur': snapshot.data['amphur'],
+          'tambon': snapshot.data['tambon'],
+          'location': safeGet(
+            () => LatLng(
+              snapshot.data['_geoloc']['lat'],
+              snapshot.data['_geoloc']['lng'],
+            ),
+          ),
+          'photo': safeGet(
+            () => snapshot.data['photo'].toList(),
+          ),
+          'tools': safeGet(
+            () => snapshot.data['tools'].toList(),
+          ),
+        },
+        MeetingRoomListRecord.collection.doc(snapshot.objectID),
+      );
+
+  static Future<List<MeetingRoomListRecord>> search({
+    String? term,
+    FutureOr<LatLng>? location,
+    int? maxResults,
+    double? searchRadiusMeters,
+    bool useCache = false,
+  }) =>
+      FFAlgoliaManager.instance
+          .algoliaQuery(
+            index: 'meeting_room_list',
+            term: term,
+            maxResults: maxResults,
+            location: location,
+            searchRadiusMeters: searchRadiusMeters,
+            useCache: useCache,
+          )
+          .then((r) => r.map(fromAlgolia).toList());
 
   @override
   String toString() =>
