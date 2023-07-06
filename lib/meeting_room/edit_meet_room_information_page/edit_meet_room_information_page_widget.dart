@@ -598,6 +598,14 @@ class _EditMeetRoomInformationPageWidgetState
                                           FFAppState().amphureSelected = 0;
                                           FFAppState().tambonSelected = 0;
                                         });
+                                        setState(() {
+                                          _model.amphureValueController?.value =
+                                              null!;
+                                        });
+                                        setState(() {
+                                          _model.tambonValueController?.value =
+                                              null!;
+                                        });
 
                                         setState(() {});
                                       },
@@ -677,6 +685,10 @@ class _EditMeetRoomInformationPageWidgetState
                                             FFAppState().amphureSelected =
                                                 _model.amphureID!;
                                             FFAppState().tambonSelected = 0;
+                                          });
+                                          setState(() {
+                                            _model.tambonValueController
+                                                ?.value = null!;
                                           });
 
                                           setState(() {});
@@ -960,6 +972,72 @@ class _EditMeetRoomInformationPageWidgetState
                                     if (_model.formKey.currentState == null ||
                                         !_model.formKey.currentState!
                                             .validate()) {
+                                      return;
+                                    }
+                                    if (_model.provinceValue == null) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'กรุณาเลือกจังหวัด',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Kanit',
+                                                  color: Colors.white,
+                                                ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 2000),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .error,
+                                        ),
+                                      );
+                                      return;
+                                    }
+                                    if (_model.amphureValue == null) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'กรุณาเลือกอำเภอ',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Kanit',
+                                                  color: Colors.white,
+                                                ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 2000),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .error,
+                                        ),
+                                      );
+                                      return;
+                                    }
+                                    if (_model.tambonValue == null) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'กรุณาเลือกตำบล',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Kanit',
+                                                  color: Colors.white,
+                                                ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 2000),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .error,
+                                        ),
+                                      );
                                       return;
                                     }
                                     if (FFAppState().locationSelected != null) {

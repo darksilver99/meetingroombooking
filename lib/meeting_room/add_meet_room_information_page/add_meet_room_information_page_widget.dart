@@ -562,6 +562,14 @@ class _AddMeetRoomInformationPageWidgetState
                                           FFAppState().amphureSelected = 0;
                                           FFAppState().tambonSelected = 0;
                                         });
+                                        setState(() {
+                                          _model.amphureValueController?.value =
+                                              null!;
+                                        });
+                                        setState(() {
+                                          _model.tambonValueController?.value =
+                                              null!;
+                                        });
 
                                         setState(() {});
                                       },
@@ -638,6 +646,10 @@ class _AddMeetRoomInformationPageWidgetState
                                             FFAppState().amphureSelected =
                                                 _model.amphureID!;
                                             FFAppState().tambonSelected = 0;
+                                          });
+                                          setState(() {
+                                            _model.tambonValueController
+                                                ?.value = null!;
                                           });
 
                                           setState(() {});

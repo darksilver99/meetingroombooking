@@ -32,9 +32,25 @@ class EditMeetRoomInformationPageModel extends FlutterFlowModel {
   // State field(s) for name widget.
   TextEditingController? nameController;
   String? Function(BuildContext, String?)? nameControllerValidator;
+  String? _nameControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Field is required';
+    }
+
+    return null;
+  }
+
   // State field(s) for support_total widget.
   TextEditingController? supportTotalController;
   String? Function(BuildContext, String?)? supportTotalControllerValidator;
+  String? _supportTotalControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Field is required';
+    }
+
+    return null;
+  }
+
   // State field(s) for detail widget.
   TextEditingController? detailController;
   String? Function(BuildContext, String?)? detailControllerValidator;
@@ -62,7 +78,10 @@ class EditMeetRoomInformationPageModel extends FlutterFlowModel {
 
   /// Initialization and disposal methods.
 
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    nameControllerValidator = _nameControllerValidator;
+    supportTotalControllerValidator = _supportTotalControllerValidator;
+  }
 
   void dispose() {
     unfocusNode.dispose();
