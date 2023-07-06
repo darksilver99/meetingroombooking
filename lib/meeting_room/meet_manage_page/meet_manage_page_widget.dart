@@ -107,7 +107,7 @@ class _MeetManagePageWidgetState extends State<MeetManagePageWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         16.0, 0.0, 0.0, 0.0),
                                     child: Text(
-                                      'ห้องประชุมของคุณ',
+                                      'ห้องประชุมของฉัน',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
