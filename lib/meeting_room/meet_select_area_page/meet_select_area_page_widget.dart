@@ -337,10 +337,10 @@ class _MeetSelectAreaPageWidgetState extends State<MeetSelectAreaPageWidget> {
                                       0.0, 8.0, 0.0, 0.0),
                                   child: FFButtonWidget(
                                     onPressed: () async {
-                                      if (_model.provinceValue != null &&
-                                          _model.provinceValue != '') {
+                                      if (_model.tambonValue != null &&
+                                          _model.tambonValue != '') {
                                         context.pushNamed(
-                                          'MeetRoomListProvincePage',
+                                          'MeetRoomListTambonPage',
                                           queryParameters: {
                                             'province': serializeParam(
                                               _model.provinceValue,
@@ -357,26 +357,68 @@ class _MeetSelectAreaPageWidgetState extends State<MeetSelectAreaPageWidget> {
                                           }.withoutNulls,
                                         );
                                       } else {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                              'กรุณาเลือกจังหวัด',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
+                                        if (_model.amphureValue != null &&
+                                            _model.amphureValue != '') {
+                                          context.pushNamed(
+                                            'MeetRoomListAmphurPage',
+                                            queryParameters: {
+                                              'province': serializeParam(
+                                                _model.provinceValue,
+                                                ParamType.String,
+                                              ),
+                                              'amphur': serializeParam(
+                                                _model.amphureValue,
+                                                ParamType.String,
+                                              ),
+                                              'tambon': serializeParam(
+                                                _model.tambonValue,
+                                                ParamType.String,
+                                              ),
+                                            }.withoutNulls,
+                                          );
+                                        } else {
+                                          if (_model.provinceValue != null &&
+                                              _model.provinceValue != '') {
+                                            context.pushNamed(
+                                              'MeetRoomListProvincePage',
+                                              queryParameters: {
+                                                'province': serializeParam(
+                                                  _model.provinceValue,
+                                                  ParamType.String,
+                                                ),
+                                                'amphur': serializeParam(
+                                                  _model.amphureValue,
+                                                  ParamType.String,
+                                                ),
+                                                'tambon': serializeParam(
+                                                  _model.tambonValue,
+                                                  ParamType.String,
+                                                ),
+                                              }.withoutNulls,
+                                            );
+                                          } else {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  'กรุณาเลือกจังหวัด',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .bodyMedium
                                                       .override(
                                                         fontFamily: 'Kanit',
                                                         color: Colors.white,
                                                       ),
-                                            ),
-                                            duration:
-                                                Duration(milliseconds: 2000),
-                                            backgroundColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .error,
-                                          ),
-                                        );
+                                                ),
+                                                duration: Duration(
+                                                    milliseconds: 2000),
+                                                backgroundColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                              ),
+                                            );
+                                          }
+                                        }
                                       }
                                     },
                                     text: 'ตกลง',

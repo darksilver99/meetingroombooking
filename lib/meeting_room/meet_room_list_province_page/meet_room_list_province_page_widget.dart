@@ -162,8 +162,8 @@ class _MeetRoomListProvincePageWidgetState
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             filled: true,
-                            fillColor:
-                                FlutterFlowTheme.of(context).primaryBackground,
+                            fillColor: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
                             prefixIcon: Icon(
                               Icons.search_rounded,
                               color: FlutterFlowTheme.of(context).primaryText,
