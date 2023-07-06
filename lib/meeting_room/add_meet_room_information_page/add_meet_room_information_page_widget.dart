@@ -393,7 +393,7 @@ class _AddMeetRoomInformationPageWidgetState
                                       final selectedMedia =
                                           await selectMediaWithSourceBottomSheet(
                                         context: context,
-                                        maxWidth: 1600.00,
+                                        maxWidth: 800.00,
                                         imageQuality: 80,
                                         allowPhoto: true,
                                       );
@@ -560,6 +560,7 @@ class _AddMeetRoomInformationPageWidgetState
                                           FFAppState().provinceSelected =
                                               _model.provinceID!;
                                           FFAppState().amphureSelected = 0;
+                                          FFAppState().tambonSelected = 0;
                                         });
 
                                         setState(() {});
@@ -636,6 +637,7 @@ class _AddMeetRoomInformationPageWidgetState
                                           setState(() {
                                             FFAppState().amphureSelected =
                                                 _model.amphureID!;
+                                            FFAppState().tambonSelected = 0;
                                           });
 
                                           setState(() {});
