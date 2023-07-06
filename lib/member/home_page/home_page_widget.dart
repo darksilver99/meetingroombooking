@@ -223,7 +223,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         AlignmentDirectional(
                                                             0.0, 0.0),
                                                     child: Text(
-                                                      rowCount.toString(),
+                                                      stackCount.toString(),
                                                       maxLines: 1,
                                                       style: FlutterFlowTheme
                                                               .of(context)
