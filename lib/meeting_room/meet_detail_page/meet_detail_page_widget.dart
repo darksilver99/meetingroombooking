@@ -271,67 +271,69 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      setState(() {
-                                        FFAppState().meetingRoomSelectedRef =
-                                            widget.meetingRoomParamameter!
-                                                .reference;
-                                        FFAppState().onwerRoomSelectedRef =
-                                            widget.meetingRoomParamameter!
-                                                .createBy;
-                                      });
+                                  if (currentUserReference !=
+                                      widget.meetingRoomParamameter!.createBy)
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        setState(() {
+                                          FFAppState().meetingRoomSelectedRef =
+                                              widget.meetingRoomParamameter!
+                                                  .reference;
+                                          FFAppState().onwerRoomSelectedRef =
+                                              widget.meetingRoomParamameter!
+                                                  .createBy;
+                                        });
 
-                                      context.pushNamed('BookingMeetPage');
-                                    },
-                                    child: Material(
-                                      color: Colors.transparent,
-                                      elevation: 4.0,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(16.0),
-                                      ),
-                                      child: Container(
-                                        width: 120.0,
-                                        height: 80.0,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
+                                        context.pushNamed('BookingMeetPage');
+                                      },
+                                      child: Material(
+                                        color: Colors.transparent,
+                                        elevation: 4.0,
+                                        shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(16.0),
                                         ),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(
-                                              Icons.recent_actors,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              size: 32.0,
-                                            ),
-                                            Text(
-                                              'จองห้องประชุม',
-                                              textAlign: TextAlign.center,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Kanit',
-                                                        fontSize: 14.0,
-                                                      ),
-                                            ),
-                                          ],
+                                        child: Container(
+                                          width: 120.0,
+                                          height: 80.0,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
+                                            borderRadius:
+                                                BorderRadius.circular(16.0),
+                                          ),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.recent_actors,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                size: 32.0,
+                                              ),
+                                              Text(
+                                                'จองห้องประชุม',
+                                                textAlign: TextAlign.center,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Kanit',
+                                                          fontSize: 14.0,
+                                                        ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
                                   Material(
                                     color: Colors.transparent,
                                     elevation: 4.0,
