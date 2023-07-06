@@ -9,6 +9,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/permissions_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,6 @@ class _AddMeetRoomInformationPageWidgetState
   late AddMeetRoomInformationPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  LatLng? currentUserLocationValue;
 
   @override
   void initState() {
@@ -733,13 +733,30 @@ class _AddMeetRoomInformationPageWidgetState
                                     0.0, 8.0, 0.0, 0.0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
-                                    currentUserLocationValue =
-                                        await getCurrentUserLocation(
-                                            defaultLocation: LatLng(0.0, 0.0));
-                                    FFAppState().locationSelected =
-                                        currentUserLocationValue;
-                                    if (FFAppState().locationSelected != null) {
+                                    await requestPermission(locationPermission);
+                                    if (await getPermissionStatus(
+                                        locationPermission)) {
                                       context.pushNamed('MapPickerPage');
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'กรุณาอนุญาตการเข้าถึงตำแหน่ง',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Kanit',
+                                                  color: Colors.white,
+                                                ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 2000),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .error,
+                                        ),
+                                      );
                                     }
                                   },
                                   text: 'เลือกสถานที่ตั้งบนแผนที่',
