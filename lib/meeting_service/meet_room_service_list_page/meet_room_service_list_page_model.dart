@@ -16,7 +16,6 @@ class MeetRoomServiceListPageModel extends FlutterFlowModel {
   // State field(s) for ListView widget.
   PagingController<DocumentSnapshot?, MeetingRoomListRecord>? pagingController;
   Query? pagingQuery;
-  List<StreamSubscription?> streamSubscriptions = [];
 
   /// Initialization and disposal methods.
 
@@ -24,7 +23,6 @@ class MeetRoomServiceListPageModel extends FlutterFlowModel {
 
   void dispose() {
     unfocusNode.dispose();
-    streamSubscriptions.forEach((s) => s?.cancel());
   }
 
   /// Action blocks are added here.
