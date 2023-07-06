@@ -408,12 +408,12 @@ class FFRoute {
               : builder(context, ffParams);
           final child = appStateNotifier.loading
               ? Container(
-                  color: Color(0xFFA4DACF),
+                  color: Colors.transparent,
                   child: Center(
                     child: Image.asset(
                       'assets/images/playstore-icon.png',
-                      width: MediaQuery.sizeOf(context).width * 0.7,
-                      fit: BoxFit.contain,
+                      width: MediaQuery.sizeOf(context).width * 0.6,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 )
