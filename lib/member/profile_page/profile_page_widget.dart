@@ -1,3 +1,4 @@
+import '/auth/base_auth_user_provider.dart';
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -283,14 +284,16 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                             ) ??
                                             false;
                                     if (confirmDialogResponse) {
-                                      await currentUserReference!
-                                          .update(createUsersRecordData(
-                                        status: 2,
-                                        deleteDate: getCurrentTimestamp,
-                                      ));
                                       await authManager.deleteUser(context);
+                                      if (loggedIn == false) {
+                                        await currentUserReference!
+                                            .update(createUsersRecordData(
+                                          status: 2,
+                                          deleteDate: getCurrentTimestamp,
+                                        ));
 
-                                      context.goNamed('LoginPage');
+                                        context.goNamed('LoginPage');
+                                      }
                                     }
                                   },
                                   child: Text(
