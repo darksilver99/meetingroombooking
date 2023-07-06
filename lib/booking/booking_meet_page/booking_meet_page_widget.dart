@@ -86,6 +86,7 @@ class _BookingMeetPageWidgetState extends State<BookingMeetPageWidget> {
                                 FlutterFlowTheme.of(context).secondaryText,
                             weekFormat: false,
                             weekStartsMonday: false,
+                            initialDate: null,
                             rowHeight: 64.0,
                             onChange: (DateTimeRange? newSelectedDate) async {
                               _model.calendarSelectedDay = newSelectedDate;
