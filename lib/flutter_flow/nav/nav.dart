@@ -409,7 +409,7 @@ class FFRoute {
               : builder(context, ffParams);
           final child = appStateNotifier.loading
               ? Container(
-                  color: Colors.transparent,
+                  color: Color(0xFFA4DACF),
                   child: Image.asset(
                     'assets/images/iTunesArtwork@3x.png',
                     fit: BoxFit.contain,
