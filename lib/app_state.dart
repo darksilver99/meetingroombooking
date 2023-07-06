@@ -129,6 +129,31 @@ class FFAppState extends ChangeNotifier {
   set tambonSelectedValue(String _value) {
     _tambonSelectedValue = _value;
   }
+
+  List<String> _fakeSelectedDate = [];
+  List<String> get fakeSelectedDate => _fakeSelectedDate;
+  set fakeSelectedDate(List<String> _value) {
+    _fakeSelectedDate = _value;
+  }
+
+  void addToFakeSelectedDate(String _value) {
+    _fakeSelectedDate.add(_value);
+  }
+
+  void removeFromFakeSelectedDate(String _value) {
+    _fakeSelectedDate.remove(_value);
+  }
+
+  void removeAtIndexFromFakeSelectedDate(int _index) {
+    _fakeSelectedDate.removeAt(_index);
+  }
+
+  void updateFakeSelectedDateAtIndex(
+    int _index,
+    String Function(String) updateFn,
+  ) {
+    _fakeSelectedDate[_index] = updateFn(_fakeSelectedDate[_index]);
+  }
 }
 
 LatLng? _latLngFromString(String? val) {

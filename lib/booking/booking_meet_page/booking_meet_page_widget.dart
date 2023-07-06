@@ -2,6 +2,7 @@ import '/flutter_flow/flutter_flow_calendar.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'booking_meet_page_model.dart';
@@ -23,6 +24,11 @@ class _BookingMeetPageWidgetState extends State<BookingMeetPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => BookingMeetPageModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      FFAppState().fakeSelectedDate = [];
+    });
   }
 
   @override
@@ -86,21 +92,23 @@ class _BookingMeetPageWidgetState extends State<BookingMeetPageWidget> {
                                 FlutterFlowTheme.of(context).secondaryText,
                             weekFormat: false,
                             weekStartsMonday: false,
-                            initialDate: null,
+                            initialDate: getCurrentTimestamp,
                             rowHeight: 64.0,
                             onChange: (DateTimeRange? newSelectedDate) async {
                               _model.calendarSelectedDay = newSelectedDate;
-
-                              context.pushNamed(
-                                'AddBookingPage',
-                                queryParameters: {
-                                  'dateSeleceteParameter': serializeParam(
-                                    _model.calendarSelectedDay?.start,
-                                    ParamType.DateTime,
-                                  ),
-                                }.withoutNulls,
-                              );
-
+                              FFAppState().addToFakeSelectedDate(
+                                  _model.calendarSelectedDay!.start.toString());
+                              if (FFAppState().fakeSelectedDate.length > 1) {
+                                context.pushNamed(
+                                  'AddBookingPage',
+                                  queryParameters: {
+                                    'dateSeleceteParameter': serializeParam(
+                                      _model.calendarSelectedDay?.start,
+                                      ParamType.DateTime,
+                                    ),
+                                  }.withoutNulls,
+                                );
+                              }
                               setState(() {});
                             },
                             titleStyle: FlutterFlowTheme.of(context)
