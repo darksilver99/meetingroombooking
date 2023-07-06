@@ -62,7 +62,7 @@ class _MeetRoomServiceListPageWidgetState
           backgroundColor: FlutterFlowTheme.of(context).secondary,
           automaticallyImplyLeading: true,
           title: Text(
-            'ห้องประชุมของคุณ',
+            'ห้องประชุมของฉัน',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Kanit',
                   color: Colors.white,
