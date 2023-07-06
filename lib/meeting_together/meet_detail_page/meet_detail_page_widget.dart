@@ -1,16 +1,26 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'meet_detail_page_model.dart';
 export 'meet_detail_page_model.dart';
 
 class MeetDetailPageWidget extends StatefulWidget {
-  const MeetDetailPageWidget({Key? key}) : super(key: key);
+  const MeetDetailPageWidget({
+    Key? key,
+    required this.meetingRoomParamameter,
+  }) : super(key: key);
+
+  final MeetingRoomListRecord? meetingRoomParamameter;
 
   @override
   _MeetDetailPageWidgetState createState() => _MeetDetailPageWidgetState();
@@ -43,33 +53,37 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            print('FloatingActionButton pressed ...');
-          },
-          backgroundColor: FlutterFlowTheme.of(context).error,
-          elevation: 8.0,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.edit_outlined,
-                color: Colors.white,
-                size: 18.0,
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
-                child: Text(
-                  'แก้ไข',
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Kanit',
-                        color: Colors.white,
-                        fontSize: 12.0,
-                      ),
+        floatingActionButton: Visibility(
+          visible:
+              widget.meetingRoomParamameter!.createBy == currentUserReference,
+          child: FloatingActionButton(
+            onPressed: () {
+              print('FloatingActionButton pressed ...');
+            },
+            backgroundColor: FlutterFlowTheme.of(context).error,
+            elevation: 8.0,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.edit_outlined,
+                  color: Colors.white,
+                  size: 18.0,
                 ),
-              ),
-            ],
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
+                  child: Text(
+                    'แก้ไข',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Kanit',
+                          color: Colors.white,
+                          fontSize: 12.0,
+                        ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         appBar: AppBar(
@@ -122,94 +136,124 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                                 color: FlutterFlowTheme.of(context)
                                     .secondaryBackground,
                               ),
-                              child: Container(
-                                width: double.infinity,
-                                height: 500.0,
-                                child: Stack(
-                                  children: [
-                                    PageView(
-                                      controller: _model.pageViewController ??=
-                                          PageController(initialPage: 0),
-                                      scrollDirection: Axis.horizontal,
+                              child: Builder(
+                                builder: (context) {
+                                  final imageList = widget
+                                      .meetingRoomParamameter!.photo
+                                      .toList();
+                                  return Container(
+                                    width: double.infinity,
+                                    height: 500.0,
+                                    child: Stack(
                                       children: [
-                                        ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                          child: Image.network(
-                                            'https://picsum.photos/seed/995/600',
-                                            width: 300.0,
-                                            height: 200.0,
-                                            fit: BoxFit.cover,
-                                          ),
+                                        PageView.builder(
+                                          controller: _model
+                                                  .pageViewController ??=
+                                              PageController(
+                                                  initialPage: min(
+                                                      0, imageList.length - 1)),
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: imageList.length,
+                                          itemBuilder:
+                                              (context, imageListIndex) {
+                                            final imageListItem =
+                                                imageList[imageListIndex];
+                                            return InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                await Navigator.push(
+                                                  context,
+                                                  PageTransition(
+                                                    type:
+                                                        PageTransitionType.fade,
+                                                    child:
+                                                        FlutterFlowExpandedImageView(
+                                                      image: CachedNetworkImage(
+                                                        imageUrl: imageListItem,
+                                                        fit: BoxFit.contain,
+                                                      ),
+                                                      allowRotation: false,
+                                                      tag: imageListItem,
+                                                      useHeroAnimation: true,
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                              child: Hero(
+                                                tag: imageListItem,
+                                                transitionOnUserGestures: true,
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                  child: CachedNetworkImage(
+                                                    imageUrl: imageListItem,
+                                                    height: 200.0,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          },
                                         ),
-                                        ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                          child: Image.network(
-                                            'https://picsum.photos/seed/100/600',
-                                            width: 300.0,
-                                            height: 200.0,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                        ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                          child: Image.network(
-                                            'https://picsum.photos/seed/197/600',
-                                            width: 300.0,
-                                            height: 200.0,
-                                            fit: BoxFit.cover,
+                                        Align(
+                                          alignment:
+                                              AlignmentDirectional(0.0, 1.0),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    16.0, 0.0, 0.0, 16.0),
+                                            child: smooth_page_indicator
+                                                .SmoothPageIndicator(
+                                              controller:
+                                                  _model.pageViewController ??=
+                                                      PageController(
+                                                          initialPage: min(
+                                                              0,
+                                                              imageList.length -
+                                                                  1)),
+                                              count: imageList.length,
+                                              axisDirection: Axis.horizontal,
+                                              onDotClicked: (i) async {
+                                                await _model.pageViewController!
+                                                    .animateToPage(
+                                                  i,
+                                                  duration: Duration(
+                                                      milliseconds: 500),
+                                                  curve: Curves.ease,
+                                                );
+                                              },
+                                              effect: smooth_page_indicator
+                                                  .ExpandingDotsEffect(
+                                                expansionFactor: 3.0,
+                                                spacing: 8.0,
+                                                radius: 16.0,
+                                                dotWidth: 16.0,
+                                                dotHeight: 8.0,
+                                                dotColor: Colors.white,
+                                                activeDotColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .tertiary,
+                                                paintStyle: PaintingStyle.fill,
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ],
                                     ),
-                                    Align(
-                                      alignment: AlignmentDirectional(0.0, 1.0),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 0.0, 0.0, 16.0),
-                                        child: smooth_page_indicator
-                                            .SmoothPageIndicator(
-                                          controller: _model
-                                                  .pageViewController ??=
-                                              PageController(initialPage: 0),
-                                          count: 3,
-                                          axisDirection: Axis.horizontal,
-                                          onDotClicked: (i) async {
-                                            await _model.pageViewController!
-                                                .animateToPage(
-                                              i,
-                                              duration:
-                                                  Duration(milliseconds: 500),
-                                              curve: Curves.ease,
-                                            );
-                                          },
-                                          effect: smooth_page_indicator
-                                              .ExpandingDotsEffect(
-                                            expansionFactor: 3.0,
-                                            spacing: 8.0,
-                                            radius: 16.0,
-                                            dotWidth: 16.0,
-                                            dotHeight: 8.0,
-                                            dotColor: Colors.white,
-                                            activeDotColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .tertiary,
-                                            paintStyle: PaintingStyle.fill,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                  );
+                                },
                               ),
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 16.0, 0.0, 0.0),
                               child: Text(
-                                'ห้องประชุม 1',
+                                widget.meetingRoomParamameter!.name,
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -324,7 +368,7 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                               color: FlutterFlowTheme.of(context).alternate,
                             ),
                             Text(
-                              'ตำบล 111 อำเภอ 222 จังหวัด 333',
+                              'ตำบล ${widget.meetingRoomParamameter!.tambon} อำเภอ ${widget.meetingRoomParamameter!.amphur} จังหวัด ${widget.meetingRoomParamameter!.province}',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -333,7 +377,7 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                                   ),
                             ),
                             Text(
-                              'รายละเอียด รายละเอียดรายละเอียด รายละเอียดรายละเอียด รายละเอียดรายละเอียด รายละเอียดรายละเอียด รายละเอียดรายละเอียด รายละเอียดรายละเอียด รายละเอียดรายละเอียด รายละเอียดรายละเอียด รายละเอียดรายละเอียด รายละเอียดรายละเอียด รายละเอียดรายละเอียด รายละเอียดรายละเอียด รายละเอียดรายละเอียด รายละเอียดรายละเอียด รายละเอียดรายละเอียด รายละเอียดรายละเอียด รายละเอียดรายละเอียด รายละเอียดรายละเอียด รายละเอียด',
+                              widget.meetingRoomParamameter!.detail,
                               style: FlutterFlowTheme.of(context).bodyMedium,
                             ),
                             Align(
@@ -353,7 +397,10 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                                         ),
                                       ),
                                       TextSpan(
-                                        text: '12/15/2009',
+                                        text: dateTimeFormat(
+                                            'd/M/y',
+                                            widget.meetingRoomParamameter!
+                                                .updateDate!),
                                         style: TextStyle(),
                                       )
                                     ],

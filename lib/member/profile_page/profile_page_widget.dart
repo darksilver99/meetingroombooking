@@ -1,8 +1,9 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/custom_code/actions/index.dart' as actions;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -26,9 +27,12 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
     super.initState();
     _model = createModel(context, () => ProfilePageModel());
 
-    _model.fullnameController1 ??= TextEditingController();
-    _model.fullnameController2 ??= TextEditingController();
-    _model.fullnameController3 ??= TextEditingController();
+    _model.fullnameController1 ??=
+        TextEditingController(text: currentUserDisplayName);
+    _model.fullnameController2 ??=
+        TextEditingController(text: currentPhoneNumber);
+    _model.fullnameController3 ??=
+        TextEditingController(text: currentUserEmail);
   }
 
   @override
@@ -89,59 +93,13 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            TextFormField(
-                              controller: _model.fullnameController1,
-                              readOnly: true,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                labelText: 'ชื่อ-สกุล',
-                                labelStyle:
-                                    FlutterFlowTheme.of(context).labelMedium,
-                                hintStyle:
-                                    FlutterFlowTheme.of(context).labelMedium,
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).line,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                              ),
-                              style: FlutterFlowTheme.of(context).bodyMedium,
-                              validator: _model.fullnameController1Validator
-                                  .asValidator(context),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 16.0, 0.0, 0.0),
-                              child: TextFormField(
-                                controller: _model.fullnameController2,
+                            AuthUserStreamWidget(
+                              builder: (context) => TextFormField(
+                                controller: _model.fullnameController1,
                                 readOnly: true,
                                 obscureText: false,
                                 decoration: InputDecoration(
-                                  labelText: 'เบอร์โทร',
+                                  labelText: 'ชื่อ-สกุล',
                                   labelStyle:
                                       FlutterFlowTheme.of(context).labelMedium,
                                   hintStyle:
@@ -177,8 +135,62 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                   ),
                                 ),
                                 style: FlutterFlowTheme.of(context).bodyMedium,
-                                validator: _model.fullnameController2Validator
+                                validator: _model.fullnameController1Validator
                                     .asValidator(context),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 16.0, 0.0, 0.0),
+                              child: AuthUserStreamWidget(
+                                builder: (context) => TextFormField(
+                                  controller: _model.fullnameController2,
+                                  readOnly: true,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    labelText: 'เบอร์โทร',
+                                    labelStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium,
+                                    hintStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium,
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color:
+                                            FlutterFlowTheme.of(context).line,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color:
+                                            FlutterFlowTheme.of(context).error,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color:
+                                            FlutterFlowTheme.of(context).error,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                  ),
+                                  style:
+                                      FlutterFlowTheme.of(context).bodyMedium,
+                                  validator: _model.fullnameController2Validator
+                                      .asValidator(context),
+                                ),
                               ),
                             ),
                             Padding(
@@ -240,10 +252,48 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    await actions.setAddressToFirebase();
+                                    var confirmDialogResponse =
+                                        await showDialog<bool>(
+                                              context: context,
+                                              builder: (alertDialogContext) {
+                                                return AlertDialog(
+                                                  title: Text(
+                                                      'ต้องการลบบัญชีหรือไม่?'),
+                                                  content: Text(
+                                                      'หากลบแล้วจะไม่สามารถเรียกข้อมูลเดิมกลับมาได้อีก'),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              alertDialogContext,
+                                                              false),
+                                                      child: Text('ยกเลิก'),
+                                                    ),
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              alertDialogContext,
+                                                              true),
+                                                      child: Text('ยืนยัน'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            ) ??
+                                            false;
+                                    if (confirmDialogResponse) {
+                                      await currentUserReference!
+                                          .update(createUsersRecordData(
+                                        status: 2,
+                                        deleteDate: getCurrentTimestamp,
+                                      ));
+                                      await authManager.deleteUser(context);
+
+                                      context.goNamed('LoginPage');
+                                    }
                                   },
                                   child: Text(
-                                    'ลบผู้ใช้นี้',
+                                    'ลบบัญชีนี้',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(

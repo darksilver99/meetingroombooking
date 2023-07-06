@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'login_page_model.dart';
@@ -55,8 +54,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  FaIcon(
-                    FontAwesomeIcons.mendeley,
+                  Icon(
+                    Icons.gradient_sharp,
                     color: FlutterFlowTheme.of(context).secondaryText,
                     size: 64.0,
                   ),
@@ -262,33 +261,44 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                       ),
                     ),
                   ),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: 'หรือ หากยังไม่มีบัญชี ',
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                fontFamily: 'Kanit',
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                fontWeight: FontWeight.bold,
+                  Align(
+                    alignment: AlignmentDirectional(1.0, 0.0),
+                    child: Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
+                      child: RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'หรือ หากยังไม่มีบัญชี ',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Kanit',
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                            ),
+                            TextSpan(
+                              text: 'สมัครที่นี่',
+                              style: TextStyle(
+                                color: FlutterFlowTheme.of(context).primary,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16.0,
+                                decoration: TextDecoration.underline,
                               ),
+                              mouseCursor: SystemMouseCursors.click,
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () async {
+                                  context.pushNamed('RegisterPage');
+                                },
+                            )
+                          ],
+                          style: FlutterFlowTheme.of(context).bodyMedium,
                         ),
-                        TextSpan(
-                          text: 'สมัครที่นี่',
-                          style: TextStyle(
-                            color: FlutterFlowTheme.of(context).primary,
-                            decoration: TextDecoration.underline,
-                          ),
-                          mouseCursor: SystemMouseCursors.click,
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () async {
-                              context.pushNamed('RegisterPage');
-                            },
-                        )
-                      ],
-                      style: FlutterFlowTheme.of(context).bodyMedium,
+                      ),
                     ),
                   ),
                 ],

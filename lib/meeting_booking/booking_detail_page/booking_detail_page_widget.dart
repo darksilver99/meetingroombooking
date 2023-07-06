@@ -93,154 +93,145 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  context.pushNamed('MeetDetailPage');
-                                },
-                                child: Material(
-                                  color: Colors.transparent,
-                                  elevation: 3.0,
-                                  shape: RoundedRectangleBorder(
+                              Material(
+                                color: Colors.transparent,
+                                elevation: 3.0,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                child: Container(
+                                  width: double.infinity,
+                                  height: 80.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
-                                  child: Container(
-                                    width: double.infinity,
-                                    height: 80.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          8.0, 8.0, 8.0, 8.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                            child: Image.network(
-                                              'https://picsum.photos/seed/323/600',
-                                              width: 60.0,
-                                              height: 60.0,
-                                              fit: BoxFit.cover,
-                                            ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        8.0, 8.0, 8.0, 8.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                          child: Image.network(
+                                            'https://picsum.photos/seed/323/600',
+                                            width: 60.0,
+                                            height: 60.0,
+                                            fit: BoxFit.cover,
                                           ),
-                                          Expanded(
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      16.0, 0.0, 0.0, 0.0),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    'ห้องประชุม 1',
+                                        ),
+                                        Expanded(
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    16.0, 0.0, 0.0, 0.0),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'ห้องประชุม 1',
+                                                  maxLines: 1,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Kanit',
+                                                        fontSize: 16.0,
+                                                      ),
+                                                ),
+                                                Expanded(
+                                                  child: Text(
+                                                    'รายละเอียด รายละเอียดรายละเอียด รายละเอียดรายละเอียด รายละเอียดรายละเอียด รายละเอียดรายละเอียด รายละเอียดรายละเอียด รายละเอียดรายละเอียด รายละเอียดรายละเอียด รายละเอียด',
                                                     maxLines: 1,
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily: 'Kanit',
-                                                          fontSize: 16.0,
+                                                          fontSize: 12.0,
                                                         ),
                                                   ),
-                                                  Expanded(
-                                                    child: Text(
-                                                      'รายละเอียด รายละเอียดรายละเอียด รายละเอียดรายละเอียด รายละเอียดรายละเอียด รายละเอียดรายละเอียด รายละเอียดรายละเอียด รายละเอียดรายละเอียด รายละเอียดรายละเอียด รายละเอียด',
-                                                      maxLines: 1,
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily: 'Kanit',
-                                                            fontSize: 12.0,
+                                                ),
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    RichText(
+                                                      text: TextSpan(
+                                                        children: [
+                                                          TextSpan(
+                                                            text: 'รองรับ ',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Kanit',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryText,
+                                                                  fontSize:
+                                                                      10.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w200,
+                                                                ),
                                                           ),
-                                                    ),
-                                                  ),
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.end,
-                                                    children: [
-                                                      RichText(
-                                                        text: TextSpan(
-                                                          children: [
-                                                            TextSpan(
-                                                              text: 'รองรับ ',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Kanit',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondaryText,
-                                                                    fontSize:
-                                                                        10.0,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w200,
-                                                                  ),
-                                                            ),
-                                                            TextSpan(
-                                                              text: '20',
-                                                              style:
-                                                                  TextStyle(),
-                                                            ),
-                                                            TextSpan(
-                                                              text: ' คน',
-                                                              style:
-                                                                  TextStyle(),
-                                                            )
-                                                          ],
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Kanit',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryText,
-                                                                fontSize: 10.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w200,
-                                                              ),
-                                                        ),
+                                                          TextSpan(
+                                                            text: '20',
+                                                            style: TextStyle(),
+                                                          ),
+                                                          TextSpan(
+                                                            text: ' คน',
+                                                            style: TextStyle(),
+                                                          )
+                                                        ],
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Kanit',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryText,
+                                                                  fontSize:
+                                                                      10.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w200,
+                                                                ),
                                                       ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Icon(
-                                                Icons.navigate_next_rounded,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                size: 24.0,
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
+                                        ),
+                                        Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Icon(
+                                              Icons.navigate_next_rounded,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                              size: 24.0,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),

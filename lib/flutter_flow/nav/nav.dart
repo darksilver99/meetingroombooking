@@ -118,7 +118,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'MeetDetailPage',
           path: '/meetDetailPage',
-          builder: (context, params) => MeetDetailPageWidget(),
+          asyncParams: {
+            'meetingRoomParamameter': getDoc(
+                ['meeting_room_list'], MeetingRoomListRecord.fromSnapshot),
+          },
+          builder: (context, params) => MeetDetailPageWidget(
+            meetingRoomParamameter:
+                params.getParam('meetingRoomParamameter', ParamType.Document),
+          ),
         ),
         FFRoute(
           name: 'ProfilePage',

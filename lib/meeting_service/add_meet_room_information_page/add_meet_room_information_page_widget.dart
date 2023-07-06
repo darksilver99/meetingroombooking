@@ -956,6 +956,7 @@ class _AddMeetRoomInformationPageWidgetState
                                           province: _model.provinceValue,
                                           amphur: _model.amphureValue,
                                           tambon: _model.tambonValue,
+                                          updateDate: getCurrentTimestamp,
                                         ),
                                         'photo': FFAppState().imageUploadList,
                                         'tools': _model.choiceChipsValues,
