@@ -32,3 +32,5 @@ export '/meeting_room/meet_room_list_amphur_page/meet_room_list_amphur_page_widg
     show MeetRoomListAmphurPageWidget;
 export '/meeting_room/meet_room_list_tambon_page/meet_room_list_tambon_page_widget.dart'
     show MeetRoomListTambonPageWidget;
+export '/meeting_room/map_picker_page/map_picker_page_widget.dart'
+    show MapPickerPageWidget;

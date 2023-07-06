@@ -32,6 +32,7 @@ class _AddMeetRoomInformationPageWidgetState
   late AddMeetRoomInformationPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  LatLng? currentUserLocationValue;
 
   @override
   void initState() {
@@ -40,11 +41,14 @@ class _AddMeetRoomInformationPageWidgetState
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      currentUserLocationValue =
+          await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
       setState(() {
         FFAppState().provinceSelected = 0;
         FFAppState().amphureSelected = 0;
         FFAppState().imageUploadList = [];
         FFAppState().tambonSelected = 0;
+        FFAppState().locationSelected = currentUserLocationValue;
       });
     });
 
@@ -731,8 +735,8 @@ class _AddMeetRoomInformationPageWidgetState
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 8.0, 0.0, 0.0),
                                 child: FFButtonWidget(
-                                  onPressed: () {
-                                    print('Button pressed ...');
+                                  onPressed: () async {
+                                    context.pushNamed('MapPickerPage');
                                   },
                                   text: 'เลือกสถานที่ตั้งบนแผนที่',
                                   icon: Icon(
@@ -958,6 +962,8 @@ class _AddMeetRoomInformationPageWidgetState
                                           amphur: _model.amphureValue,
                                           tambon: _model.tambonValue,
                                           updateDate: getCurrentTimestamp,
+                                          location:
+                                              FFAppState().locationSelected,
                                         ),
                                         'photo': FFAppState().imageUploadList,
                                         'tools': _model.choiceChipsValues,
