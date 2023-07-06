@@ -33,6 +33,7 @@ class _AddMeetRoomInformationPageWidgetState
   late AddMeetRoomInformationPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  LatLng? currentUserLocationValue;
 
   @override
   void initState() {
@@ -733,10 +734,21 @@ class _AddMeetRoomInformationPageWidgetState
                                     0.0, 8.0, 0.0, 0.0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
+                                    currentUserLocationValue =
+                                        await getCurrentUserLocation(
+                                            defaultLocation: LatLng(0.0, 0.0));
                                     await requestPermission(locationPermission);
                                     if (await getPermissionStatus(
                                         locationPermission)) {
-                                      context.pushNamed('MapPickerPage');
+                                      context.pushNamed(
+                                        'MapPickerPage',
+                                        queryParameters: {
+                                          'currentLoation': serializeParam(
+                                            currentUserLocationValue,
+                                            ParamType.LatLng,
+                                          ),
+                                        }.withoutNulls,
+                                      );
                                     } else {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
