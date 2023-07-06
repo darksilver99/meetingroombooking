@@ -421,7 +421,7 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                               widget.meetingRoomParamameter!.detail,
                               style: FlutterFlowTheme.of(context).bodyMedium,
                             ),
-                            if (widget.meetingRoomParamameter!.tools.length < 0)
+                            if (widget.meetingRoomParamameter!.tools.length > 0)
                               Column(
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -449,10 +449,9 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                                             .meetingRoomParamameter!.tools
                                             .map((label) => ChipData(label))
                                             .toList(),
-                                        onChanged: true
-                                            ? null
-                                            : (val) => setState(() => _model
-                                                .choiceChipsValue = val?.first),
+                                        onChanged: (val) => setState(() =>
+                                            _model.choiceChipsValue =
+                                                val?.first),
                                         selectedChipStyle: ChipStyle(
                                           backgroundColor:
                                               FlutterFlowTheme.of(context)
@@ -476,15 +475,14 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                                           backgroundColor:
                                               FlutterFlowTheme.of(context)
                                                   .secondary,
-                                          textStyle: FlutterFlowTheme.of(
-                                                  context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Kanit',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                              ),
+                                          textStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Kanit',
+                                                    color: Colors.white,
+                                                    fontSize: 18.0,
+                                                  ),
                                           iconColor: Colors.white,
                                           iconSize: 18.0,
                                           elevation: 0.0,
