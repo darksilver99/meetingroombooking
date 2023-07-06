@@ -12,13 +12,15 @@ import 'package:provider/provider.dart';
 import 'map_picker_page_model.dart';
 export 'map_picker_page_model.dart';
 
+import 'package:google_maps_flutter/google_maps_flutter.dart' as Location;
+
 class MapPickerCustomPageWidget extends StatefulWidget {
   const MapPickerCustomPageWidget({
     Key? key,
-    required this.currentLoation,
+    required this.currentLocation,
   }) : super(key: key);
 
-  final LatLng currentLoation;
+  final LatLng currentLocation;
 
   @override
   _MapPickerCustomPageWidgetState createState() => _MapPickerCustomPageWidgetState();
@@ -43,10 +45,6 @@ class _MapPickerCustomPageWidgetState extends State<MapPickerCustomPageWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       /*currentUserLocationValue = await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
       FFAppState().locationSelected = currentUserLocationValue;*/
-      /*cameraPosition = CameraPosition(
-        target: widget.currentLoation,
-        zoom: 14.4746,
-      );*/
     });
   }
 
@@ -61,7 +59,11 @@ class _MapPickerCustomPageWidgetState extends State<MapPickerCustomPageWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-
+    Location.LatLng newLocation = Location.LatLng(widget.currentLocation.latitude, widget.currentLocation.longitude);
+    cameraPosition = CameraPosition(
+      target: newLocation,
+      zoom: 14.4746,
+    );
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
@@ -78,6 +80,7 @@ class _MapPickerCustomPageWidgetState extends State<MapPickerCustomPageWidget> {
                 iconWidget: Icon(
                   Icons.location_on,
                   color: Colors.redAccent,
+                  size: 48,
                 ),
                 //add map picker controller
                 mapPickerController: mapPickerController,
@@ -121,6 +124,7 @@ class _MapPickerCustomPageWidgetState extends State<MapPickerCustomPageWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 16.0),
                   child: FFButtonWidget(
                     onPressed: () async {
+                      FFAppState().locationSelected = LatLng(cameraPosition!.target.latitude, cameraPosition!.target.longitude);
                       context.safePop();
                     },
                     text: 'เลือกพิกัดนี้',
