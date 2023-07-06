@@ -466,7 +466,7 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                                                   ),
                                           iconColor: Colors.white,
                                           iconSize: 18.0,
-                                          elevation: 4.0,
+                                          elevation: 0.0,
                                           borderRadius:
                                               BorderRadius.circular(16.0),
                                         ),
