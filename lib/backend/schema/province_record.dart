@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -26,7 +28,7 @@ class ProvinceRecord extends FirestoreRecord {
 
   void _initializeFields() {
     _name = snapshotData['name'] as String?;
-    _id = snapshotData['id'] as int?;
+    _id = castToType<int>(snapshotData['id']);
   }
 
   static CollectionReference get collection =>
@@ -75,4 +77,19 @@ Map<String, dynamic> createProvinceRecordData({
   );
 
   return firestoreData;
+}
+
+class ProvinceRecordDocumentEquality implements Equality<ProvinceRecord> {
+  const ProvinceRecordDocumentEquality();
+
+  @override
+  bool equals(ProvinceRecord? e1, ProvinceRecord? e2) {
+    return e1?.name == e2?.name && e1?.id == e2?.id;
+  }
+
+  @override
+  int hash(ProvinceRecord? e) => const ListEquality().hash([e?.name, e?.id]);
+
+  @override
+  bool isValidKey(Object? o) => o is ProvinceRecord;
 }

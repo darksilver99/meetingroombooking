@@ -117,7 +117,7 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                           children: [
                             Container(
                               width: double.infinity,
-                              height: MediaQuery.of(context).size.height * 0.3,
+                              height: MediaQuery.sizeOf(context).height * 0.3,
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
                                     .secondaryBackground,

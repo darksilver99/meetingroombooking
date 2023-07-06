@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -67,4 +69,19 @@ Map<String, dynamic> createToolsListRecordData({
   );
 
   return firestoreData;
+}
+
+class ToolsListRecordDocumentEquality implements Equality<ToolsListRecord> {
+  const ToolsListRecordDocumentEquality();
+
+  @override
+  bool equals(ToolsListRecord? e1, ToolsListRecord? e2) {
+    return e1?.name == e2?.name;
+  }
+
+  @override
+  int hash(ToolsListRecord? e) => const ListEquality().hash([e?.name]);
+
+  @override
+  bool isValidKey(Object? o) => o is ToolsListRecord;
 }

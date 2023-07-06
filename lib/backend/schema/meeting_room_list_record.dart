@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -101,10 +103,10 @@ class MeetingRoomListRecord extends FirestoreRecord {
     _updateBy = snapshotData['update_by'] as DocumentReference?;
     _deleteDate = snapshotData['delete_date'] as DateTime?;
     _deleteBy = snapshotData['delete_by'] as DocumentReference?;
-    _status = snapshotData['status'] as int?;
+    _status = castToType<int>(snapshotData['status']);
     _name = snapshotData['name'] as String?;
     _detail = snapshotData['detail'] as String?;
-    _supportTotal = snapshotData['support_total'] as int?;
+    _supportTotal = castToType<int>(snapshotData['support_total']);
     _province = snapshotData['province'] as String?;
     _amphur = snapshotData['amphur'] as String?;
     _tambon = snapshotData['tambon'] as String?;
@@ -183,4 +185,53 @@ Map<String, dynamic> createMeetingRoomListRecordData({
   );
 
   return firestoreData;
+}
+
+class MeetingRoomListRecordDocumentEquality
+    implements Equality<MeetingRoomListRecord> {
+  const MeetingRoomListRecordDocumentEquality();
+
+  @override
+  bool equals(MeetingRoomListRecord? e1, MeetingRoomListRecord? e2) {
+    const listEquality = ListEquality();
+    return e1?.createDate == e2?.createDate &&
+        e1?.createBy == e2?.createBy &&
+        e1?.updateDate == e2?.updateDate &&
+        e1?.updateBy == e2?.updateBy &&
+        e1?.deleteDate == e2?.deleteDate &&
+        e1?.deleteBy == e2?.deleteBy &&
+        e1?.status == e2?.status &&
+        e1?.name == e2?.name &&
+        e1?.detail == e2?.detail &&
+        e1?.supportTotal == e2?.supportTotal &&
+        e1?.province == e2?.province &&
+        e1?.amphur == e2?.amphur &&
+        e1?.tambon == e2?.tambon &&
+        e1?.location == e2?.location &&
+        listEquality.equals(e1?.photo, e2?.photo) &&
+        listEquality.equals(e1?.tools, e2?.tools);
+  }
+
+  @override
+  int hash(MeetingRoomListRecord? e) => const ListEquality().hash([
+        e?.createDate,
+        e?.createBy,
+        e?.updateDate,
+        e?.updateBy,
+        e?.deleteDate,
+        e?.deleteBy,
+        e?.status,
+        e?.name,
+        e?.detail,
+        e?.supportTotal,
+        e?.province,
+        e?.amphur,
+        e?.tambon,
+        e?.location,
+        e?.photo,
+        e?.tools
+      ]);
+
+  @override
+  bool isValidKey(Object? o) => o is MeetingRoomListRecord;
 }

@@ -402,6 +402,7 @@ class _AddMeetRoomInformationPageWidgetState
                                             _model.isDataUploading = true);
                                         var selectedUploadedFiles =
                                             <FFUploadedFile>[];
+
                                         var downloadUrls = <String>[];
                                         try {
                                           selectedUploadedFiles = selectedMedia
@@ -941,7 +942,9 @@ class _AddMeetRoomInformationPageWidgetState
                                     }
                                     if (FFAppState().imageUploadList.length >
                                         0) {
-                                      final meetingRoomListCreateData = {
+                                      await MeetingRoomListRecord.collection
+                                          .doc()
+                                          .set({
                                         ...createMeetingRoomListRecordData(
                                           createDate: getCurrentTimestamp,
                                           createBy: currentUserReference,
@@ -956,10 +959,7 @@ class _AddMeetRoomInformationPageWidgetState
                                         ),
                                         'photo': FFAppState().imageUploadList,
                                         'tools': _model.choiceChipsValues,
-                                      };
-                                      await MeetingRoomListRecord.collection
-                                          .doc()
-                                          .set(meetingRoomListCreateData);
+                                      });
                                       setState(() {
                                         FFAppState().imageUploadList = [];
                                       });
