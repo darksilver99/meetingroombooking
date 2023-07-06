@@ -3,6 +3,7 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -832,20 +833,33 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                               ),
                                         ),
                                         TextSpan(
-                                          text: widget.bookingDetailParameter!
-                                                      .status ==
-                                                  0
-                                              ? 'รออนุมัติ'
-                                              : 'อนุมัติแล้ว',
+                                          text: valueOrDefault<String>(
+                                            functions.getMeetingStatusText(
+                                                widget.bookingDetailParameter!
+                                                    .status),
+                                            '-',
+                                          ),
                                           style: TextStyle(
-                                            color: widget
-                                                        .bookingDetailParameter!
-                                                        .status ==
-                                                    0
-                                                ? FlutterFlowTheme.of(context)
-                                                    .tertiary
-                                                : FlutterFlowTheme.of(context)
-                                                    .success,
+                                            color: () {
+                                              if (widget.bookingDetailParameter!
+                                                      .status ==
+                                                  0) {
+                                                return FlutterFlowTheme.of(
+                                                        context)
+                                                    .tertiary;
+                                              } else if (widget
+                                                      .bookingDetailParameter!
+                                                      .status ==
+                                                  3) {
+                                                return FlutterFlowTheme.of(
+                                                        context)
+                                                    .error;
+                                              } else {
+                                                return FlutterFlowTheme.of(
+                                                        context)
+                                                    .success;
+                                              }
+                                            }(),
                                             fontWeight: FontWeight.bold,
                                           ),
                                         )
@@ -856,63 +870,131 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 16.0, 0.0, 0.0),
-                                child: FFButtonWidget(
-                                  onPressed: () async {
-                                    await widget
-                                        .bookingDetailParameter!.reference
-                                        .update(createBookingListRecordData(
-                                      updateDate: getCurrentTimestamp,
-                                      updateBy: currentUserReference,
-                                      status: 1,
-                                      remarkOwner:
-                                          _model.usernameController7.text,
-                                    ));
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          'บันทึกข้อมูลเรียบร้อยแล้ว',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Kanit',
-                                                color: Colors.white,
-                                              ),
+                              if (widget.bookingDetailParameter!.status == 0)
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 16.0, 0.0, 0.0),
+                                  child: FFButtonWidget(
+                                    onPressed: () async {
+                                      await widget
+                                          .bookingDetailParameter!.reference
+                                          .update(createBookingListRecordData(
+                                        updateDate: getCurrentTimestamp,
+                                        updateBy: currentUserReference,
+                                        status: 1,
+                                        remarkOwner:
+                                            _model.usernameController7.text,
+                                      ));
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'อนุมัติการจองเรียบร้อยแล้ว',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Kanit',
+                                                  color: Colors.white,
+                                                ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 2000),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondary,
                                         ),
-                                        duration: Duration(milliseconds: 2000),
-                                        backgroundColor:
-                                            FlutterFlowTheme.of(context)
-                                                .secondary,
+                                      );
+                                      context.safePop();
+                                    },
+                                    text: 'อนุมัติการจอง',
+                                    options: FFButtonOptions(
+                                      width: double.infinity,
+                                      height: 40.0,
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 0.0),
+                                      iconPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 0.0, 0.0, 0.0),
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                            fontFamily: 'Kanit',
+                                            color: Colors.white,
+                                          ),
+                                      elevation: 3.0,
+                                      borderSide: BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1.0,
                                       ),
-                                    );
-                                    context.safePop();
-                                  },
-                                  text: 'บันทึกข้อมูล',
-                                  options: FFButtonOptions(
-                                    width: double.infinity,
-                                    height: 40.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .override(
-                                          fontFamily: 'Kanit',
-                                          color: Colors.white,
-                                        ),
-                                    elevation: 3.0,
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1.0,
+                                      borderRadius: BorderRadius.circular(8.0),
                                     ),
-                                    borderRadius: BorderRadius.circular(8.0),
                                   ),
                                 ),
-                              ),
+                              if ((widget.bookingDetailParameter!.status ==
+                                      0) ||
+                                  (widget.bookingDetailParameter!.status == 1))
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 16.0, 0.0, 0.0),
+                                  child: FFButtonWidget(
+                                    onPressed: () async {
+                                      await widget
+                                          .bookingDetailParameter!.reference
+                                          .update(createBookingListRecordData(
+                                        updateDate: getCurrentTimestamp,
+                                        updateBy: currentUserReference,
+                                        status: 3,
+                                        remarkOwner:
+                                            _model.usernameController7.text,
+                                      ));
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'ยกเลิกเรียบร้อยแล้ว',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Kanit',
+                                                  color: Colors.white,
+                                                ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 2000),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondary,
+                                        ),
+                                      );
+                                      context.safePop();
+                                    },
+                                    text: 'ยกเลิกการจอง',
+                                    options: FFButtonOptions(
+                                      width: double.infinity,
+                                      height: 40.0,
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 0.0),
+                                      iconPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 0.0, 0.0, 0.0),
+                                      color: FlutterFlowTheme.of(context).error,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                            fontFamily: 'Kanit',
+                                            color: Colors.white,
+                                          ),
+                                      elevation: 3.0,
+                                      borderSide: BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                  ),
+                                ),
                             ],
                           ),
                         ),
