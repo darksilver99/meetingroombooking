@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -86,7 +88,7 @@ class BookingListRecord extends FirestoreRecord {
     _updateBy = snapshotData['update_by'] as DocumentReference?;
     _deleteDate = snapshotData['delete_date'] as DateTime?;
     _deleteBy = snapshotData['delete_by'] as DocumentReference?;
-    _status = snapshotData['status'] as int?;
+    _status = castToType<int>(snapshotData['status']);
     _bookingDate = snapshotData['booking_date'] as DateTime?;
     _bookingStartTime = snapshotData['booking_start_time'] as String?;
     _bookingEndTime = snapshotData['booking_end_time'] as String?;
@@ -163,4 +165,45 @@ Map<String, dynamic> createBookingListRecordData({
   );
 
   return firestoreData;
+}
+
+class BookingListRecordDocumentEquality implements Equality<BookingListRecord> {
+  const BookingListRecordDocumentEquality();
+
+  @override
+  bool equals(BookingListRecord? e1, BookingListRecord? e2) {
+    return e1?.createDate == e2?.createDate &&
+        e1?.createBy == e2?.createBy &&
+        e1?.updateDate == e2?.updateDate &&
+        e1?.updateBy == e2?.updateBy &&
+        e1?.deleteDate == e2?.deleteDate &&
+        e1?.deleteBy == e2?.deleteBy &&
+        e1?.status == e2?.status &&
+        e1?.bookingDate == e2?.bookingDate &&
+        e1?.bookingStartTime == e2?.bookingStartTime &&
+        e1?.bookingEndTime == e2?.bookingEndTime &&
+        e1?.meetingRoomDoc == e2?.meetingRoomDoc &&
+        e1?.remarkUser == e2?.remarkUser &&
+        e1?.remarkOwner == e2?.remarkOwner;
+  }
+
+  @override
+  int hash(BookingListRecord? e) => const ListEquality().hash([
+        e?.createDate,
+        e?.createBy,
+        e?.updateDate,
+        e?.updateBy,
+        e?.deleteDate,
+        e?.deleteBy,
+        e?.status,
+        e?.bookingDate,
+        e?.bookingStartTime,
+        e?.bookingEndTime,
+        e?.meetingRoomDoc,
+        e?.remarkUser,
+        e?.remarkOwner
+      ]);
+
+  @override
+  bool isValidKey(Object? o) => o is BookingListRecord;
 }

@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -31,8 +33,8 @@ class TambonRecord extends FirestoreRecord {
 
   void _initializeFields() {
     _name = snapshotData['name'] as String?;
-    _amphureId = snapshotData['amphure_id'] as int?;
-    _id = snapshotData['id'] as int?;
+    _amphureId = castToType<int>(snapshotData['amphure_id']);
+    _id = castToType<int>(snapshotData['id']);
   }
 
   static CollectionReference get collection =>
@@ -82,4 +84,22 @@ Map<String, dynamic> createTambonRecordData({
   );
 
   return firestoreData;
+}
+
+class TambonRecordDocumentEquality implements Equality<TambonRecord> {
+  const TambonRecordDocumentEquality();
+
+  @override
+  bool equals(TambonRecord? e1, TambonRecord? e2) {
+    return e1?.name == e2?.name &&
+        e1?.amphureId == e2?.amphureId &&
+        e1?.id == e2?.id;
+  }
+
+  @override
+  int hash(TambonRecord? e) =>
+      const ListEquality().hash([e?.name, e?.amphureId, e?.id]);
+
+  @override
+  bool isValidKey(Object? o) => o is TambonRecord;
 }

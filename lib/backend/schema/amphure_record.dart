@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -31,8 +33,8 @@ class AmphureRecord extends FirestoreRecord {
 
   void _initializeFields() {
     _name = snapshotData['name'] as String?;
-    _provinceId = snapshotData['province_id'] as int?;
-    _id = snapshotData['id'] as int?;
+    _provinceId = castToType<int>(snapshotData['province_id']);
+    _id = castToType<int>(snapshotData['id']);
   }
 
   static CollectionReference get collection =>
@@ -83,4 +85,22 @@ Map<String, dynamic> createAmphureRecordData({
   );
 
   return firestoreData;
+}
+
+class AmphureRecordDocumentEquality implements Equality<AmphureRecord> {
+  const AmphureRecordDocumentEquality();
+
+  @override
+  bool equals(AmphureRecord? e1, AmphureRecord? e2) {
+    return e1?.name == e2?.name &&
+        e1?.provinceId == e2?.provinceId &&
+        e1?.id == e2?.id;
+  }
+
+  @override
+  int hash(AmphureRecord? e) =>
+      const ListEquality().hash([e?.name, e?.provinceId, e?.id]);
+
+  @override
+  bool isValidKey(Object? o) => o is AmphureRecord;
 }

@@ -129,8 +129,7 @@ class _FlutterFlowCalendarState extends State<FlutterFlowCalendar> {
             calendarFormat: calendarFormat,
             headerVisible: false,
             locale: widget.locale,
-            rowHeight:
-                widget.rowHeight ?? MediaQuery.of(context).size.width / 7,
+            rowHeight: widget.rowHeight ?? MediaQuery.sizeOf(context).width / 7,
             calendarStyle: CalendarStyle(
               defaultTextStyle:
                   widget.dateStyle ?? const TextStyle(color: Color(0xFF5A5A5A)),

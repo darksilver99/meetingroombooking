@@ -407,19 +407,20 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                       return;
                                     }
 
-                                    final usersCreateData =
-                                        createUsersRecordData(
-                                      email: _model.usernameController.text,
-                                      password: _model.passwordController.text,
-                                      fullname: _model.fullnameController.text,
-                                      status: 1,
-                                      createDate: getCurrentTimestamp,
-                                      phoneNumber: _model.phoneController.text,
-                                      createdTime: getCurrentTimestamp,
-                                    );
                                     await UsersRecord.collection
                                         .doc(user.uid)
-                                        .update(usersCreateData);
+                                        .update(createUsersRecordData(
+                                          email: _model.usernameController.text,
+                                          password:
+                                              _model.passwordController.text,
+                                          fullname:
+                                              _model.fullnameController.text,
+                                          status: 1,
+                                          createDate: getCurrentTimestamp,
+                                          phoneNumber:
+                                              _model.phoneController.text,
+                                          createdTime: getCurrentTimestamp,
+                                        ));
 
                                     context.goNamedAuth(
                                         'HomePage', context.mounted);

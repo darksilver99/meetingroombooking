@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -68,7 +70,7 @@ class UsersRecord extends FirestoreRecord {
     _email = snapshotData['email'] as String?;
     _password = snapshotData['password'] as String?;
     _fullname = snapshotData['fullname'] as String?;
-    _status = snapshotData['status'] as int?;
+    _status = castToType<int>(snapshotData['status']);
     _createDate = snapshotData['create_date'] as DateTime?;
     _photoUrl = snapshotData['photo_url'] as String?;
     _uid = snapshotData['uid'] as String?;
@@ -138,4 +140,39 @@ Map<String, dynamic> createUsersRecordData({
   );
 
   return firestoreData;
+}
+
+class UsersRecordDocumentEquality implements Equality<UsersRecord> {
+  const UsersRecordDocumentEquality();
+
+  @override
+  bool equals(UsersRecord? e1, UsersRecord? e2) {
+    return e1?.email == e2?.email &&
+        e1?.password == e2?.password &&
+        e1?.fullname == e2?.fullname &&
+        e1?.status == e2?.status &&
+        e1?.createDate == e2?.createDate &&
+        e1?.photoUrl == e2?.photoUrl &&
+        e1?.uid == e2?.uid &&
+        e1?.displayName == e2?.displayName &&
+        e1?.createdTime == e2?.createdTime &&
+        e1?.phoneNumber == e2?.phoneNumber;
+  }
+
+  @override
+  int hash(UsersRecord? e) => const ListEquality().hash([
+        e?.email,
+        e?.password,
+        e?.fullname,
+        e?.status,
+        e?.createDate,
+        e?.photoUrl,
+        e?.uid,
+        e?.displayName,
+        e?.createdTime,
+        e?.phoneNumber
+      ]);
+
+  @override
+  bool isValidKey(Object? o) => o is UsersRecord;
 }
