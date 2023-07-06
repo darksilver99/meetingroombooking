@@ -383,6 +383,9 @@ class _EditMeetRoomInformationPageWidgetState
                                                               .refFromURL(
                                                                   uploadImageListItem)
                                                               .delete();
+                                                          FFAppState()
+                                                              .removeFromImageUploadList(
+                                                                  uploadImageListItem);
 
                                                           await widget
                                                               .meetRoomParameter!
@@ -391,11 +394,7 @@ class _EditMeetRoomInformationPageWidgetState
                                                             'photo': FFAppState()
                                                                 .imageUploadList,
                                                           });
-                                                          setState(() {
-                                                            FFAppState()
-                                                                .removeFromImageUploadList(
-                                                                    uploadImageListItem);
-                                                          });
+                                                          setState(() {});
                                                         },
                                                         child: Icon(
                                                           Icons.cancel,
