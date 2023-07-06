@@ -148,9 +148,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => MeetSelectAreaPageWidget(),
         ),
         FFRoute(
-          name: 'MeetRoomListPage',
-          path: '/meetRoomListPage',
-          builder: (context, params) => MeetRoomListPageWidget(),
+          name: 'MeetRoomListProvincePage',
+          path: '/meetRoomListProvincePage',
+          builder: (context, params) => MeetRoomListProvincePageWidget(
+            province: params.getParam('province', ParamType.String),
+            amphur: params.getParam('amphur', ParamType.String),
+            tambon: params.getParam('tambon', ParamType.String),
+          ),
         ),
         FFRoute(
           name: 'BookingMeetPage',
@@ -186,6 +190,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             bookingDetailParameter:
                 params.getParam('bookingDetailParameter', ParamType.Document),
           ),
+        ),
+        FFRoute(
+          name: 'MeetRoomListAmphurPage',
+          path: '/meetRoomListAmphurPage',
+          builder: (context, params) => MeetRoomListAmphurPageWidget(),
+        ),
+        FFRoute(
+          name: 'MeetRoomListTambonPage',
+          path: '/meetRoomListTambonPage',
+          builder: (context, params) => MeetRoomListTambonPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

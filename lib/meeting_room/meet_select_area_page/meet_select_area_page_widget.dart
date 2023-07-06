@@ -1,9 +1,12 @@
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'meet_select_area_page_model.dart';
@@ -26,6 +29,15 @@ class _MeetSelectAreaPageWidgetState extends State<MeetSelectAreaPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => MeetSelectAreaPageModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      setState(() {
+        FFAppState().provinceSelected = 0;
+        FFAppState().amphureSelected = 0;
+        FFAppState().tambonSelected = 0;
+      });
+    });
   }
 
   @override
@@ -91,110 +103,281 @@ class _MeetSelectAreaPageWidgetState extends State<MeetSelectAreaPageWidget> {
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                FlutterFlowDropDown<String>(
-                                  controller:
-                                      _model.dropDownValueController1 ??=
-                                          FormFieldController<String>(null),
-                                  options: ['Option 1'],
-                                  onChanged: (val) => setState(
-                                      () => _model.dropDownValue1 = val),
-                                  width: double.infinity,
-                                  height: 65.0,
-                                  textStyle:
-                                      FlutterFlowTheme.of(context).bodyMedium,
-                                  hintText: 'เลือกจังหวัด',
-                                  icon: Icon(
-                                    Icons.keyboard_arrow_down_rounded,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                    size: 24.0,
-                                  ),
-                                  fillColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  elevation: 2.0,
-                                  borderColor:
-                                      FlutterFlowTheme.of(context).alternate,
-                                  borderWidth: 2.0,
-                                  borderRadius: 8.0,
-                                  margin: EdgeInsetsDirectional.fromSTEB(
-                                      16.0, 4.0, 16.0, 4.0),
-                                  hidesUnderline: true,
-                                  isSearchable: false,
-                                ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 16.0, 0.0, 0.0),
-                                  child: FlutterFlowDropDown<String>(
-                                    controller:
-                                        _model.dropDownValueController2 ??=
+                                      0.0, 8.0, 0.0, 0.0),
+                                  child: StreamBuilder<List<ProvinceRecord>>(
+                                    stream: queryProvinceRecord(),
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 50.0,
+                                            height: 50.0,
+                                            child: CircularProgressIndicator(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                      List<ProvinceRecord>
+                                          provinceProvinceRecordList =
+                                          snapshot.data!;
+                                      return FlutterFlowDropDown<String>(
+                                        controller: _model
+                                                .provinceValueController ??=
                                             FormFieldController<String>(null),
-                                    options: ['Option 1'],
-                                    onChanged: (val) => setState(
-                                        () => _model.dropDownValue2 = val),
-                                    width: double.infinity,
-                                    height: 65.0,
-                                    textStyle:
-                                        FlutterFlowTheme.of(context).bodyMedium,
-                                    hintText: 'เลือกอำเภอ',
-                                    icon: Icon(
-                                      Icons.keyboard_arrow_down_rounded,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      size: 24.0,
+                                        options: provinceProvinceRecordList
+                                            .map((e) => e.name)
+                                            .toList(),
+                                        onChanged: (val) async {
+                                          setState(
+                                              () => _model.provinceValue = val);
+                                          _model.provinceID =
+                                              await actions.getProvinceID(
+                                            _model.provinceValue,
+                                          );
+                                          setState(() {
+                                            FFAppState().provinceSelected =
+                                                _model.provinceID!;
+                                            FFAppState().amphureSelected = 0;
+                                          });
+
+                                          setState(() {});
+                                        },
+                                        width: double.infinity,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium,
+                                        hintText: 'เลือกจังหวัด',
+                                        icon: Icon(
+                                          Icons.keyboard_arrow_down_rounded,
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          size: 24.0,
+                                        ),
+                                        fillColor: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        elevation: 2.0,
+                                        borderColor:
+                                            FlutterFlowTheme.of(context)
+                                                .alternate,
+                                        borderWidth: 2.0,
+                                        borderRadius: 8.0,
+                                        margin: EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 4.0, 16.0, 4.0),
+                                        hidesUnderline: true,
+                                        isSearchable: false,
+                                      );
+                                    },
+                                  ),
+                                ),
+                                if (FFAppState().provinceSelected != 0)
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 8.0, 0.0, 0.0),
+                                    child: StreamBuilder<List<AmphureRecord>>(
+                                      stream: queryAmphureRecord(
+                                        queryBuilder: (amphureRecord) =>
+                                            amphureRecord.where('province_id',
+                                                isEqualTo: FFAppState()
+                                                    .provinceSelected),
+                                      ),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 50.0,
+                                              height: 50.0,
+                                              child: CircularProgressIndicator(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        List<AmphureRecord>
+                                            amphureAmphureRecordList =
+                                            snapshot.data!;
+                                        return FlutterFlowDropDown<String>(
+                                          controller: _model
+                                                  .amphureValueController ??=
+                                              FormFieldController<String>(null),
+                                          options: amphureAmphureRecordList
+                                              .map((e) => e.name)
+                                              .toList(),
+                                          onChanged: (val) async {
+                                            setState(() =>
+                                                _model.amphureValue = val);
+                                            _model.amphureID =
+                                                await actions.getAmphureID(
+                                              _model.amphureValue,
+                                            );
+                                            setState(() {
+                                              FFAppState().amphureSelected =
+                                                  _model.amphureID!;
+                                            });
+
+                                            setState(() {});
+                                          },
+                                          width: double.infinity,
+                                          textStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium,
+                                          hintText: 'เลือกอำเภอ',
+                                          icon: Icon(
+                                            Icons.keyboard_arrow_down_rounded,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            size: 24.0,
+                                          ),
+                                          fillColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondaryBackground,
+                                          elevation: 2.0,
+                                          borderColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .alternate,
+                                          borderWidth: 2.0,
+                                          borderRadius: 8.0,
+                                          margin:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  16.0, 4.0, 16.0, 4.0),
+                                          hidesUnderline: true,
+                                          isSearchable: false,
+                                        );
+                                      },
                                     ),
-                                    fillColor: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    elevation: 2.0,
-                                    borderColor:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    borderWidth: 2.0,
-                                    borderRadius: 8.0,
-                                    margin: EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 4.0, 16.0, 4.0),
-                                    hidesUnderline: true,
-                                    isSearchable: false,
+                                  ),
+                                if (FFAppState().amphureSelected != 0)
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 8.0, 0.0, 0.0),
+                                    child: StreamBuilder<List<TambonRecord>>(
+                                      stream: queryTambonRecord(
+                                        queryBuilder: (tambonRecord) =>
+                                            tambonRecord.where('amphure_id',
+                                                isEqualTo: FFAppState()
+                                                    .amphureSelected),
+                                      ),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 50.0,
+                                              height: 50.0,
+                                              child: CircularProgressIndicator(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        List<TambonRecord>
+                                            tambonTambonRecordList =
+                                            snapshot.data!;
+                                        return FlutterFlowDropDown<String>(
+                                          controller: _model
+                                                  .tambonValueController ??=
+                                              FormFieldController<String>(null),
+                                          options: tambonTambonRecordList
+                                              .map((e) => e.name)
+                                              .toList(),
+                                          onChanged: (val) => setState(
+                                              () => _model.tambonValue = val),
+                                          width: double.infinity,
+                                          textStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium,
+                                          hintText: 'เลือกตำบล',
+                                          icon: Icon(
+                                            Icons.keyboard_arrow_down_rounded,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            size: 24.0,
+                                          ),
+                                          fillColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondaryBackground,
+                                          elevation: 2.0,
+                                          borderColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .alternate,
+                                          borderWidth: 2.0,
+                                          borderRadius: 8.0,
+                                          margin:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  16.0, 4.0, 16.0, 4.0),
+                                          hidesUnderline: true,
+                                          isSearchable: false,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                Align(
+                                  alignment: AlignmentDirectional(1.0, 0.0),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 16.0, 0.0, 0.0),
+                                    child: Text(
+                                      '*ต้องเลือกจังหวัด',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium,
+                                    ),
                                   ),
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 16.0, 0.0, 0.0),
-                                  child: FlutterFlowDropDown<String>(
-                                    controller:
-                                        _model.dropDownValueController3 ??=
-                                            FormFieldController<String>(null),
-                                    options: ['Option 1'],
-                                    onChanged: (val) => setState(
-                                        () => _model.dropDownValue3 = val),
-                                    width: double.infinity,
-                                    height: 65.0,
-                                    textStyle:
-                                        FlutterFlowTheme.of(context).bodyMedium,
-                                    hintText: 'เลือกตำบล',
-                                    icon: Icon(
-                                      Icons.keyboard_arrow_down_rounded,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      size: 24.0,
-                                    ),
-                                    fillColor: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    elevation: 2.0,
-                                    borderColor:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    borderWidth: 2.0,
-                                    borderRadius: 8.0,
-                                    margin: EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 4.0, 16.0, 4.0),
-                                    hidesUnderline: true,
-                                    isSearchable: false,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 16.0, 0.0, 0.0),
+                                      0.0, 8.0, 0.0, 0.0),
                                   child: FFButtonWidget(
                                     onPressed: () async {
-                                      context.pushNamed('MeetRoomListPage');
+                                      if (_model.provinceValue != null &&
+                                          _model.provinceValue != '') {
+                                        context.pushNamed(
+                                          'MeetRoomListProvincePage',
+                                          queryParameters: {
+                                            'province': serializeParam(
+                                              _model.provinceValue,
+                                              ParamType.String,
+                                            ),
+                                            'amphur': serializeParam(
+                                              _model.amphureValue,
+                                              ParamType.String,
+                                            ),
+                                            'tambon': serializeParam(
+                                              _model.tambonValue,
+                                              ParamType.String,
+                                            ),
+                                          }.withoutNulls,
+                                        );
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'กรุณาเลือกจังหวัด',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Kanit',
+                                                        color: Colors.white,
+                                                      ),
+                                            ),
+                                            duration:
+                                                Duration(milliseconds: 2000),
+                                            backgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .error,
+                                          ),
+                                        );
+                                      }
                                     },
                                     text: 'ตกลง',
                                     options: FFButtonOptions(
