@@ -41,14 +41,11 @@ class _AddMeetRoomInformationPageWidgetState
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      currentUserLocationValue =
-          await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
       setState(() {
         FFAppState().provinceSelected = 0;
         FFAppState().amphureSelected = 0;
         FFAppState().imageUploadList = [];
         FFAppState().tambonSelected = 0;
-        FFAppState().locationSelected = currentUserLocationValue;
       });
     });
 
@@ -736,7 +733,14 @@ class _AddMeetRoomInformationPageWidgetState
                                     0.0, 8.0, 0.0, 0.0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
-                                    context.pushNamed('MapPickerPage');
+                                    currentUserLocationValue =
+                                        await getCurrentUserLocation(
+                                            defaultLocation: LatLng(0.0, 0.0));
+                                    FFAppState().locationSelected =
+                                        currentUserLocationValue;
+                                    if (FFAppState().locationSelected != null) {
+                                      context.pushNamed('MapPickerPage');
+                                    }
                                   },
                                   text: 'เลือกสถานที่ตั้งบนแผนที่',
                                   icon: Icon(
@@ -945,58 +949,83 @@ class _AddMeetRoomInformationPageWidgetState
                                       );
                                       return;
                                     }
-                                    if (FFAppState().imageUploadList.length >
-                                        0) {
-                                      await MeetingRoomListRecord.collection
-                                          .doc()
-                                          .set({
-                                        ...createMeetingRoomListRecordData(
-                                          createDate: getCurrentTimestamp,
-                                          createBy: currentUserReference,
-                                          status: 1,
-                                          name: _model.nameController.text,
-                                          detail: _model.detailController.text,
-                                          supportTotal: int.tryParse(_model
-                                              .supportTotalController.text),
-                                          province: _model.provinceValue,
-                                          amphur: _model.amphureValue,
-                                          tambon: _model.tambonValue,
-                                          updateDate: getCurrentTimestamp,
-                                          location:
-                                              FFAppState().locationSelected,
-                                        ),
-                                        'photo': FFAppState().imageUploadList,
-                                        'tools': _model.choiceChipsValues,
-                                      });
-                                      setState(() {
-                                        FFAppState().imageUploadList = [];
-                                      });
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'บันทึกข้อมูลเรียนร้อยแล้ว',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Kanit',
-                                                  color: Colors.white,
-                                                ),
+                                    if (FFAppState().locationSelected != null) {
+                                      if (FFAppState().imageUploadList.length >
+                                          0) {
+                                        await MeetingRoomListRecord.collection
+                                            .doc()
+                                            .set({
+                                          ...createMeetingRoomListRecordData(
+                                            createDate: getCurrentTimestamp,
+                                            createBy: currentUserReference,
+                                            status: 1,
+                                            name: _model.nameController.text,
+                                            detail:
+                                                _model.detailController.text,
+                                            supportTotal: int.tryParse(_model
+                                                .supportTotalController.text),
+                                            province: _model.provinceValue,
+                                            amphur: _model.amphureValue,
+                                            tambon: _model.tambonValue,
+                                            updateDate: getCurrentTimestamp,
+                                            location:
+                                                FFAppState().locationSelected,
                                           ),
-                                          duration:
-                                              Duration(milliseconds: 2000),
-                                          backgroundColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .secondary,
-                                        ),
-                                      );
-                                      context.safePop();
+                                          'photo': FFAppState().imageUploadList,
+                                          'tools': _model.choiceChipsValues,
+                                        });
+                                        setState(() {
+                                          FFAppState().imageUploadList = [];
+                                        });
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'บันทึกข้อมูลเรียนร้อยแล้ว',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Kanit',
+                                                        color: Colors.white,
+                                                      ),
+                                            ),
+                                            duration:
+                                                Duration(milliseconds: 2000),
+                                            backgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondary,
+                                          ),
+                                        );
+                                        context.safePop();
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'กรุณาอัพโหลดรูปภาพ',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Kanit',
+                                                        color: Colors.white,
+                                                      ),
+                                            ),
+                                            duration:
+                                                Duration(milliseconds: 2000),
+                                            backgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .error,
+                                          ),
+                                        );
+                                      }
                                     } else {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         SnackBar(
                                           content: Text(
-                                            'กรุณาอัพโหลดรูปภาพ',
+                                            'กรุณาเลือกสถานที่ตั้งบนแผนที่',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
