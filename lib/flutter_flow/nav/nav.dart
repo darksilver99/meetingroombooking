@@ -138,9 +138,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => MeetManagePageWidget(),
         ),
         FFRoute(
-          name: 'MeetComingPage',
-          path: '/meetComingPage',
-          builder: (context, params) => MeetComingPageWidget(),
+          name: 'BookingComingListPage',
+          path: '/bookingComingListPage',
+          builder: (context, params) => BookingComingListPageWidget(),
         ),
         FFRoute(
           name: 'MeetSelectAreaPage',
@@ -160,7 +160,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'AddBookingPage',
           path: '/addBookingPage',
-          builder: (context, params) => AddBookingPageWidget(),
+          builder: (context, params) => AddBookingPageWidget(
+            dateSeleceteParameter:
+                params.getParam('dateSeleceteParameter', ParamType.DateTime),
+          ),
         ),
         FFRoute(
           name: 'BookingManagePage',
@@ -175,7 +178,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'BookingDetailPage',
           path: '/bookingDetailPage',
-          builder: (context, params) => BookingDetailPageWidget(),
+          asyncParams: {
+            'bookingDetailParameter':
+                getDoc(['booking_list'], BookingListRecord.fromSnapshot),
+          },
+          builder: (context, params) => BookingDetailPageWidget(
+            bookingDetailParameter:
+                params.getParam('bookingDetailParameter', ParamType.Document),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

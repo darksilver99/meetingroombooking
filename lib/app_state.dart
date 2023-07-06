@@ -61,6 +61,18 @@ class FFAppState extends ChangeNotifier {
   ) {
     _imageUploadList[_index] = updateFn(_imageUploadList[_index]);
   }
+
+  DocumentReference? _meetingRoomSelectedRef;
+  DocumentReference? get meetingRoomSelectedRef => _meetingRoomSelectedRef;
+  set meetingRoomSelectedRef(DocumentReference? _value) {
+    _meetingRoomSelectedRef = _value;
+  }
+
+  DocumentReference? _onwerRoomSelectedRef;
+  DocumentReference? get onwerRoomSelectedRef => _onwerRoomSelectedRef;
+  set onwerRoomSelectedRef(DocumentReference? _value) {
+    _onwerRoomSelectedRef = _value;
+  }
 }
 
 LatLng? _latLngFromString(String? val) {

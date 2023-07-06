@@ -137,7 +137,7 @@ class _MeetManagePageWidgetState extends State<MeetManagePageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed('MeetComingPage');
+                        context.pushNamed('BookingComingListPage');
                       },
                       child: Material(
                         color: Colors.transparent,
