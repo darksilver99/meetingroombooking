@@ -49,12 +49,23 @@ class _EditMeetRoomInformationPageWidgetState
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       currentUserLocationValue =
           await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
+      _model.currentProvinceID = await actions.getProvinceID(
+        widget.meetRoomParameter!.province,
+      );
+      _model.currentAmphurID = await actions.getAmphureID(
+        widget.meetRoomParameter!.amphur,
+        _model.currentProvinceID,
+      );
+      _model.currentTambonID = await actions.getTambonID(
+        widget.meetRoomParameter!.tambon,
+        _model.currentAmphurID,
+      );
       setState(() {
-        FFAppState().provinceSelected = 0;
-        FFAppState().amphureSelected = 0;
+        FFAppState().provinceSelected = _model.currentProvinceID!;
+        FFAppState().amphureSelected = _model.currentAmphurID!;
         FFAppState().imageUploadList =
             widget.meetRoomParameter!.photo.toList().cast<String>();
-        FFAppState().tambonSelected = 0;
+        FFAppState().tambonSelected = _model.currentTambonID!;
         FFAppState().locationSelected =
             widget.meetRoomParameter?.hasLocation() == true
                 ? widget.meetRoomParameter!.location
@@ -660,6 +671,7 @@ class _EditMeetRoomInformationPageWidgetState
                                           _model.amphureID =
                                               await actions.getAmphureID(
                                             _model.amphureValue,
+                                            FFAppState().provinceSelected,
                                           );
                                           setState(() {
                                             FFAppState().amphureSelected =

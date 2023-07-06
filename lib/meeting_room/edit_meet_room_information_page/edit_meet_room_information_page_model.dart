@@ -23,6 +23,12 @@ class EditMeetRoomInformationPageModel extends FlutterFlowModel {
 
   final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
+  // Stores action output result for [Custom Action - getProvinceID] action in EditMeetRoomInformationPage widget.
+  int? currentProvinceID;
+  // Stores action output result for [Custom Action - getAmphureID] action in EditMeetRoomInformationPage widget.
+  int? currentAmphurID;
+  // Stores action output result for [Custom Action - getTambonID] action in EditMeetRoomInformationPage widget.
+  int? currentTambonID;
   // State field(s) for name widget.
   TextEditingController? nameController;
   String? Function(BuildContext, String?)? nameControllerValidator;
