@@ -326,7 +326,12 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                   decoration: InputDecoration(
                                     labelText: 'วันที่จอง',
                                     labelStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                        ),
                                     hintStyle: FlutterFlowTheme.of(context)
                                         .labelMedium,
                                     enabledBorder: OutlineInputBorder(
@@ -363,7 +368,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                     ),
                                     filled: true,
                                     fillColor:
-                                        FlutterFlowTheme.of(context).line,
+                                        FlutterFlowTheme.of(context).alternate,
                                   ),
                                   style:
                                       FlutterFlowTheme.of(context).bodyMedium,
@@ -418,7 +423,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                     ),
                                     filled: true,
                                     fillColor:
-                                        FlutterFlowTheme.of(context).line,
+                                        FlutterFlowTheme.of(context).alternate,
                                   ),
                                   style:
                                       FlutterFlowTheme.of(context).bodyMedium,
@@ -473,7 +478,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                     ),
                                     filled: true,
                                     fillColor:
-                                        FlutterFlowTheme.of(context).line,
+                                        FlutterFlowTheme.of(context).alternate,
                                   ),
                                   style:
                                       FlutterFlowTheme.of(context).bodyMedium,
@@ -528,7 +533,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                     ),
                                     filled: true,
                                     fillColor:
-                                        FlutterFlowTheme.of(context).line,
+                                        FlutterFlowTheme.of(context).alternate,
                                   ),
                                   style:
                                       FlutterFlowTheme.of(context).bodyMedium,
@@ -625,7 +630,8 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                           ),
                                           filled: true,
                                           fillColor:
-                                              FlutterFlowTheme.of(context).line,
+                                              FlutterFlowTheme.of(context)
+                                                  .alternate,
                                         ),
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium,
@@ -696,7 +702,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                             filled: true,
                                             fillColor:
                                                 FlutterFlowTheme.of(context)
-                                                    .line,
+                                                    .alternate,
                                           ),
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium,

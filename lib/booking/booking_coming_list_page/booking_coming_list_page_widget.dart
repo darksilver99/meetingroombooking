@@ -223,11 +223,15 @@ class _BookingComingListPageWidgetState
                                                         ),
                                                       ),
                                                       Text(
-                                                        listViewBookingListRecord
-                                                                    .status ==
-                                                                0
-                                                            ? 'รออนุมัติ'
-                                                            : 'อนุมัติแล้ว',
+                                                        FFAppState()
+                                                            .bookingStatus
+                                                            .where((e) =>
+                                                                e ==
+                                                                listViewBookingListRecord
+                                                                    .status)
+                                                            .toList()
+                                                            .first
+                                                            .toString(),
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
