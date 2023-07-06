@@ -879,7 +879,8 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                   ),
                                 ),
                               ),
-                              if ((widget.bookingDetailParameter!.status < 2) &&
+                              if ((widget.bookingDetailParameter!.status !=
+                                      2) &&
                                   (widget.bookingDetailParameter!.ownerRef !=
                                       currentUserReference))
                                 Padding(
