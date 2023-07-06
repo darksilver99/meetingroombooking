@@ -13,7 +13,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '/auth/firebase_auth/auth_util.dart';
 
 String? getMeetingStatusText(int? status) {
-  List<Map<String, dynamic>> resultList = FFAppState()
+  List resultList = FFAppState()
       .bookingStatus
       .where((map) => map.containsValue(status))
       .toList();
