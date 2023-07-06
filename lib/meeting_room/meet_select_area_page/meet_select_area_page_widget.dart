@@ -216,6 +216,7 @@ class _MeetSelectAreaPageWidgetState extends State<MeetSelectAreaPageWidget> {
                                             _model.amphureID =
                                                 await actions.getAmphureID(
                                               _model.amphureValue,
+                                              FFAppState().provinceSelected,
                                             );
                                             setState(() {
                                               FFAppState().amphureSelected =

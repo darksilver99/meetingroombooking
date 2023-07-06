@@ -8,15 +8,15 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-Future<int> getAmphureID(
-  String? amphure,
-  int? provinceID,
+Future<int> getTambonID(
+  String? tambon,
+  int? amphurID,
 ) async {
   // Add your function code here!
   var rs = await FirebaseFirestore.instance
-      .collection("amphure")
-      .where("name", isEqualTo: amphure)
-      .where("province_id", isEqualTo: provinceID)
+      .collection("tambon")
+      .where("name", isEqualTo: tambon)
+      .where("amphure_id", isEqualTo: amphurID)
       .get();
   return rs.docs[0].data()["id"];
 }
