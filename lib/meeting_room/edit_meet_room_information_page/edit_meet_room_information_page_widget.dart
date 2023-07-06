@@ -47,12 +47,18 @@ class _EditMeetRoomInformationPageWidgetState
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      currentUserLocationValue =
+          await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
       setState(() {
         FFAppState().provinceSelected = 0;
         FFAppState().amphureSelected = 0;
         FFAppState().imageUploadList =
             widget.meetRoomParameter!.photo.toList().cast<String>();
         FFAppState().tambonSelected = 0;
+        FFAppState().locationSelected =
+            widget.meetRoomParameter?.hasLocation() == true
+                ? widget.meetRoomParameter!.location
+                : currentUserLocationValue;
       });
     });
 
