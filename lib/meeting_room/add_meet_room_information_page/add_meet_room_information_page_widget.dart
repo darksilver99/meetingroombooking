@@ -740,15 +740,7 @@ class _AddMeetRoomInformationPageWidgetState
                                     await requestPermission(locationPermission);
                                     if (await getPermissionStatus(
                                         locationPermission)) {
-                                      context.pushNamed(
-                                        'MapPickerPage',
-                                        queryParameters: {
-                                          'currentLocation': serializeParam(
-                                            currentUserLocationValue,
-                                            ParamType.LatLng,
-                                          ),
-                                        }.withoutNulls,
-                                      );
+                                      context.pushNamed('MapPickerPage');
                                     } else {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
