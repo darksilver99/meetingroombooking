@@ -44,7 +44,6 @@ class _NoDataWidgetState extends State<NoDataWidget> {
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(),
-        alignment: AlignmentDirectional(0.0, 0.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
