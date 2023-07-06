@@ -310,7 +310,7 @@ class _AddBookingPageWidgetState extends State<AddBookingPageWidget> {
                                           title: Text(
                                               'จองห้องประชุมเรียบร้อยแล้ว'),
                                           content: Text(
-                                              'ตรวจสอบรายการของของคุณโดยเลือกเมนู \"ต้องการหาห้องประชุม ?\" จากนั้นเลือก \"รายการจองของคุณ\"'),
+                                              'ตรวจสอบรายการของของคุณโดยเลือกเมนู \"ต้องการหาห้องประชุม ?\" จากนั้นเลือก \"รายการจองของฉัน\"'),
                                           actions: [
                                             TextButton(
                                               onPressed: () => Navigator.pop(
