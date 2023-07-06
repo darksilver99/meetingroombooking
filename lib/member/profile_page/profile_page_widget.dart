@@ -27,8 +27,8 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
     super.initState();
     _model = createModel(context, () => ProfilePageModel());
 
-    _model.fullnameController1 ??=
-        TextEditingController(text: currentUserDisplayName);
+    _model.fullnameController1 ??= TextEditingController(
+        text: valueOrDefault(currentUserDocument?.fullname, ''));
     _model.fullnameController2 ??=
         TextEditingController(text: currentPhoneNumber);
     _model.fullnameController3 ??=

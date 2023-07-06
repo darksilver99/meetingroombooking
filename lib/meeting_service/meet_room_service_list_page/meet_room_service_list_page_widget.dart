@@ -153,7 +153,10 @@ class _MeetRoomServiceListPageWidgetState
                       ),
                     ),
                   ),
-                  noItemsFoundIndicatorBuilder: (_) => NoDataWidget(),
+                  noItemsFoundIndicatorBuilder: (_) => Container(
+                    height: MediaQuery.sizeOf(context).height * 0.9,
+                    child: NoDataWidget(),
+                  ),
                   itemBuilder: (context, _, listViewIndex) {
                     final listViewMeetingRoomListRecord =
                         _model.pagingController!.itemList![listViewIndex];
