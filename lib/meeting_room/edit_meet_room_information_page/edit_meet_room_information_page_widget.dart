@@ -371,6 +371,14 @@ class _EditMeetRoomInformationPageWidgetState
                                                                 .removeFromImageUploadList(
                                                                     uploadImageListItem);
                                                           });
+
+                                                          await widget
+                                                              .meetRoomParameter!
+                                                              .reference
+                                                              .update({
+                                                            'photo': FFAppState()
+                                                                .imageUploadList,
+                                                          });
                                                         },
                                                         child: Icon(
                                                           Icons.cancel,
@@ -763,8 +771,8 @@ class _EditMeetRoomInformationPageWidgetState
                                         queryParameters: {
                                           'currentLocation': serializeParam(
                                             widget.meetRoomParameter
-                                                        ?.hasLocation() !=
-                                                    null
+                                                        ?.hasLocation() ==
+                                                    true
                                                 ? widget
                                                     .meetRoomParameter!.location
                                                 : currentUserLocationValue,
