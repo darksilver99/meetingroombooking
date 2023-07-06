@@ -1,3 +1,5 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
@@ -137,32 +139,111 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         .secondaryBackground,
                                     borderRadius: BorderRadius.circular(16.0),
                                   ),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        8.0, 8.0, 8.0, 8.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.business,
-                                          color: FlutterFlowTheme.of(context)
-                                              .accent1,
-                                          size: 64.0,
-                                        ),
-                                        Text(
-                                          'จัดการห้องประชุม',
-                                          textAlign: TextAlign.center,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Kanit',
-                                                fontSize: 22.0,
-                                              ),
-                                        ),
-                                      ],
+                                  child: FutureBuilder<int>(
+                                    future: queryBookingListRecordCount(
+                                      queryBuilder: (bookingListRecord) =>
+                                          bookingListRecord
+                                              .where('status',
+                                                  isEqualTo:
+                                                      valueOrDefault<int>(
+                                                    null,
+                                                    0,
+                                                  ))
+                                              .where('owner_ref',
+                                                  isEqualTo:
+                                                      currentUserReference),
                                     ),
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 50.0,
+                                            height: 50.0,
+                                            child: CircularProgressIndicator(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                      int stackCount = snapshot.data!;
+                                      return Stack(
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    8.0, 8.0, 8.0, 8.0),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.business,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .accent1,
+                                                  size: 64.0,
+                                                ),
+                                                Text(
+                                                  'จัดการห้องประชุม',
+                                                  textAlign: TextAlign.center,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Kanit',
+                                                        fontSize: 22.0,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          if (stackCount > 0)
+                                            Align(
+                                              alignment: AlignmentDirectional(
+                                                  1.0, -1.0),
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 8.0, 8.0, 0.0),
+                                                child: Container(
+                                                  width: 32.0,
+                                                  height: 32.0,
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .error,
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                  child: Align(
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                            0.0, 0.0),
+                                                    child: Text(
+                                                      rowCount.toString(),
+                                                      maxLines: 1,
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Kanit',
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondaryBackground,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                        ],
+                                      );
+                                    },
                                   ),
                                 ),
                               ),
