@@ -598,14 +598,10 @@ class _EditMeetRoomInformationPageWidgetState
                                           FFAppState().amphureSelected = 0;
                                           FFAppState().tambonSelected = 0;
                                         });
-                                        setState(() {
-                                          _model.amphureValueController?.value =
-                                              null!;
-                                        });
-                                        setState(() {
-                                          _model.tambonValueController?.value =
-                                              null!;
-                                        });
+                                        FFAppState().provinceSelectedValue =
+                                            _model.provinceValue!;
+                                        FFAppState().amphurSelectedValue = '';
+                                        FFAppState().tambonSelectedValue = '';
 
                                         setState(() {});
                                       },
@@ -686,10 +682,9 @@ class _EditMeetRoomInformationPageWidgetState
                                                 _model.amphureID!;
                                             FFAppState().tambonSelected = 0;
                                           });
-                                          setState(() {
-                                            _model.tambonValueController
-                                                ?.value = null!;
-                                          });
+                                          FFAppState().amphurSelectedValue =
+                                              _model.amphureValue!;
+                                          FFAppState().tambonSelectedValue = '';
 
                                           setState(() {});
                                         },
@@ -758,8 +753,12 @@ class _EditMeetRoomInformationPageWidgetState
                                         options: tambonTambonRecordList
                                             .map((e) => e.name)
                                             .toList(),
-                                        onChanged: (val) => setState(
-                                            () => _model.tambonValue = val),
+                                        onChanged: (val) async {
+                                          setState(
+                                              () => _model.tambonValue = val);
+                                          FFAppState().tambonSelectedValue =
+                                              _model.tambonValue!;
+                                        },
                                         width: double.infinity,
                                         textStyle: FlutterFlowTheme.of(context)
                                             .bodyMedium,
@@ -974,120 +973,156 @@ class _EditMeetRoomInformationPageWidgetState
                                             .validate()) {
                                       return;
                                     }
-                                    if (_model.provinceValue == null) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'กรุณาเลือกจังหวัด',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Kanit',
-                                                  color: Colors.white,
-                                                ),
-                                          ),
-                                          duration:
-                                              Duration(milliseconds: 2000),
-                                          backgroundColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .error,
-                                        ),
-                                      );
-                                      return;
-                                    }
-                                    if (_model.amphureValue == null) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'กรุณาเลือกอำเภอ',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Kanit',
-                                                  color: Colors.white,
-                                                ),
-                                          ),
-                                          duration:
-                                              Duration(milliseconds: 2000),
-                                          backgroundColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .error,
-                                        ),
-                                      );
-                                      return;
-                                    }
-                                    if (_model.tambonValue == null) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'กรุณาเลือกตำบล',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Kanit',
-                                                  color: Colors.white,
-                                                ),
-                                          ),
-                                          duration:
-                                              Duration(milliseconds: 2000),
-                                          backgroundColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .error,
-                                        ),
-                                      );
-                                      return;
-                                    }
                                     if (FFAppState().locationSelected != null) {
                                       if (FFAppState().imageUploadList.length >
                                           0) {
-                                        await widget
-                                            .meetRoomParameter!.reference
-                                            .update({
-                                          ...createMeetingRoomListRecordData(
-                                            updateDate: getCurrentTimestamp,
-                                            updateBy: currentUserReference,
-                                            name: _model.nameController.text,
-                                            detail:
-                                                _model.detailController.text,
-                                            supportTotal: int.tryParse(_model
-                                                .supportTotalController.text),
-                                            province: _model.provinceValue,
-                                            amphur: _model.amphureValue,
-                                            tambon: _model.tambonValue,
-                                            location:
-                                                FFAppState().locationSelected,
-                                          ),
-                                          'tools': _model.choiceChipsValues,
-                                          'photo': FFAppState().imageUploadList,
-                                        });
-                                        setState(() {
-                                          FFAppState().imageUploadList = [];
-                                          FFAppState().locationSelected = null;
-                                        });
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                              'บันทึกข้อมูลเรียนร้อยแล้ว',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
+                                        if (FFAppState()
+                                                    .provinceSelectedValue !=
+                                                null &&
+                                            FFAppState()
+                                                    .provinceSelectedValue !=
+                                                '') {
+                                          if (FFAppState()
+                                                      .amphurSelectedValue !=
+                                                  null &&
+                                              FFAppState()
+                                                      .amphurSelectedValue !=
+                                                  '') {
+                                            if (FFAppState()
+                                                        .tambonSelectedValue !=
+                                                    null &&
+                                                FFAppState()
+                                                        .tambonSelectedValue !=
+                                                    '') {
+                                              await widget
+                                                  .meetRoomParameter!.reference
+                                                  .update({
+                                                ...createMeetingRoomListRecordData(
+                                                  updateDate:
+                                                      getCurrentTimestamp,
+                                                  updateBy:
+                                                      currentUserReference,
+                                                  name: _model
+                                                      .nameController.text,
+                                                  detail: _model
+                                                      .detailController.text,
+                                                  supportTotal: int.tryParse(
+                                                      _model
+                                                          .supportTotalController
+                                                          .text),
+                                                  province:
+                                                      _model.provinceValue,
+                                                  amphur: _model.amphureValue,
+                                                  tambon: _model.tambonValue,
+                                                  location: FFAppState()
+                                                      .locationSelected,
+                                                ),
+                                                'tools':
+                                                    _model.choiceChipsValues,
+                                                'photo': FFAppState()
+                                                    .imageUploadList,
+                                              });
+                                              FFAppState().imageUploadList = [];
+                                              FFAppState().locationSelected =
+                                                  null;
+                                              FFAppState().provinceSelected = 0;
+                                              FFAppState().amphureSelected = 0;
+                                              FFAppState().tambonSelected = 0;
+                                              FFAppState()
+                                                  .provinceSelectedValue = '';
+                                              FFAppState().amphurSelectedValue =
+                                                  '';
+                                              FFAppState().tambonSelectedValue =
+                                                  '';
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                    'บันทึกข้อมูลเรียนร้อยแล้ว',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Kanit',
+                                                          color: Colors.white,
+                                                        ),
+                                                  ),
+                                                  duration: Duration(
+                                                      milliseconds: 2000),
+                                                  backgroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .secondary,
+                                                ),
+                                              );
+                                              context.safePop();
+                                            } else {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                    'กรุณาเลือกตำบล',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Kanit',
+                                                          color: Colors.white,
+                                                        ),
+                                                  ),
+                                                  duration: Duration(
+                                                      milliseconds: 2000),
+                                                  backgroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .error,
+                                                ),
+                                              );
+                                            }
+                                          } else {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  'กรุณาเลือกอำเภอ',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .bodyMedium
                                                       .override(
                                                         fontFamily: 'Kanit',
                                                         color: Colors.white,
                                                       ),
+                                                ),
+                                                duration: Duration(
+                                                    milliseconds: 2000),
+                                                backgroundColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                              ),
+                                            );
+                                          }
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                'กรุณาเลือกจังหวัด',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Kanit',
+                                                          color: Colors.white,
+                                                        ),
+                                              ),
+                                              duration:
+                                                  Duration(milliseconds: 2000),
+                                              backgroundColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .error,
                                             ),
-                                            duration:
-                                                Duration(milliseconds: 2000),
-                                            backgroundColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondary,
-                                          ),
-                                        );
-                                        context.safePop();
+                                          );
+                                        }
                                       } else {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
