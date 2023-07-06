@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'profile_page_model.dart';
@@ -27,6 +28,11 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ProfilePageModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      FFAppState().userRefBeforDelete = null;
+    });
 
     _model.fullnameController1 ??= TextEditingController(
         text: valueOrDefault(currentUserDocument?.fullname, ''));
@@ -284,13 +290,16 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                             ) ??
                                             false;
                                     if (confirmDialogResponse) {
+                                      FFAppState().userRefBeforDelete =
+                                          currentUserReference;
                                       await authManager.deleteUser(context);
                                       if (loggedIn == false) {
-                                        await currentUserReference!
+                                        await FFAppState()
+                                            .userRefBeforDelete!
                                             .update(createUsersRecordData(
-                                          status: 2,
-                                          deleteDate: getCurrentTimestamp,
-                                        ));
+                                              status: 2,
+                                              deleteDate: getCurrentTimestamp,
+                                            ));
 
                                         context.goNamed('LoginPage');
                                       }
