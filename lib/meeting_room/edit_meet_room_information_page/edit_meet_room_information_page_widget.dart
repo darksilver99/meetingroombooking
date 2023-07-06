@@ -17,20 +17,25 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'add_meet_room_information_page_model.dart';
-export 'add_meet_room_information_page_model.dart';
+import 'edit_meet_room_information_page_model.dart';
+export 'edit_meet_room_information_page_model.dart';
 
-class AddMeetRoomInformationPageWidget extends StatefulWidget {
-  const AddMeetRoomInformationPageWidget({Key? key}) : super(key: key);
+class EditMeetRoomInformationPageWidget extends StatefulWidget {
+  const EditMeetRoomInformationPageWidget({
+    Key? key,
+    required this.meetRoomParameter,
+  }) : super(key: key);
+
+  final MeetingRoomListRecord? meetRoomParameter;
 
   @override
-  _AddMeetRoomInformationPageWidgetState createState() =>
-      _AddMeetRoomInformationPageWidgetState();
+  _EditMeetRoomInformationPageWidgetState createState() =>
+      _EditMeetRoomInformationPageWidgetState();
 }
 
-class _AddMeetRoomInformationPageWidgetState
-    extends State<AddMeetRoomInformationPageWidget> {
-  late AddMeetRoomInformationPageModel _model;
+class _EditMeetRoomInformationPageWidgetState
+    extends State<EditMeetRoomInformationPageWidget> {
+  late EditMeetRoomInformationPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   LatLng? currentUserLocationValue;
@@ -38,21 +43,25 @@ class _AddMeetRoomInformationPageWidgetState
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => AddMeetRoomInformationPageModel());
+    _model = createModel(context, () => EditMeetRoomInformationPageModel());
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       setState(() {
         FFAppState().provinceSelected = 0;
         FFAppState().amphureSelected = 0;
-        FFAppState().imageUploadList = [];
+        FFAppState().imageUploadList =
+            widget.meetRoomParameter!.photo.toList().cast<String>();
         FFAppState().tambonSelected = 0;
       });
     });
 
-    _model.nameController ??= TextEditingController();
-    _model.supportTotalController ??= TextEditingController();
-    _model.detailController ??= TextEditingController();
+    _model.nameController ??=
+        TextEditingController(text: widget.meetRoomParameter!.name);
+    _model.supportTotalController ??= TextEditingController(
+        text: widget.meetRoomParameter!.supportTotal.toString());
+    _model.detailController ??=
+        TextEditingController(text: widget.meetRoomParameter!.detail);
   }
 
   @override
@@ -75,7 +84,7 @@ class _AddMeetRoomInformationPageWidgetState
           backgroundColor: FlutterFlowTheme.of(context).secondary,
           automaticallyImplyLeading: true,
           title: Text(
-            'เพิ่มห้องประชุม',
+            'แก้ไขห้องประชุม',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Kanit',
                   color: Colors.white,
@@ -545,7 +554,10 @@ class _AddMeetRoomInformationPageWidgetState
                                     return FlutterFlowDropDown<String>(
                                       controller:
                                           _model.provinceValueController ??=
-                                              FormFieldController<String>(null),
+                                              FormFieldController<String>(
+                                        _model.provinceValue ??=
+                                            widget.meetRoomParameter!.province,
+                                      ),
                                       options: provinceProvinceRecordList
                                           .map((e) => e.name)
                                           .toList(),
@@ -619,9 +631,12 @@ class _AddMeetRoomInformationPageWidgetState
                                           amphureAmphureRecordList =
                                           snapshot.data!;
                                       return FlutterFlowDropDown<String>(
-                                        controller: _model
-                                                .amphureValueController ??=
-                                            FormFieldController<String>(null),
+                                        controller:
+                                            _model.amphureValueController ??=
+                                                FormFieldController<String>(
+                                          _model.amphureValue ??=
+                                              widget.meetRoomParameter!.amphur,
+                                        ),
                                         options: amphureAmphureRecordList
                                             .map((e) => e.name)
                                             .toList(),
@@ -695,9 +710,12 @@ class _AddMeetRoomInformationPageWidgetState
                                           tambonTambonRecordList =
                                           snapshot.data!;
                                       return FlutterFlowDropDown<String>(
-                                        controller: _model
-                                                .tambonValueController ??=
-                                            FormFieldController<String>(null),
+                                        controller:
+                                            _model.tambonValueController ??=
+                                                FormFieldController<String>(
+                                          _model.tambonValue ??=
+                                              widget.meetRoomParameter!.tambon,
+                                        ),
                                         options: tambonTambonRecordList
                                             .map((e) => e.name)
                                             .toList(),
@@ -744,7 +762,12 @@ class _AddMeetRoomInformationPageWidgetState
                                         'MapPickerPage',
                                         queryParameters: {
                                           'currentLocation': serializeParam(
-                                            currentUserLocationValue,
+                                            widget.meetRoomParameter
+                                                        ?.hasLocation() !=
+                                                    null
+                                                ? widget
+                                                    .meetRoomParameter!.location
+                                                : currentUserLocationValue,
                                             ParamType.LatLng,
                                           ),
                                         }.withoutNulls,
@@ -896,7 +919,7 @@ class _AddMeetRoomInformationPageWidgetState
                                       controller:
                                           _model.choiceChipsValueController ??=
                                               FormFieldController<List<String>>(
-                                        [],
+                                        widget.meetRoomParameter!.tools,
                                       ),
                                     );
                                   },
@@ -912,82 +935,15 @@ class _AddMeetRoomInformationPageWidgetState
                                             .validate()) {
                                       return;
                                     }
-                                    if (_model.provinceValue == null) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'กรุณาเลือกจังหวัด',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Kanit',
-                                                  color: Colors.white,
-                                                ),
-                                          ),
-                                          duration:
-                                              Duration(milliseconds: 2000),
-                                          backgroundColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .error,
-                                        ),
-                                      );
-                                      return;
-                                    }
-                                    if (_model.amphureValue == null) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'กรุณาเลือกอำเภอ',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Kanit',
-                                                  color: Colors.white,
-                                                ),
-                                          ),
-                                          duration:
-                                              Duration(milliseconds: 2000),
-                                          backgroundColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .error,
-                                        ),
-                                      );
-                                      return;
-                                    }
-                                    if (_model.tambonValue == null) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'กรุณาเลือกตำบล',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Kanit',
-                                                  color: Colors.white,
-                                                ),
-                                          ),
-                                          duration:
-                                              Duration(milliseconds: 2000),
-                                          backgroundColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .error,
-                                        ),
-                                      );
-                                      return;
-                                    }
                                     if (FFAppState().locationSelected != null) {
                                       if (FFAppState().imageUploadList.length >
                                           0) {
-                                        await MeetingRoomListRecord.collection
-                                            .doc()
-                                            .set({
+                                        await widget
+                                            .meetRoomParameter!.reference
+                                            .update({
                                           ...createMeetingRoomListRecordData(
-                                            createDate: getCurrentTimestamp,
-                                            createBy: currentUserReference,
-                                            status: 1,
+                                            updateDate: getCurrentTimestamp,
+                                            updateBy: currentUserReference,
                                             name: _model.nameController.text,
                                             detail:
                                                 _model.detailController.text,
@@ -996,12 +952,11 @@ class _AddMeetRoomInformationPageWidgetState
                                             province: _model.provinceValue,
                                             amphur: _model.amphureValue,
                                             tambon: _model.tambonValue,
-                                            updateDate: getCurrentTimestamp,
                                             location:
                                                 FFAppState().locationSelected,
                                           ),
-                                          'photo': FFAppState().imageUploadList,
                                           'tools': _model.choiceChipsValues,
+                                          'photo': FFAppState().imageUploadList,
                                         });
                                         setState(() {
                                           FFAppState().imageUploadList = [];

@@ -58,8 +58,19 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
           visible:
               widget.meetingRoomParamameter!.createBy == currentUserReference,
           child: FloatingActionButton(
-            onPressed: () {
-              print('FloatingActionButton pressed ...');
+            onPressed: () async {
+              context.pushNamed(
+                'EditMeetRoomInformationPage',
+                queryParameters: {
+                  'meetRoomParameter': serializeParam(
+                    widget.meetingRoomParamameter,
+                    ParamType.Document,
+                  ),
+                }.withoutNulls,
+                extra: <String, dynamic>{
+                  'meetRoomParameter': widget.meetingRoomParamameter,
+                },
+              );
             },
             backgroundColor: FlutterFlowTheme.of(context).error,
             elevation: 8.0,

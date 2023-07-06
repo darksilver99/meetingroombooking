@@ -217,6 +217,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             currentLocation:
                 params.getParam('currentLocation', ParamType.LatLng),
           ),
+        ),
+        FFRoute(
+          name: 'EditMeetRoomInformationPage',
+          path: '/editMeetRoomInformationPage',
+          asyncParams: {
+            'meetRoomParameter': getDoc(
+                ['meeting_room_list'], MeetingRoomListRecord.fromSnapshot),
+          },
+          builder: (context, params) => EditMeetRoomInformationPageWidget(
+            meetRoomParameter:
+                params.getParam('meetRoomParameter', ParamType.Document),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

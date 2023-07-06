@@ -34,3 +34,5 @@ export '/meeting_room/meet_room_list_tambon_page/meet_room_list_tambon_page_widg
     show MeetRoomListTambonPageWidget;
 export '/meeting_room/map_picker_page/map_picker_page_widget.dart'
     show MapPickerPageWidget;
+export '/meeting_room/edit_meet_room_information_page/edit_meet_room_information_page_widget.dart'
+    show EditMeetRoomInformationPageWidget;
