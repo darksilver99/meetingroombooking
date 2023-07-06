@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '/backend/backend.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'flutter_flow/flutter_flow_util.dart';
+import 'dart:convert';
 
 class FFAppState extends ChangeNotifier {
   static final FFAppState _instance = FFAppState._internal();
@@ -72,6 +73,31 @@ class FFAppState extends ChangeNotifier {
   DocumentReference? get onwerRoomSelectedRef => _onwerRoomSelectedRef;
   set onwerRoomSelectedRef(DocumentReference? _value) {
     _onwerRoomSelectedRef = _value;
+  }
+
+  List<dynamic> _bookingStatus = [];
+  List<dynamic> get bookingStatus => _bookingStatus;
+  set bookingStatus(List<dynamic> _value) {
+    _bookingStatus = _value;
+  }
+
+  void addToBookingStatus(dynamic _value) {
+    _bookingStatus.add(_value);
+  }
+
+  void removeFromBookingStatus(dynamic _value) {
+    _bookingStatus.remove(_value);
+  }
+
+  void removeAtIndexFromBookingStatus(int _index) {
+    _bookingStatus.removeAt(_index);
+  }
+
+  void updateBookingStatusAtIndex(
+    int _index,
+    dynamic Function(dynamic) updateFn,
+  ) {
+    _bookingStatus[_index] = updateFn(_bookingStatus[_index]);
   }
 }
 
