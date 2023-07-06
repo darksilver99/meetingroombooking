@@ -154,6 +154,12 @@ class FFAppState extends ChangeNotifier {
   ) {
     _fakeSelectedDate[_index] = updateFn(_fakeSelectedDate[_index]);
   }
+
+  DocumentReference? _userRefBeforDelete;
+  DocumentReference? get userRefBeforDelete => _userRefBeforDelete;
+  set userRefBeforDelete(DocumentReference? _value) {
+    _userRefBeforDelete = _value;
+  }
 }
 
 LatLng? _latLngFromString(String? val) {
