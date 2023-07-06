@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:go_router/go_router.dart';
+import 'package:meeting_room_booking/meeting_room/map_picker_page/map_picker_custom_page_widget.dart';
 import 'package:page_transition/page_transition.dart';
 import '../flutter_flow_theme.dart';
 import '/backend/backend.dart';
@@ -212,7 +213,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'MapPickerPage',
           path: '/mapPickerPage',
-          builder: (context, params) => MapPickerPageWidget(
+          builder: (context, params) => MapPickerCustomPageWidget(
             currentLoation: params.getParam('currentLoation', ParamType.LatLng),
           ),
         )
