@@ -171,7 +171,7 @@ class _BookingManagePageWidgetState extends State<BookingManagePageWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         16.0, 0.0, 0.0, 0.0),
                                     child: Text(
-                                      'รายการจองของคุณ',
+                                      'รายการจองของฉัน',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(

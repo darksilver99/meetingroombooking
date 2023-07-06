@@ -48,7 +48,7 @@ class _BookingListPageWidgetState extends State<BookingListPageWidget> {
           backgroundColor: FlutterFlowTheme.of(context).secondary,
           automaticallyImplyLeading: true,
           title: Text(
-            'รายการจอง',
+            'รายการจองของฉัน',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Kanit',
                   color: Colors.white,

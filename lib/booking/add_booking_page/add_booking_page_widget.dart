@@ -315,7 +315,7 @@ class _AddBookingPageWidgetState extends State<AddBookingPageWidget> {
                                             TextButton(
                                               onPressed: () => Navigator.pop(
                                                   alertDialogContext),
-                                              child: Text('Ok'),
+                                              child: Text('ตกลง'),
                                             ),
                                           ],
                                         );
