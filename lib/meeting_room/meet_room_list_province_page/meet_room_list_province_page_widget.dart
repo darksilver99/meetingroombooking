@@ -97,7 +97,7 @@ class _MeetRoomListProvincePageWidgetState
                           controller: _model.usernameController,
                           onChanged: (_) => EasyDebounce.debounce(
                             '_model.usernameController',
-                            Duration(milliseconds: 2000),
+                            Duration(milliseconds: 500),
                             () async {
                               if (_model.usernameController.text != null &&
                                   _model.usernameController.text != '') {
@@ -162,9 +162,11 @@ class _MeetRoomListProvincePageWidgetState
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             filled: true,
-                            fillColor: Colors.white,
+                            fillColor:
+                                FlutterFlowTheme.of(context).primaryBackground,
                             prefixIcon: Icon(
                               Icons.search_rounded,
+                              color: FlutterFlowTheme.of(context).primaryText,
                               size: 24.0,
                             ),
                             suffixIcon: _model
