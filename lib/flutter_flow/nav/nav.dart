@@ -409,12 +409,9 @@ class FFRoute {
           final child = appStateNotifier.loading
               ? Container(
                   color: Colors.transparent,
-                  child: Center(
-                    child: Image.asset(
-                      'assets/images/playstore-icon.png',
-                      width: MediaQuery.sizeOf(context).width * 0.6,
-                      fit: BoxFit.cover,
-                    ),
+                  child: Image.asset(
+                    'assets/images/iTunesArtwork@3x.png',
+                    fit: BoxFit.contain,
                   ),
                 )
               : page;
