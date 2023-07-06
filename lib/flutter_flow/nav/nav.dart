@@ -407,12 +407,13 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Center(
-                  child: SizedBox(
-                    width: 50.0,
-                    height: 50.0,
-                    child: CircularProgressIndicator(
-                      color: FlutterFlowTheme.of(context).primary,
+              ? Container(
+                  color: Color(0xFFA4DACF),
+                  child: Center(
+                    child: Image.asset(
+                      'assets/images/playstore-icon.png',
+                      width: MediaQuery.sizeOf(context).width * 0.7,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 )

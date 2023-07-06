@@ -55,9 +55,9 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Icon(
-                    Icons.gradient_sharp,
-                    color: FlutterFlowTheme.of(context).secondaryText,
-                    size: 64.0,
+                    Icons.business_rounded,
+                    color: FlutterFlowTheme.of(context).secondary,
+                    size: 128.0,
                   ),
                   Padding(
                     padding:
