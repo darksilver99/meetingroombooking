@@ -1,3 +1,4 @@
+import 'package:geocoding/geocoding.dart';
 import 'package:map_picker/map_picker.dart';
 
 import '/flutter_flow/flutter_flow_google_map.dart';
@@ -38,6 +39,7 @@ class _MapPickerCustomPageWidgetState extends State<MapPickerCustomPageWidget> {
       currentUserLocationValue =
       await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
       FFAppState().locationSelected = currentUserLocationValue;
+
     });
   }
 
@@ -51,6 +53,11 @@ class _MapPickerCustomPageWidgetState extends State<MapPickerCustomPageWidget> {
   @override
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
+
+    /*cameraPosition = CameraPosition(
+      target: FFAppState().locationSelected,
+      zoom: 14.4746,
+    );*/
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
