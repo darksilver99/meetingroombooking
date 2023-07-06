@@ -71,6 +71,9 @@ class _EditMeetRoomInformationPageWidgetState
                 ? widget.meetRoomParameter!.location
                 : currentUserLocationValue;
       });
+      FFAppState().provinceSelectedValue = widget.meetRoomParameter!.province;
+      FFAppState().amphurSelectedValue = widget.meetRoomParameter!.amphur;
+      FFAppState().tambonSelectedValue = widget.meetRoomParameter!.tambon;
     });
 
     _model.nameController ??=
