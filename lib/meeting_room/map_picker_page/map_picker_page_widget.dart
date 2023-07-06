@@ -1,7 +1,10 @@
 import '/flutter_flow/flutter_flow_google_map.dart';
+import '/flutter_flow/flutter_flow_place_picker.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/place.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -73,6 +76,36 @@ class _MapPickerPageWidgetState extends State<MapPickerPageWidget> {
                 showMapToolbar: false,
                 showTraffic: false,
                 centerMapOnMarkerTap: true,
+              ),
+              FlutterFlowPlacePicker(
+                iOSGoogleMapsApiKey: 'AIzaSyDl4UvNgvWHTTACK6RwLo67vozA9sDT_3c',
+                androidGoogleMapsApiKey:
+                    'AIzaSyCNIjnJEnuBkuklj-pLP6BOwvl9TSfRy_c',
+                webGoogleMapsApiKey: 'AIzaSyASilgGXJAj8kTAKUySGp9Ww_hqSFASYGo',
+                onSelect: (place) async {
+                  setState(() => _model.placePickerValue = place);
+                },
+                defaultText: 'Select Location',
+                icon: Icon(
+                  Icons.place,
+                  color: FlutterFlowTheme.of(context).info,
+                  size: 16.0,
+                ),
+                buttonOptions: FFButtonOptions(
+                  width: 200.0,
+                  height: 40.0,
+                  color: FlutterFlowTheme.of(context).primary,
+                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                        fontFamily: 'Kanit',
+                        color: FlutterFlowTheme.of(context).info,
+                      ),
+                  elevation: 2.0,
+                  borderSide: BorderSide(
+                    color: Colors.transparent,
+                    width: 1.0,
+                  ),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
               ),
               Align(
                 alignment: AlignmentDirectional(0.0, 1.0),
