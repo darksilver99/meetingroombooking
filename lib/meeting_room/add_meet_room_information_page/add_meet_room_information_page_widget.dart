@@ -227,7 +227,7 @@ class _AddMeetRoomInformationPageWidgetState
                                       .asValidator(context),
                                   inputFormatters: [
                                     FilteringTextInputFormatter.allow(
-                                        RegExp('[a-zA-Z0-9]'))
+                                        RegExp('[0-9]'))
                                   ],
                                 ),
                               ),
