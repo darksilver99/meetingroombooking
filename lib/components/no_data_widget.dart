@@ -39,34 +39,30 @@ class _NoDataWidgetState extends State<NoDataWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Align(
-      alignment: AlignmentDirectional(0.0, 0.0),
-      child: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(),
-        alignment: AlignmentDirectional(0.0, 0.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.info_sharp,
-              color: FlutterFlowTheme.of(context).secondaryText,
-              size: 42.0,
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.info_sharp,
+            color: FlutterFlowTheme.of(context).secondaryText,
+            size: 42.0,
+          ),
+          Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+            child: Text(
+              'ไม่มีข้อมูล',
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    fontFamily: 'Kanit',
+                    fontSize: 22.0,
+                    fontWeight: FontWeight.normal,
+                  ),
             ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
-              child: Text(
-                'ไม่มีข้อมูล',
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Kanit',
-                      fontSize: 22.0,
-                      fontWeight: FontWeight.normal,
-                    ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
