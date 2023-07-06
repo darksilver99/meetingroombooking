@@ -879,6 +879,73 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                   ),
                                 ),
                               ),
+                              if ((widget.bookingDetailParameter!.status < 2) &&
+                                  (widget.bookingDetailParameter!.ownerRef !=
+                                      currentUserReference))
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 16.0, 0.0, 0.0),
+                                  child: FutureBuilder<UsersRecord>(
+                                    future: UsersRecord.getDocumentOnce(widget
+                                        .bookingDetailParameter!.ownerRef!),
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 50.0,
+                                            height: 50.0,
+                                            child: CircularProgressIndicator(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                      final buttonUsersRecord = snapshot.data!;
+                                      return FFButtonWidget(
+                                        onPressed: () async {
+                                          await launchUrl(Uri(
+                                            scheme: 'tel',
+                                            path: buttonUsersRecord.phoneNumber,
+                                          ));
+                                        },
+                                        text: 'ติดต่อเจ้าของห้องประชุม',
+                                        icon: Icon(
+                                          Icons.local_phone_rounded,
+                                          size: 15.0,
+                                        ),
+                                        options: FFButtonOptions(
+                                          width: double.infinity,
+                                          height: 40.0,
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 0.0),
+                                          iconPadding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 0.0),
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondary,
+                                          textStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .override(
+                                                    fontFamily: 'Kanit',
+                                                    color: Colors.white,
+                                                  ),
+                                          elevation: 3.0,
+                                          borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
                               if (widget.bookingDetailParameter!.ownerRef ==
                                   currentUserReference)
                                 Column(
@@ -963,37 +1030,73 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                             0.0, 16.0, 0.0, 0.0),
                                         child: FFButtonWidget(
                                           onPressed: () async {
-                                            await widget.bookingDetailParameter!
-                                                .reference
-                                                .update(
-                                                    createBookingListRecordData(
-                                              updateDate: getCurrentTimestamp,
-                                              updateBy: currentUserReference,
-                                              status: 3,
-                                              remarkOwner: _model
-                                                  .usernameController7.text,
-                                            ));
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                content: Text(
-                                                  'ยกเลิกเรียบร้อยแล้ว',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Kanit',
-                                                        color: Colors.white,
-                                                      ),
+                                            var confirmDialogResponse =
+                                                await showDialog<bool>(
+                                                      context: context,
+                                                      builder:
+                                                          (alertDialogContext) {
+                                                        return AlertDialog(
+                                                          title: Text(
+                                                              'ต้องการยกเลิกการจองนี้?'),
+                                                          content: Text(
+                                                              'คำแนะนำ ควรระบุ \"รายละเอียดถึงผู้จอง\"  หรือโทรแจ้งผู้จองถึงสาเหตุที่ยกเลิก'),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext,
+                                                                      false),
+                                                              child: Text(
+                                                                  'ยกเลิก'),
+                                                            ),
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext,
+                                                                      true),
+                                                              child: Text(
+                                                                  'ยืนยัน'),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    ) ??
+                                                    false;
+                                            if (confirmDialogResponse) {
+                                              await widget
+                                                  .bookingDetailParameter!
+                                                  .reference
+                                                  .update(
+                                                      createBookingListRecordData(
+                                                updateDate: getCurrentTimestamp,
+                                                updateBy: currentUserReference,
+                                                status: 3,
+                                                remarkOwner: _model
+                                                    .usernameController7.text,
+                                              ));
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                    'ยกเลิกเรียบร้อยแล้ว',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Kanit',
+                                                          color: Colors.white,
+                                                        ),
+                                                  ),
+                                                  duration: Duration(
+                                                      milliseconds: 2000),
+                                                  backgroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .secondary,
                                                 ),
-                                                duration: Duration(
-                                                    milliseconds: 2000),
-                                                backgroundColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondary,
-                                              ),
-                                            );
-                                            context.safePop();
+                                              );
+                                              context.safePop();
+                                            }
                                           },
                                           text: 'ยกเลิกการจอง',
                                           options: FFButtonOptions(
