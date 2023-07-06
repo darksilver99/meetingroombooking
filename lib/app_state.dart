@@ -111,6 +111,24 @@ class FFAppState extends ChangeNotifier {
   set locationSelected(LatLng? _value) {
     _locationSelected = _value;
   }
+
+  String _provinceSelectedValue = '';
+  String get provinceSelectedValue => _provinceSelectedValue;
+  set provinceSelectedValue(String _value) {
+    _provinceSelectedValue = _value;
+  }
+
+  String _amphurSelectedValue = '';
+  String get amphurSelectedValue => _amphurSelectedValue;
+  set amphurSelectedValue(String _value) {
+    _amphurSelectedValue = _value;
+  }
+
+  String _tambonSelectedValue = '';
+  String get tambonSelectedValue => _tambonSelectedValue;
+  set tambonSelectedValue(String _value) {
+    _tambonSelectedValue = _value;
+  }
 }
 
 LatLng? _latLngFromString(String? val) {
