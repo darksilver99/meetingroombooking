@@ -54,7 +54,7 @@ class _BookingMeetCustomPageWidgetState extends State<BookingMeetCustomPageWidge
 
   addBookingMark() async {
     print("addBookingMark");
-    var rs = await FirebaseFirestore.instance.collection('booking_list').where('meeting_room_doc', isEqualTo: FFAppState().meetingRoomSelectedRef).get();
+    var rs = await FirebaseFirestore.instance.collection('booking_list').where('meeting_room_doc', isEqualTo: FFAppState().meetingRoomSelectedRef).where('status', isLessThan: 2).get();
     print('size : ${rs.size}');
     for (var i = 0; i < rs.size; i++) {
       String formattedDateTime = DateFormat("yyyy-MM-dd 00:00:00'Z'").format(rs.docs[i].data()["booking_date"].toDate());
