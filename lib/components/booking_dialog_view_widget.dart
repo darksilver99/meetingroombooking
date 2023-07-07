@@ -69,7 +69,7 @@ class _BookingDialogViewWidgetState extends State<BookingDialogViewWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Container(
-                    height: MediaQuery.sizeOf(context).height * 0.6,
+                    height: MediaQuery.sizeOf(context).height * 1.0,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).secondaryBackground,
                     ),
