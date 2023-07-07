@@ -71,6 +71,16 @@ class UsersRecord extends FirestoreRecord {
   DateTime? get deleteDate => _deleteDate;
   bool hasDeleteDate() => _deleteDate != null;
 
+  // "update_date" field.
+  DateTime? _updateDate;
+  DateTime? get updateDate => _updateDate;
+  bool hasUpdateDate() => _updateDate != null;
+
+  // "update_by" field.
+  DocumentReference? _updateBy;
+  DocumentReference? get updateBy => _updateBy;
+  bool hasUpdateBy() => _updateBy != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _password = snapshotData['password'] as String?;
@@ -83,6 +93,8 @@ class UsersRecord extends FirestoreRecord {
     _createdTime = snapshotData['created_time'] as DateTime?;
     _phoneNumber = snapshotData['phone_number'] as String?;
     _deleteDate = snapshotData['delete_date'] as DateTime?;
+    _updateDate = snapshotData['update_date'] as DateTime?;
+    _updateBy = snapshotData['update_by'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
@@ -130,6 +142,8 @@ Map<String, dynamic> createUsersRecordData({
   DateTime? createdTime,
   String? phoneNumber,
   DateTime? deleteDate,
+  DateTime? updateDate,
+  DocumentReference? updateBy,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -144,6 +158,8 @@ Map<String, dynamic> createUsersRecordData({
       'created_time': createdTime,
       'phone_number': phoneNumber,
       'delete_date': deleteDate,
+      'update_date': updateDate,
+      'update_by': updateBy,
     }.withoutNulls,
   );
 
@@ -165,7 +181,9 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.displayName == e2?.displayName &&
         e1?.createdTime == e2?.createdTime &&
         e1?.phoneNumber == e2?.phoneNumber &&
-        e1?.deleteDate == e2?.deleteDate;
+        e1?.deleteDate == e2?.deleteDate &&
+        e1?.updateDate == e2?.updateDate &&
+        e1?.updateBy == e2?.updateBy;
   }
 
   @override
@@ -180,7 +198,9 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.displayName,
         e?.createdTime,
         e?.phoneNumber,
-        e?.deleteDate
+        e?.deleteDate,
+        e?.updateDate,
+        e?.updateBy
       ]);
 
   @override
