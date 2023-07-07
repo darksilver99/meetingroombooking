@@ -69,7 +69,7 @@ class _BookingDialogViewWidgetState extends State<BookingDialogViewWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Container(
-                    height: MediaQuery.sizeOf(context).height * 1.0,
+                    height: MediaQuery.sizeOf(context).height * 0.8,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).secondaryBackground,
                     ),
@@ -83,6 +83,8 @@ class _BookingDialogViewWidgetState extends State<BookingDialogViewWidget> {
                                   null,
                                   2,
                                 ))
+                            .where('booking_date',
+                                isEqualTo: widget.selectedDate)
                             .orderBy('status')
                             .orderBy('booking_start_time'),
                       ),
