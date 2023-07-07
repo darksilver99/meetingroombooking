@@ -385,7 +385,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                   readOnly: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
-                                    labelText: 'เริ่มเวลา',
+                                    labelText: 'เวลาเริ่มต้น',
                                     labelStyle: FlutterFlowTheme.of(context)
                                         .labelMedium,
                                     hintStyle: FlutterFlowTheme.of(context)
@@ -440,7 +440,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                   readOnly: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
-                                    labelText: 'ถึงเวลา',
+                                    labelText: 'เวลาสิ้นสุด',
                                     labelStyle: FlutterFlowTheme.of(context)
                                         .labelMedium,
                                     hintStyle: FlutterFlowTheme.of(context)

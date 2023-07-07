@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -117,9 +118,36 @@ class _AddBookingPageWidgetState extends State<AddBookingPageWidget> {
                                     0.0, 8.0, 0.0, 0.0),
                                 child: TextFormField(
                                   controller: _model.startTimeController,
+                                  onFieldSubmitted: (_) async {
+                                    final _datePicked1Time =
+                                        await showTimePicker(
+                                      context: context,
+                                      initialTime: TimeOfDay.fromDateTime(
+                                          getCurrentTimestamp),
+                                    );
+                                    if (_datePicked1Time != null) {
+                                      setState(() {
+                                        _model.datePicked1 = DateTime(
+                                          getCurrentTimestamp.year,
+                                          getCurrentTimestamp.month,
+                                          getCurrentTimestamp.day,
+                                          _datePicked1Time.hour,
+                                          _datePicked1Time.minute,
+                                        );
+                                      });
+                                    }
+                                    if (_model.datePicked1 != null) {
+                                      setState(() {
+                                        _model.startTimeController?.text =
+                                            dateTimeFormat(
+                                                'Hm', _model.datePicked1);
+                                      });
+                                    }
+                                  },
+                                  readOnly: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
-                                    labelText: 'เวลาเริ่มต้น เช่น 08.00',
+                                    labelText: 'เวลาเริ่มต้น',
                                     labelStyle: FlutterFlowTheme.of(context)
                                         .labelMedium,
                                     hintStyle: FlutterFlowTheme.of(context)
@@ -169,9 +197,36 @@ class _AddBookingPageWidgetState extends State<AddBookingPageWidget> {
                                     0.0, 8.0, 0.0, 0.0),
                                 child: TextFormField(
                                   controller: _model.endTimeController,
+                                  onFieldSubmitted: (_) async {
+                                    final _datePicked2Time =
+                                        await showTimePicker(
+                                      context: context,
+                                      initialTime: TimeOfDay.fromDateTime(
+                                          getCurrentTimestamp),
+                                    );
+                                    if (_datePicked2Time != null) {
+                                      setState(() {
+                                        _model.datePicked2 = DateTime(
+                                          getCurrentTimestamp.year,
+                                          getCurrentTimestamp.month,
+                                          getCurrentTimestamp.day,
+                                          _datePicked2Time.hour,
+                                          _datePicked2Time.minute,
+                                        );
+                                      });
+                                    }
+                                    if (_model.datePicked2 != null) {
+                                      setState(() {
+                                        _model.endTimeController?.text =
+                                            dateTimeFormat(
+                                                'Hm', _model.datePicked2);
+                                      });
+                                    }
+                                  },
+                                  readOnly: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
-                                    labelText: 'ถึงเวลา เช่น 10.00',
+                                    labelText: 'เวลาสิ้นสุด',
                                     labelStyle: FlutterFlowTheme.of(context)
                                         .labelMedium,
                                     hintStyle: FlutterFlowTheme.of(context)
