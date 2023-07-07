@@ -134,6 +134,32 @@ class _BookingMeetPageWidgetState extends State<BookingMeetPageWidget> {
                     ),
                   ),
                 ),
+                Padding(
+                  padding:
+                      EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.circle_sharp,
+                        color: FlutterFlowTheme.of(context).tertiary,
+                        size: 20.0,
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              8.0, 0.0, 0.0, 0.0),
+                          child: Text(
+                            'มีผู้จองบางช่วงเวลาแล้วในวันนี้',
+                            style: FlutterFlowTheme.of(context).bodyMedium,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

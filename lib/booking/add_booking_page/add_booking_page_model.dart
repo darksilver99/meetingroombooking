@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -24,6 +25,7 @@ class AddBookingPageModel extends FlutterFlowModel {
     return null;
   }
 
+  DateTime? datePicked1;
   // State field(s) for endTime widget.
   TextEditingController? endTimeController;
   String? Function(BuildContext, String?)? endTimeControllerValidator;
@@ -35,6 +37,7 @@ class AddBookingPageModel extends FlutterFlowModel {
     return null;
   }
 
+  DateTime? datePicked2;
   // State field(s) for remarkUsers widget.
   TextEditingController? remarkUsersController;
   String? Function(BuildContext, String?)? remarkUsersControllerValidator;
