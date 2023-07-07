@@ -48,28 +48,32 @@ class _BookingDialogViewWidgetState extends State<BookingDialogViewWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Material(
-            color: Colors.transparent,
-            elevation: 3.0,
-            shape: RoundedRectangleBorder(
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Material(
+          color: Colors.transparent,
+          elevation: 3.0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          child: Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: FlutterFlowTheme.of(context).secondaryBackground,
               borderRadius: BorderRadius.circular(16.0),
             ),
-            child: Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: FlutterFlowTheme.of(context).secondaryBackground,
-                borderRadius: BorderRadius.circular(16.0),
-              ),
-              child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    StreamBuilder<List<BookingListRecord>>(
+            child: Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Container(
+                    height: MediaQuery.sizeOf(context).height * 0.6,
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                    ),
+                    child: StreamBuilder<List<BookingListRecord>>(
                       stream: queryBookingListRecord(
                         queryBuilder: (bookingListRecord) => bookingListRecord
                             .where('meeting_room_doc',
@@ -81,7 +85,6 @@ class _BookingDialogViewWidgetState extends State<BookingDialogViewWidget> {
                                 ))
                             .orderBy('status')
                             .orderBy('booking_start_time'),
-                        limit: 10,
                       ),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
@@ -100,7 +103,7 @@ class _BookingDialogViewWidgetState extends State<BookingDialogViewWidget> {
                             snapshot.data!;
                         return ListView.builder(
                           padding: EdgeInsets.zero,
-                          shrinkWrap: true,
+                          primary: false,
                           scrollDirection: Axis.vertical,
                           itemCount: listViewBookingListRecordList.length,
                           itemBuilder: (context, listViewIndex) {
@@ -165,99 +168,98 @@ class _BookingDialogViewWidgetState extends State<BookingDialogViewWidget> {
                         );
                       },
                     ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 8.0, 8.0, 16.0),
-                              child: FFButtonWidget(
-                                onPressed: () async {
-                                  Navigator.pop(context);
-                                },
-                                text: 'ยกเลิก',
-                                options: FFButtonOptions(
-                                  width: double.infinity,
-                                  height: 40.0,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  color: FlutterFlowTheme.of(context).error,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        fontFamily: 'Kanit',
-                                        color: Colors.white,
-                                      ),
-                                  elevation: 3.0,
-                                  borderSide: BorderSide(
-                                    color: Colors.transparent,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 8.0, 8.0, 16.0),
+                            child: FFButtonWidget(
+                              onPressed: () async {
+                                Navigator.pop(context);
+                              },
+                              text: 'ยกเลิก',
+                              options: FFButtonOptions(
+                                width: double.infinity,
+                                height: 40.0,
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                color: FlutterFlowTheme.of(context).error,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .override(
+                                      fontFamily: 'Kanit',
+                                      color: Colors.white,
+                                    ),
+                                elevation: 3.0,
+                                borderSide: BorderSide(
+                                  color: Colors.transparent,
+                                  width: 1.0,
                                 ),
+                                borderRadius: BorderRadius.circular(8.0),
                               ),
                             ),
                           ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  8.0, 8.0, 0.0, 16.0),
-                              child: FFButtonWidget(
-                                onPressed: () async {
-                                  Navigator.pop(context);
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                8.0, 8.0, 0.0, 16.0),
+                            child: FFButtonWidget(
+                              onPressed: () async {
+                                Navigator.pop(context);
 
-                                  context.pushNamed(
-                                    'AddBookingPage',
-                                    queryParameters: {
-                                      'dateSeleceteParameter': serializeParam(
-                                        widget.selectedDate,
-                                        ParamType.DateTime,
-                                      ),
-                                    }.withoutNulls,
-                                  );
-                                },
-                                text: 'ยืนยันการจอง',
-                                options: FFButtonOptions(
-                                  width: double.infinity,
-                                  height: 40.0,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  color: FlutterFlowTheme.of(context).secondary,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        fontFamily: 'Kanit',
-                                        color: Colors.white,
-                                      ),
-                                  elevation: 3.0,
-                                  borderSide: BorderSide(
-                                    color: Colors.transparent,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
+                                context.pushNamed(
+                                  'AddBookingPage',
+                                  queryParameters: {
+                                    'dateSeleceteParameter': serializeParam(
+                                      widget.selectedDate,
+                                      ParamType.DateTime,
+                                    ),
+                                  }.withoutNulls,
+                                );
+                              },
+                              text: 'ยืนยันการจอง',
+                              options: FFButtonOptions(
+                                width: double.infinity,
+                                height: 40.0,
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                color: FlutterFlowTheme.of(context).secondary,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .override(
+                                      fontFamily: 'Kanit',
+                                      color: Colors.white,
+                                    ),
+                                elevation: 3.0,
+                                borderSide: BorderSide(
+                                  color: Colors.transparent,
+                                  width: 1.0,
                                 ),
+                                borderRadius: BorderRadius.circular(8.0),
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
