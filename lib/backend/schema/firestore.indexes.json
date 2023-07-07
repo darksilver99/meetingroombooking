@@ -99,10 +99,6 @@
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "status",
-          "order": "ASCENDING"
-        },
-        {
           "fieldPath": "booking_start_time",
           "order": "ASCENDING"
         }

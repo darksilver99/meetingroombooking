@@ -29,3 +29,17 @@ String? getSplitLatLng(
       ? location!.latitude.toString()
       : location!.longitude.toString();
 }
+
+DateTime? setNewDateTimeForQuery(
+  String? type,
+  DateTime? dateTime,
+) {
+  DateTime newDate;
+  if (type == "start") {
+    newDate = DateTime(dateTime.year, dateTime.month, dateTime.day);
+  } else {
+    newDate = DateTime(dateTime.year, dateTime.month, dateTime.day + 1);
+  }
+
+  return newDate;
+}

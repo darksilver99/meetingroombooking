@@ -68,108 +68,123 @@ class _BookingDialogViewWidgetState extends State<BookingDialogViewWidget> {
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Container(
-                    height: MediaQuery.sizeOf(context).height * 0.8,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                  StreamBuilder<List<BookingListRecord>>(
+                    stream: queryBookingListRecord(
+                      queryBuilder: (bookingListRecord) => bookingListRecord
+                          .where('meeting_room_doc',
+                              isEqualTo: FFAppState().meetingRoomSelectedRef)
+                          .where('booking_date',
+                              isGreaterThanOrEqualTo:
+                                  functions.setNewDateTimeForQuery(
+                                      'start', widget.selectedDate))
+                          .where('booking_date',
+                              isLessThanOrEqualTo:
+                                  functions.setNewDateTimeForQuery(
+                                      'end', widget.selectedDate))
+                          .orderBy('booking_date')
+                          .orderBy('booking_start_time'),
                     ),
-                    child: StreamBuilder<List<BookingListRecord>>(
-                      stream: queryBookingListRecord(
-                        queryBuilder: (bookingListRecord) => bookingListRecord
-                            .where('meeting_room_doc',
-                                isEqualTo: FFAppState().meetingRoomSelectedRef)
-                            .where('status',
-                                isLessThan: valueOrDefault<int>(
-                                  null,
-                                  2,
-                                ))
-                            .where('booking_date',
-                                isEqualTo: widget.selectedDate)
-                            .orderBy('status')
-                            .orderBy('booking_start_time'),
-                      ),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
-                              child: CircularProgressIndicator(
-                                color: FlutterFlowTheme.of(context).primary,
-                              ),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 50.0,
+                            height: 50.0,
+                            child: CircularProgressIndicator(
+                              color: FlutterFlowTheme.of(context).primary,
                             ),
-                          );
-                        }
-                        List<BookingListRecord> listViewBookingListRecordList =
-                            snapshot.data!;
-                        return ListView.builder(
-                          padding: EdgeInsets.zero,
-                          primary: false,
-                          scrollDirection: Axis.vertical,
-                          itemCount: listViewBookingListRecordList.length,
-                          itemBuilder: (context, listViewIndex) {
-                            final listViewBookingListRecord =
-                                listViewBookingListRecordList[listViewIndex];
-                            return Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      16.0, 8.0, 15.0, 0.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          'เวลาจอง ${listViewBookingListRecord.bookingStartTime} - ${listViewBookingListRecord.bookingEndTime}',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium,
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Align(
-                                          alignment:
-                                              AlignmentDirectional(1.0, 0.0),
-                                          child: Text(
-                                            valueOrDefault<String>(
-                                              functions.getMeetingStatusText(
-                                                  listViewBookingListRecord
-                                                      .status),
-                                              '-',
+                          ),
+                        );
+                      }
+                      List<BookingListRecord> containerBookingListRecordList =
+                          snapshot.data!;
+                      return Container(
+                        height: MediaQuery.sizeOf(context).height * 0.8,
+                        decoration: BoxDecoration(
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                        ),
+                        child: Builder(
+                          builder: (context) {
+                            final resultBookingList =
+                                containerBookingListRecordList
+                                    .where((e) =>
+                                        (e.status == 0) || (e.status == 1))
+                                    .toList();
+                            return ListView.builder(
+                              padding: EdgeInsets.zero,
+                              primary: false,
+                              scrollDirection: Axis.vertical,
+                              itemCount: resultBookingList.length,
+                              itemBuilder: (context, resultBookingListIndex) {
+                                final resultBookingListItem =
+                                    resultBookingList[resultBookingListIndex];
+                                return Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          16.0, 8.0, 15.0, 0.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              'เวลาจอง ${resultBookingListItem.bookingStartTime} - ${resultBookingListItem.bookingEndTime}',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium,
                                             ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Kanit',
-                                                  color: listViewBookingListRecord
-                                                              .status ==
-                                                          0
-                                                      ? FlutterFlowTheme.of(
-                                                              context)
-                                                          .tertiary
-                                                      : FlutterFlowTheme.of(
-                                                              context)
-                                                          .secondary,
-                                                ),
                                           ),
-                                        ),
+                                          Expanded(
+                                            child: Align(
+                                              alignment: AlignmentDirectional(
+                                                  1.0, 0.0),
+                                              child: Text(
+                                                valueOrDefault<String>(
+                                                  functions
+                                                      .getMeetingStatusText(
+                                                          resultBookingListItem
+                                                              .status),
+                                                  '-',
+                                                ),
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Kanit',
+                                                      color: resultBookingListItem
+                                                                  .status ==
+                                                              0
+                                                          ? FlutterFlowTheme.of(
+                                                                  context)
+                                                              .tertiary
+                                                          : FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondary,
+                                                    ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                ),
-                                Divider(
-                                  thickness: 1.0,
-                                  indent: 16.0,
-                                  endIndent: 16.0,
-                                  color: FlutterFlowTheme.of(context).alternate,
-                                ),
-                              ],
+                                    ),
+                                    Divider(
+                                      thickness: 1.0,
+                                      indent: 16.0,
+                                      endIndent: 16.0,
+                                      color: FlutterFlowTheme.of(context)
+                                          .alternate,
+                                    ),
+                                  ],
+                                );
+                              },
                             );
                           },
-                        );
-                      },
-                    ),
+                        ),
+                      );
+                    },
                   ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
