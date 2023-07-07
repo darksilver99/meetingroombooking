@@ -160,6 +160,12 @@ class FFAppState extends ChangeNotifier {
   set userRefBeforDelete(DocumentReference? _value) {
     _userRefBeforDelete = _value;
   }
+
+  bool _isChangeProfileDetail = false;
+  bool get isChangeProfileDetail => _isChangeProfileDetail;
+  set isChangeProfileDetail(bool _value) {
+    _isChangeProfileDetail = _value;
+  }
 }
 
 LatLng? _latLngFromString(String? val) {
