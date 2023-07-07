@@ -182,7 +182,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                     controller: _model.fullnameController,
                                     onChanged: (_) => EasyDebounce.debounce(
                                       '_model.fullnameController',
-                                      Duration(milliseconds: 2000),
+                                      Duration(milliseconds: 500),
                                       () async {
                                         setState(() {
                                           FFAppState().isChangeProfileDetail =
@@ -250,7 +250,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                     controller: _model.phoneController,
                                     onChanged: (_) => EasyDebounce.debounce(
                                       '_model.phoneController',
-                                      Duration(milliseconds: 2000),
+                                      Duration(milliseconds: 500),
                                       () async {
                                         setState(() {
                                           FFAppState().isChangeProfileDetail =
