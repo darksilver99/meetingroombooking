@@ -1,7 +1,9 @@
 import 'dart:math';
 
+import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../../components/booking_dialog_view_widget.dart';
 import '/flutter_flow/flutter_flow_calendar.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -63,6 +65,37 @@ class _BookingMeetCustomPageWidgetState extends State<BookingMeetCustomPageWidge
 
   List<dynamic> _getEventsForDay(DateTime date) {
     return selectedEvents[date] ?? [];
+  }
+
+  showBookingDialog(selectedDay) async {
+    await showAlignedDialog(
+      context: context,
+      isGlobal: true,
+      avoidOverflow: false,
+      targetAnchor: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
+      followerAnchor: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
+      builder: (dialogContext) {
+        return Material(
+          color: Colors.transparent,
+          child: GestureDetector(
+            onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+            child: BookingDialogViewWidget(
+              selectedDate: selectedDay,
+            ),
+          ),
+        );
+      },
+    ).then((value) => setState(() {}));
+
+    /*context.pushNamed(
+      'AddBookingPage',
+      queryParameters: {
+        'dateSeleceteParameter': serializeParam(
+          selectedDay,
+          ParamType.DateTime,
+        ),
+      }.withoutNulls,
+    );*/
   }
 
   @override
@@ -137,15 +170,7 @@ class _BookingMeetCustomPageWidgetState extends State<BookingMeetCustomPageWidge
                                   _focusedDay = focusedDay;
                                 });
                               }
-                              context.pushNamed(
-                                'AddBookingPage',
-                                queryParameters: {
-                                  'dateSeleceteParameter': serializeParam(
-                                    selectedDay,
-                                    ParamType.DateTime,
-                                  ),
-                                }.withoutNulls,
-                              );
+                              showBookingDialog(selectedDay);
                             },
                             eventLoader: _getEventsForDay,
                             calendarBuilders: CalendarBuilders(
