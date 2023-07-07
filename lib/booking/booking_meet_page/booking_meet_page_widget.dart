@@ -119,9 +119,6 @@ class _BookingMeetPageWidgetState extends State<BookingMeetPageWidget> {
                                           onTap: () => FocusScope.of(context)
                                               .requestFocus(_model.unfocusNode),
                                           child: Container(
-                                            height: MediaQuery.sizeOf(context)
-                                                    .height *
-                                                0.9,
                                             width: MediaQuery.sizeOf(context)
                                                     .width *
                                                 0.95,

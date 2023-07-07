@@ -95,6 +95,10 @@
           "order": "ASCENDING"
         },
         {
+          "fieldPath": "booking_date",
+          "order": "ASCENDING"
+        },
+        {
           "fieldPath": "status",
           "order": "ASCENDING"
         },
