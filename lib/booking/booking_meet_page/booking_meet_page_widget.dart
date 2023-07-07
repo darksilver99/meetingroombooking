@@ -118,9 +118,14 @@ class _BookingMeetPageWidgetState extends State<BookingMeetPageWidget> {
                                         child: GestureDetector(
                                           onTap: () => FocusScope.of(context)
                                               .requestFocus(_model.unfocusNode),
-                                          child: BookingDialogViewWidget(
-                                            selectedDate: _model
-                                                .calendarSelectedDay!.start,
+                                          child: Container(
+                                            width: MediaQuery.sizeOf(context)
+                                                    .width *
+                                                0.95,
+                                            child: BookingDialogViewWidget(
+                                              selectedDate: _model
+                                                  .calendarSelectedDay!.start,
+                                            ),
                                           ),
                                         ),
                                       );
