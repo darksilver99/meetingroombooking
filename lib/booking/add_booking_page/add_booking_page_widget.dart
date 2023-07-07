@@ -113,163 +113,203 @@ class _AddBookingPageWidgetState extends State<AddBookingPageWidget> {
                                       ),
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 8.0, 0.0, 0.0),
-                                child: TextFormField(
-                                  controller: _model.startTimeController,
-                                  onFieldSubmitted: (_) async {
-                                    final _datePicked1Time =
-                                        await showTimePicker(
-                                      context: context,
-                                      initialTime: TimeOfDay.fromDateTime(
-                                          getCurrentTimestamp),
-                                    );
-                                    if (_datePicked1Time != null) {
-                                      setState(() {
-                                        _model.datePicked1 = DateTime(
-                                          getCurrentTimestamp.year,
-                                          getCurrentTimestamp.month,
-                                          getCurrentTimestamp.day,
-                                          _datePicked1Time.hour,
-                                          _datePicked1Time.minute,
-                                        );
-                                      });
-                                    }
-                                    if (_model.datePicked1 != null) {
-                                      setState(() {
-                                        _model.startTimeController?.text =
-                                            dateTimeFormat(
-                                                'Hm', _model.datePicked1);
-                                      });
-                                    }
-                                  },
-                                  readOnly: true,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    labelText: 'เวลาเริ่มต้น',
-                                    labelStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
-                                    hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color:
-                                            FlutterFlowTheme.of(context).line,
-                                        width: 1.0,
+                              Stack(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 8.0, 0.0, 0.0),
+                                    child: TextFormField(
+                                      controller: _model.startTimeController,
+                                      readOnly: true,
+                                      obscureText: false,
+                                      decoration: InputDecoration(
+                                        labelText: 'เวลาเริ่มต้น',
+                                        labelStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium,
+                                        hintStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium,
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .line,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
                                       ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .alternate,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    focusedErrorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium,
+                                      keyboardType: TextInputType.number,
+                                      validator: _model
+                                          .startTimeControllerValidator
+                                          .asValidator(context),
                                     ),
                                   ),
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
-                                  keyboardType: TextInputType.number,
-                                  validator: _model.startTimeControllerValidator
-                                      .asValidator(context),
-                                ),
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      final _datePicked1Time =
+                                          await showTimePicker(
+                                        context: context,
+                                        initialTime: TimeOfDay.fromDateTime(
+                                            getCurrentTimestamp),
+                                      );
+                                      if (_datePicked1Time != null) {
+                                        setState(() {
+                                          _model.datePicked1 = DateTime(
+                                            getCurrentTimestamp.year,
+                                            getCurrentTimestamp.month,
+                                            getCurrentTimestamp.day,
+                                            _datePicked1Time.hour,
+                                            _datePicked1Time.minute,
+                                          );
+                                        });
+                                      }
+                                      if (_model.datePicked1 != null) {
+                                        setState(() {
+                                          _model.startTimeController?.text =
+                                              dateTimeFormat(
+                                                  'Hm', _model.datePicked1);
+                                        });
+                                      }
+                                    },
+                                    child: Container(
+                                      width: double.infinity,
+                                      height: 60.0,
+                                      decoration: BoxDecoration(),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 8.0, 0.0, 0.0),
-                                child: TextFormField(
-                                  controller: _model.endTimeController,
-                                  onFieldSubmitted: (_) async {
-                                    final _datePicked2Time =
-                                        await showTimePicker(
-                                      context: context,
-                                      initialTime: TimeOfDay.fromDateTime(
-                                          getCurrentTimestamp),
-                                    );
-                                    if (_datePicked2Time != null) {
-                                      setState(() {
-                                        _model.datePicked2 = DateTime(
-                                          getCurrentTimestamp.year,
-                                          getCurrentTimestamp.month,
-                                          getCurrentTimestamp.day,
-                                          _datePicked2Time.hour,
-                                          _datePicked2Time.minute,
-                                        );
-                                      });
-                                    }
-                                    if (_model.datePicked2 != null) {
-                                      setState(() {
-                                        _model.endTimeController?.text =
-                                            dateTimeFormat(
-                                                'Hm', _model.datePicked2);
-                                      });
-                                    }
-                                  },
-                                  readOnly: true,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    labelText: 'เวลาสิ้นสุด',
-                                    labelStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
-                                    hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color:
-                                            FlutterFlowTheme.of(context).line,
-                                        width: 1.0,
+                              Stack(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 8.0, 0.0, 0.0),
+                                    child: TextFormField(
+                                      controller: _model.endTimeController,
+                                      readOnly: true,
+                                      obscureText: false,
+                                      decoration: InputDecoration(
+                                        labelText: 'เวลาสิ้นสุด',
+                                        labelStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium,
+                                        hintStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium,
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .line,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
                                       ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .alternate,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    focusedErrorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8.0),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium,
+                                      keyboardType: TextInputType.number,
+                                      validator: _model
+                                          .endTimeControllerValidator
+                                          .asValidator(context),
                                     ),
                                   ),
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
-                                  keyboardType: TextInputType.number,
-                                  validator: _model.endTimeControllerValidator
-                                      .asValidator(context),
-                                ),
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      final _datePicked2Time =
+                                          await showTimePicker(
+                                        context: context,
+                                        initialTime: TimeOfDay.fromDateTime(
+                                            getCurrentTimestamp),
+                                      );
+                                      if (_datePicked2Time != null) {
+                                        setState(() {
+                                          _model.datePicked2 = DateTime(
+                                            getCurrentTimestamp.year,
+                                            getCurrentTimestamp.month,
+                                            getCurrentTimestamp.day,
+                                            _datePicked2Time.hour,
+                                            _datePicked2Time.minute,
+                                          );
+                                        });
+                                      }
+                                      if (_model.datePicked2 != null) {
+                                        setState(() {
+                                          _model.endTimeController?.text =
+                                              dateTimeFormat(
+                                                  'Hm', _model.datePicked2);
+                                        });
+                                      }
+                                    },
+                                    child: Container(
+                                      width: double.infinity,
+                                      height: 60.0,
+                                      decoration: BoxDecoration(),
+                                    ),
+                                  ),
+                                ],
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
