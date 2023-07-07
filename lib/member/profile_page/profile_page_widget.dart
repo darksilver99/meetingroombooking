@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -179,6 +180,16 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                 child: AuthUserStreamWidget(
                                   builder: (context) => TextFormField(
                                     controller: _model.fullnameController,
+                                    onChanged: (_) => EasyDebounce.debounce(
+                                      '_model.fullnameController',
+                                      Duration(milliseconds: 2000),
+                                      () async {
+                                        setState(() {
+                                          FFAppState().isChangeProfileDetail =
+                                              true;
+                                        });
+                                      },
+                                    ),
                                     obscureText: false,
                                     decoration: InputDecoration(
                                       labelText: 'ชื่อ-สกุล',
@@ -237,6 +248,16 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                 child: AuthUserStreamWidget(
                                   builder: (context) => TextFormField(
                                     controller: _model.phoneController,
+                                    onChanged: (_) => EasyDebounce.debounce(
+                                      '_model.phoneController',
+                                      Duration(milliseconds: 2000),
+                                      () async {
+                                        setState(() {
+                                          FFAppState().isChangeProfileDetail =
+                                              true;
+                                        });
+                                      },
+                                    ),
                                     obscureText: false,
                                     decoration: InputDecoration(
                                       labelText: 'เบอร์โทร',
