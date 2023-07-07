@@ -36,9 +36,9 @@ DateTime? setNewDateTimeForQuery(
 ) {
   DateTime newDate;
   if (type == "start") {
-    newDate = DateTime(dateTime.year, dateTime.month, dateTime.day);
+    newDate = DateTime(dateTime!.year, dateTime.month, dateTime.day);
   } else {
-    newDate = DateTime(dateTime.year, dateTime.month, dateTime.day + 1);
+    newDate = DateTime(dateTime!.year, dateTime.month, dateTime.day);
   }
 
   return newDate;
