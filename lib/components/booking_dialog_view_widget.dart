@@ -1,4 +1,5 @@
 import '/backend/backend.dart';
+import '/components/no_data_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -128,6 +129,9 @@ class _BookingDialogViewWidgetState extends State<BookingDialogViewWidget> {
                                     .where((e) =>
                                         (e.status == 0) || (e.status == 1))
                                     .toList();
+                            if (resultBookingList.isEmpty) {
+                              return NoDataWidget();
+                            }
                             return ListView.builder(
                               padding: EdgeInsets.zero,
                               primary: false,
