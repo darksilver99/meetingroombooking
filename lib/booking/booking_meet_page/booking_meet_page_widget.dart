@@ -1,6 +1,8 @@
+import '/components/booking_dialog_view_widget.dart';
 import '/flutter_flow/flutter_flow_calendar.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -86,48 +88,66 @@ class _BookingMeetPageWidgetState extends State<BookingMeetPageWidget> {
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          FlutterFlowCalendar(
-                            color: FlutterFlowTheme.of(context).primary,
-                            iconColor:
-                                FlutterFlowTheme.of(context).secondaryText,
-                            weekFormat: false,
-                            weekStartsMonday: false,
-                            initialDate: getCurrentTimestamp,
-                            rowHeight: 64.0,
-                            onChange: (DateTimeRange? newSelectedDate) async {
-                              _model.calendarSelectedDay = newSelectedDate;
-                              FFAppState().addToFakeSelectedDate(
-                                  _model.calendarSelectedDay!.start.toString());
-                              if (FFAppState().fakeSelectedDate.length > 1) {
-                                context.pushNamed(
-                                  'AddBookingPage',
-                                  queryParameters: {
-                                    'dateSeleceteParameter': serializeParam(
-                                      _model.calendarSelectedDay?.start,
-                                      ParamType.DateTime,
-                                    ),
-                                  }.withoutNulls,
-                                );
-                              }
-                              setState(() {});
-                            },
-                            titleStyle: FlutterFlowTheme.of(context)
-                                .headlineSmall
-                                .override(
-                                  fontFamily: 'Kanit',
-                                  fontSize: 24.0,
-                                ),
-                            dayOfWeekStyle: FlutterFlowTheme.of(context)
-                                .labelLarge
-                                .override(
-                                  fontFamily: 'Kanit',
-                                  fontSize: 14.0,
-                                ),
-                            dateStyle: FlutterFlowTheme.of(context).bodyMedium,
-                            selectedDateStyle:
-                                FlutterFlowTheme.of(context).titleSmall,
-                            inactiveDateStyle:
-                                FlutterFlowTheme.of(context).labelMedium,
+                          Builder(
+                            builder: (context) => FlutterFlowCalendar(
+                              color: FlutterFlowTheme.of(context).primary,
+                              iconColor:
+                                  FlutterFlowTheme.of(context).secondaryText,
+                              weekFormat: false,
+                              weekStartsMonday: false,
+                              initialDate: getCurrentTimestamp,
+                              rowHeight: 64.0,
+                              onChange: (DateTimeRange? newSelectedDate) async {
+                                _model.calendarSelectedDay = newSelectedDate;
+                                FFAppState().addToFakeSelectedDate(_model
+                                    .calendarSelectedDay!.start
+                                    .toString());
+                                if (FFAppState().fakeSelectedDate.length > 1) {
+                                  await showAlignedDialog(
+                                    context: context,
+                                    isGlobal: true,
+                                    avoidOverflow: false,
+                                    targetAnchor: AlignmentDirectional(0.0, 0.0)
+                                        .resolve(Directionality.of(context)),
+                                    followerAnchor: AlignmentDirectional(
+                                            0.0, 0.0)
+                                        .resolve(Directionality.of(context)),
+                                    builder: (dialogContext) {
+                                      return Material(
+                                        color: Colors.transparent,
+                                        child: GestureDetector(
+                                          onTap: () => FocusScope.of(context)
+                                              .requestFocus(_model.unfocusNode),
+                                          child: BookingDialogViewWidget(
+                                            selectedDate: _model
+                                                .calendarSelectedDay!.start,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ).then((value) => setState(() {}));
+                                }
+                                setState(() {});
+                              },
+                              titleStyle: FlutterFlowTheme.of(context)
+                                  .headlineSmall
+                                  .override(
+                                    fontFamily: 'Kanit',
+                                    fontSize: 24.0,
+                                  ),
+                              dayOfWeekStyle: FlutterFlowTheme.of(context)
+                                  .labelLarge
+                                  .override(
+                                    fontFamily: 'Kanit',
+                                    fontSize: 14.0,
+                                  ),
+                              dateStyle:
+                                  FlutterFlowTheme.of(context).bodyMedium,
+                              selectedDateStyle:
+                                  FlutterFlowTheme.of(context).titleSmall,
+                              inactiveDateStyle:
+                                  FlutterFlowTheme.of(context).labelMedium,
+                            ),
                           ),
                         ],
                       ),
