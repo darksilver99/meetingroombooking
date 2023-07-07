@@ -68,6 +68,22 @@ class _BookingDialogViewWidgetState extends State<BookingDialogViewWidget> {
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
+                  Align(
+                    alignment: AlignmentDirectional(-1.0, 0.0),
+                    child: Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
+                      child: Text(
+                        dateTimeFormat('d/M/y', widget.selectedDate),
+                        textAlign: TextAlign.center,
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Kanit',
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.w500,
+                            ),
+                      ),
+                    ),
+                  ),
                   StreamBuilder<List<BookingListRecord>>(
                     stream: queryBookingListRecord(
                       queryBuilder: (bookingListRecord) => bookingListRecord

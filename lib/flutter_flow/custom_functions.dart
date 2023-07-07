@@ -38,7 +38,8 @@ DateTime? setNewDateTimeForQuery(
   if (type == "start") {
     newDate = DateTime(dateTime!.year, dateTime.month, dateTime.day);
   } else {
-    newDate = DateTime(dateTime!.year, dateTime.month, dateTime.day);
+    newDate =
+        DateTime(dateTime!.year, dateTime.month, dateTime.day, 23, 59, 59);
   }
 
   return newDate;
