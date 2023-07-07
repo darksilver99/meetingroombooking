@@ -1,3 +1,7 @@
+import 'dart:math';
+
+import 'package:table_calendar/table_calendar.dart';
+
 import '/flutter_flow/flutter_flow_calendar.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -20,6 +24,12 @@ class _BookingMeetCustomPageWidgetState extends State<BookingMeetCustomPageWidge
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  CalendarFormat _calendarFormat = CalendarFormat.month;
+  DateTime _focusedDay = DateTime.now();
+  DateTime? _selectedDay;
+
+  Map<DateTime, List<dynamic>> selectedEvents = {};
+
   @override
   void initState() {
     super.initState();
@@ -29,6 +39,8 @@ class _BookingMeetCustomPageWidgetState extends State<BookingMeetCustomPageWidge
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       FFAppState().fakeSelectedDate = [];
     });
+
+    addBookingMark();
   }
 
   @override
@@ -36,6 +48,21 @@ class _BookingMeetCustomPageWidgetState extends State<BookingMeetCustomPageWidge
     _model.dispose();
 
     super.dispose();
+  }
+
+  addBookingMark() async {
+    print("addBookingMark");
+    var rs = await FirebaseFirestore.instance.collection('booking_list').where('meeting_room_doc', isEqualTo: FFAppState().meetingRoomSelectedRef).get();
+    print('size : ${rs.size}');
+    for (var i = 0; i < rs.size; i++) {
+      String formattedDateTime = DateFormat("yyyy-MM-dd 00:00:00'Z'").format(rs.docs[i].data()["booking_date"].toDate());
+      selectedEvents[DateTime.parse(formattedDateTime)] = ['x'];
+    }
+    setState(() {});
+  }
+
+  List<dynamic> _getEventsForDay(DateTime date) {
+    return selectedEvents[date] ?? [];
   }
 
   @override
@@ -69,8 +96,7 @@ class _BookingMeetCustomPageWidgetState extends State<BookingMeetCustomPageWidge
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
                   child: Material(
                     color: Colors.transparent,
                     elevation: 3.0,
@@ -86,48 +112,62 @@ class _BookingMeetCustomPageWidgetState extends State<BookingMeetCustomPageWidge
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          FlutterFlowCalendar(
-                            color: FlutterFlowTheme.of(context).primary,
-                            iconColor:
-                                FlutterFlowTheme.of(context).secondaryText,
-                            weekFormat: false,
-                            weekStartsMonday: false,
-                            initialDate: getCurrentTimestamp,
-                            rowHeight: 64.0,
-                            onChange: (DateTimeRange? newSelectedDate) async {
-                              _model.calendarSelectedDay = newSelectedDate;
-                              FFAppState().addToFakeSelectedDate(
-                                  _model.calendarSelectedDay!.start.toString());
-                              if (FFAppState().fakeSelectedDate.length > 1) {
-                                context.pushNamed(
-                                  'AddBookingPage',
-                                  queryParameters: {
-                                    'dateSeleceteParameter': serializeParam(
-                                      _model.calendarSelectedDay?.start,
-                                      ParamType.DateTime,
-                                    ),
-                                  }.withoutNulls,
-                                );
-                              }
-                              setState(() {});
+                          TableCalendar(
+                            headerStyle: HeaderStyle(
+                              formatButtonVisible: false,
+                            ),
+                            firstDay: kFirstDay,
+                            lastDay: kLastDay,
+                            focusedDay: _focusedDay,
+                            calendarFormat: _calendarFormat,
+                            selectedDayPredicate: (day) {
+                              print("Predicate");
+                              // Use `selectedDayPredicate` to determine which day is currently selected.
+                              // If this returns true, then `day` will be marked as selected.
+
+                              // Using `isSameDay` is recommended to disregard
+                              // the time-part of compared DateTime objects.
+                              return isSameDay(_selectedDay, day);
                             },
-                            titleStyle: FlutterFlowTheme.of(context)
-                                .headlineSmall
-                                .override(
-                                  fontFamily: 'Kanit',
-                                  fontSize: 24.0,
-                                ),
-                            dayOfWeekStyle: FlutterFlowTheme.of(context)
-                                .labelLarge
-                                .override(
-                                  fontFamily: 'Kanit',
-                                  fontSize: 14.0,
-                                ),
-                            dateStyle: FlutterFlowTheme.of(context).bodyMedium,
-                            selectedDateStyle:
-                                FlutterFlowTheme.of(context).titleSmall,
-                            inactiveDateStyle:
-                                FlutterFlowTheme.of(context).labelMedium,
+                            onDaySelected: (selectedDay, focusedDay) {
+                              if (!isSameDay(_selectedDay, selectedDay)) {
+                                // Call `setState()` when updating the selected day
+                                setState(() {
+                                  _selectedDay = selectedDay;
+                                  _focusedDay = focusedDay;
+                                });
+                              }
+                              context.pushNamed(
+                                'AddBookingPage',
+                                queryParameters: {
+                                  'dateSeleceteParameter': serializeParam(
+                                    selectedDay,
+                                    ParamType.DateTime,
+                                  ),
+                                }.withoutNulls,
+                              );
+                            },
+                            eventLoader: _getEventsForDay,
+                            calendarBuilders: CalendarBuilders(
+                              markerBuilder: (BuildContext context, date, events) {
+                                if (events.isEmpty) return SizedBox();
+                                return ListView.builder(
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: events.length,
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                        margin: const EdgeInsets.only(top: 20),
+                                        padding: const EdgeInsets.all(1),
+                                        child: Container(
+                                          // height: 7,
+                                          width: 5,
+                                          decoration: BoxDecoration(shape: BoxShape.circle, color: FlutterFlowTheme.of(context).tertiary),
+                                        ),
+                                      );
+                                    });
+                              },
+                            ),
                           ),
                         ],
                       ),
@@ -135,8 +175,7 @@ class _BookingMeetCustomPageWidgetState extends State<BookingMeetCustomPageWidge
                   ),
                 ),
                 Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -149,8 +188,7 @@ class _BookingMeetCustomPageWidgetState extends State<BookingMeetCustomPageWidge
                       ),
                       Expanded(
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              8.0, 0.0, 0.0, 0.0),
+                          padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
                           child: Text(
                             'มีผู้จองบางช่วงเวลาแล้วในวันนี้',
                             style: FlutterFlowTheme.of(context).bodyMedium,
