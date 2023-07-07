@@ -263,6 +263,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
+                                FFAppState().update(() {
+                                  FFAppState().isChangeProfileDetail = false;
+                                });
+
                                 context.pushNamed('ProfilePage');
                               },
                               child: Material(
