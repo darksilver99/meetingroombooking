@@ -234,6 +234,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
 
                       await currentUserReference!.update(createUsersRecordData(
                         isPay: true,
+                        availableDate: functions.getNextDay(30),
                       ));
 
                       await PayHistoryRecord.collection
