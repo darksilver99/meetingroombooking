@@ -166,6 +166,31 @@ class FFAppState extends ChangeNotifier {
   set isChangeProfileDetail(bool _value) {
     _isChangeProfileDetail = _value;
   }
+
+  List<dynamic> _totalMeetingRoom = [];
+  List<dynamic> get totalMeetingRoom => _totalMeetingRoom;
+  set totalMeetingRoom(List<dynamic> _value) {
+    _totalMeetingRoom = _value;
+  }
+
+  void addToTotalMeetingRoom(dynamic _value) {
+    _totalMeetingRoom.add(_value);
+  }
+
+  void removeFromTotalMeetingRoom(dynamic _value) {
+    _totalMeetingRoom.remove(_value);
+  }
+
+  void removeAtIndexFromTotalMeetingRoom(int _index) {
+    _totalMeetingRoom.removeAt(_index);
+  }
+
+  void updateTotalMeetingRoomAtIndex(
+    int _index,
+    dynamic Function(dynamic) updateFn,
+  ) {
+    _totalMeetingRoom[_index] = updateFn(_totalMeetingRoom[_index]);
+  }
 }
 
 LatLng? _latLngFromString(String? val) {
