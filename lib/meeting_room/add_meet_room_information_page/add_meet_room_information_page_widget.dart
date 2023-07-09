@@ -573,9 +573,13 @@ class _AddMeetRoomInformationPageWidgetState
                                         setState(() {});
                                       },
                                       width: double.infinity,
+                                      searchHintTextStyle:
+                                          FlutterFlowTheme.of(context)
+                                              .labelMedium,
                                       textStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium,
                                       hintText: 'เลือกจังหวัด',
+                                      searchHintText: 'Search for an item...',
                                       icon: Icon(
                                         Icons.keyboard_arrow_down_rounded,
                                         color: FlutterFlowTheme.of(context)
@@ -592,7 +596,7 @@ class _AddMeetRoomInformationPageWidgetState
                                       margin: EdgeInsetsDirectional.fromSTEB(
                                           16.0, 4.0, 16.0, 4.0),
                                       hidesUnderline: true,
-                                      isSearchable: false,
+                                      isSearchable: true,
                                     );
                                   },
                                 ),
@@ -653,9 +657,13 @@ class _AddMeetRoomInformationPageWidgetState
                                           setState(() {});
                                         },
                                         width: double.infinity,
+                                        searchHintTextStyle:
+                                            FlutterFlowTheme.of(context)
+                                                .labelMedium,
                                         textStyle: FlutterFlowTheme.of(context)
                                             .bodyMedium,
                                         hintText: 'เลือกอำเภอ',
+                                        searchHintText: 'Search for an item...',
                                         icon: Icon(
                                           Icons.keyboard_arrow_down_rounded,
                                           color: FlutterFlowTheme.of(context)
@@ -673,7 +681,7 @@ class _AddMeetRoomInformationPageWidgetState
                                         margin: EdgeInsetsDirectional.fromSTEB(
                                             16.0, 4.0, 16.0, 4.0),
                                         hidesUnderline: true,
-                                        isSearchable: false,
+                                        isSearchable: true,
                                       );
                                     },
                                   ),
@@ -721,9 +729,13 @@ class _AddMeetRoomInformationPageWidgetState
                                               _model.tambonValue!;
                                         },
                                         width: double.infinity,
+                                        searchHintTextStyle:
+                                            FlutterFlowTheme.of(context)
+                                                .labelMedium,
                                         textStyle: FlutterFlowTheme.of(context)
                                             .bodyMedium,
                                         hintText: 'เลือกตำบล',
+                                        searchHintText: 'Search for an item...',
                                         icon: Icon(
                                           Icons.keyboard_arrow_down_rounded,
                                           color: FlutterFlowTheme.of(context)
@@ -741,7 +753,7 @@ class _AddMeetRoomInformationPageWidgetState
                                         margin: EdgeInsetsDirectional.fromSTEB(
                                             16.0, 4.0, 16.0, 4.0),
                                         hidesUnderline: true,
-                                        isSearchable: false,
+                                        isSearchable: true,
                                       );
                                     },
                                   ),
