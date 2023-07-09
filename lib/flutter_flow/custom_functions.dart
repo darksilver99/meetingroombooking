@@ -46,8 +46,8 @@ DateTime? setNewDateTimeForQuery(
   return newDate;
 }
 
-DateTime? getNext30Day() {
+DateTime? getNextDay(int? nextDay) {
   DateTime currentDate = DateTime.now();
-  DateTime futureDate = currentDate.add(Duration(days: 30));
+  DateTime futureDate = currentDate.add(Duration(days: nextDay!));
   return futureDate;
 }

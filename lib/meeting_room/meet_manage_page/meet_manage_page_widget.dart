@@ -252,6 +252,30 @@ class _MeetManagePageWidgetState extends State<MeetManagePageWidget> {
                       ),
                     ),
                   ),
+                  if (!valueOrDefault<bool>(
+                      currentUserDocument?.isAppChecker, false))
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+                      child: AuthUserStreamWidget(
+                        builder: (context) => Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              'ท่านสามารถใช้งานได้ถึงวันที่ ${dateTimeFormat('d/M/y', currentUserDocument?.availableDate)}',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Kanit',
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryText,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                 ],
               ),
             ),
