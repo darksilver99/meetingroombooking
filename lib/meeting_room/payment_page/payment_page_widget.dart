@@ -1,0 +1,196 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
+import '/backend/stripe/payment_manager.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'payment_page_model.dart';
+export 'payment_page_model.dart';
+
+class PaymentPageWidget extends StatefulWidget {
+  const PaymentPageWidget({Key? key}) : super(key: key);
+
+  @override
+  _PaymentPageWidgetState createState() => _PaymentPageWidgetState();
+}
+
+class _PaymentPageWidgetState extends State<PaymentPageWidget> {
+  late PaymentPageModel _model;
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    _model = createModel(context, () => PaymentPageModel());
+  }
+
+  @override
+  void dispose() {
+    _model.dispose();
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        appBar: AppBar(
+          backgroundColor: FlutterFlowTheme.of(context).secondary,
+          automaticallyImplyLeading: true,
+          title: Text(
+            'ชำระเงิน',
+            style: FlutterFlowTheme.of(context).headlineMedium.override(
+                  fontFamily: 'Kanit',
+                  color: Colors.white,
+                  fontSize: 22.0,
+                ),
+          ),
+          actions: [],
+          centerTitle: true,
+          elevation: 2.0,
+        ),
+        body: SafeArea(
+          top: true,
+          child: Stack(
+            children: [
+              SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Image.asset(
+                          'assets/images/iTunesArtwork@3x.png',
+                          height: 180.0,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+                      child: Text(
+                        'ขออภัยบัญชีของท่านหมดอายุการใช้งานแล้ว กรุณาต่ออายุการใช้งาน',
+                        textAlign: TextAlign.center,
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Kanit',
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w500,
+                            ),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+                      child: Text(
+                        'พิเศษเพียง 79 บาท/เดือน เท่านั้น',
+                        textAlign: TextAlign.center,
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Kanit',
+                              fontSize: 22.0,
+                              fontWeight: FontWeight.w600,
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Align(
+                alignment: AlignmentDirectional(0.0, 1.0),
+                child: Padding(
+                  padding:
+                      EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 16.0),
+                  child: FFButtonWidget(
+                    onPressed: () async {
+                      final paymentResponse = await processStripePayment(
+                        context,
+                        amount: 7900,
+                        currency: 'THB',
+                        customerEmail: currentUserEmail,
+                        customerName:
+                            valueOrDefault(currentUserDocument?.fullname, ''),
+                        allowGooglePay: true,
+                        allowApplePay: false,
+                        buttonColor: FlutterFlowTheme.of(context).primary,
+                        buttonTextColor: Colors.white,
+                      );
+                      if (paymentResponse.paymentId == null) {
+                        if (paymentResponse.errorMessage != null) {
+                          showSnackbar(
+                            context,
+                            'Error: ${paymentResponse.errorMessage}',
+                          );
+                        }
+                        return;
+                      }
+                      _model.paymentId = paymentResponse.paymentId!;
+
+                      await currentUserReference!.update(createUsersRecordData(
+                        isPay: true,
+                      ));
+                      await showDialog(
+                        context: context,
+                        builder: (alertDialogContext) {
+                          return AlertDialog(
+                            title: Text('ชำระเงินเสร็จสิ้น'),
+                            content: Text(_model.paymentId!),
+                            actions: [
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(alertDialogContext),
+                                child: Text('ตกลง'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                      context.safePop();
+
+                      setState(() {});
+                    },
+                    text: 'ชำระเงิน',
+                    options: FFButtonOptions(
+                      width: double.infinity,
+                      height: 60.0,
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      iconPadding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: FlutterFlowTheme.of(context).primary,
+                      textStyle:
+                          FlutterFlowTheme.of(context).titleSmall.override(
+                                fontFamily: 'Kanit',
+                                color: Colors.white,
+                                fontSize: 22.0,
+                              ),
+                      elevation: 3.0,
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

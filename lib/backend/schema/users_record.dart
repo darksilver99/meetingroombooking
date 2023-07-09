@@ -81,6 +81,11 @@ class UsersRecord extends FirestoreRecord {
   DocumentReference? get updateBy => _updateBy;
   bool hasUpdateBy() => _updateBy != null;
 
+  // "is_pay" field.
+  bool? _isPay;
+  bool get isPay => _isPay ?? false;
+  bool hasIsPay() => _isPay != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _password = snapshotData['password'] as String?;
@@ -95,6 +100,7 @@ class UsersRecord extends FirestoreRecord {
     _deleteDate = snapshotData['delete_date'] as DateTime?;
     _updateDate = snapshotData['update_date'] as DateTime?;
     _updateBy = snapshotData['update_by'] as DocumentReference?;
+    _isPay = snapshotData['is_pay'] as bool?;
   }
 
   static CollectionReference get collection =>
@@ -144,6 +150,7 @@ Map<String, dynamic> createUsersRecordData({
   DateTime? deleteDate,
   DateTime? updateDate,
   DocumentReference? updateBy,
+  bool? isPay,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -160,6 +167,7 @@ Map<String, dynamic> createUsersRecordData({
       'delete_date': deleteDate,
       'update_date': updateDate,
       'update_by': updateBy,
+      'is_pay': isPay,
     }.withoutNulls,
   );
 
@@ -183,7 +191,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.phoneNumber == e2?.phoneNumber &&
         e1?.deleteDate == e2?.deleteDate &&
         e1?.updateDate == e2?.updateDate &&
-        e1?.updateBy == e2?.updateBy;
+        e1?.updateBy == e2?.updateBy &&
+        e1?.isPay == e2?.isPay;
   }
 
   @override
@@ -200,7 +209,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.phoneNumber,
         e?.deleteDate,
         e?.updateDate,
-        e?.updateBy
+        e?.updateBy,
+        e?.isPay
       ]);
 
   @override

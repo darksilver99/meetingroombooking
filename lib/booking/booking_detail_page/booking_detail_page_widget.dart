@@ -953,6 +953,54 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     if (widget.bookingDetailParameter!.status ==
+                                        1)
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 16.0, 0.0, 0.0),
+                                        child: FFButtonWidget(
+                                          onPressed: () async {
+                                            await widget.bookingDetailParameter!
+                                                .reference
+                                                .update(
+                                                    createBookingListRecordData(
+                                              updateDate: getCurrentTimestamp,
+                                              updateBy: currentUserReference,
+                                              status: 4,
+                                              remarkOwner: _model
+                                                  .usernameController7.text,
+                                            ));
+                                            context.safePop();
+                                          },
+                                          text: 'เสร็จสิ้นการจอง',
+                                          options: FFButtonOptions(
+                                            width: double.infinity,
+                                            height: 40.0,
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            iconPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .override(
+                                                      fontFamily: 'Kanit',
+                                                      color: Colors.white,
+                                                    ),
+                                            elevation: 3.0,
+                                            borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                          ),
+                                        ),
+                                      ),
+                                    if (widget.bookingDetailParameter!.status ==
                                         0)
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
