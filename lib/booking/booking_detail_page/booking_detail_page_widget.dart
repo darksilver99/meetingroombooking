@@ -971,7 +971,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                             ));
                                             context.safePop();
                                           },
-                                          text: 'เสร็จสิ้นการจอง',
+                                          text: 'เสร็จสิ้นการประชุมแล้ว',
                                           options: FFButtonOptions(
                                             width: double.infinity,
                                             height: 40.0,
