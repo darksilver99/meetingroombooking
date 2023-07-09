@@ -86,6 +86,16 @@ class UsersRecord extends FirestoreRecord {
   bool get isPay => _isPay ?? false;
   bool hasIsPay() => _isPay != null;
 
+  // "is_first_time" field.
+  bool? _isFirstTime;
+  bool get isFirstTime => _isFirstTime ?? false;
+  bool hasIsFirstTime() => _isFirstTime != null;
+
+  // "is_app_checker" field.
+  bool? _isAppChecker;
+  bool get isAppChecker => _isAppChecker ?? false;
+  bool hasIsAppChecker() => _isAppChecker != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _password = snapshotData['password'] as String?;
@@ -101,6 +111,8 @@ class UsersRecord extends FirestoreRecord {
     _updateDate = snapshotData['update_date'] as DateTime?;
     _updateBy = snapshotData['update_by'] as DocumentReference?;
     _isPay = snapshotData['is_pay'] as bool?;
+    _isFirstTime = snapshotData['is_first_time'] as bool?;
+    _isAppChecker = snapshotData['is_app_checker'] as bool?;
   }
 
   static CollectionReference get collection =>
@@ -151,6 +163,8 @@ Map<String, dynamic> createUsersRecordData({
   DateTime? updateDate,
   DocumentReference? updateBy,
   bool? isPay,
+  bool? isFirstTime,
+  bool? isAppChecker,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -168,6 +182,8 @@ Map<String, dynamic> createUsersRecordData({
       'update_date': updateDate,
       'update_by': updateBy,
       'is_pay': isPay,
+      'is_first_time': isFirstTime,
+      'is_app_checker': isAppChecker,
     }.withoutNulls,
   );
 
@@ -192,7 +208,9 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.deleteDate == e2?.deleteDate &&
         e1?.updateDate == e2?.updateDate &&
         e1?.updateBy == e2?.updateBy &&
-        e1?.isPay == e2?.isPay;
+        e1?.isPay == e2?.isPay &&
+        e1?.isFirstTime == e2?.isFirstTime &&
+        e1?.isAppChecker == e2?.isAppChecker;
   }
 
   @override
@@ -210,7 +228,9 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.deleteDate,
         e?.updateDate,
         e?.updateBy,
-        e?.isPay
+        e?.isPay,
+        e?.isFirstTime,
+        e?.isAppChecker
       ]);
 
   @override

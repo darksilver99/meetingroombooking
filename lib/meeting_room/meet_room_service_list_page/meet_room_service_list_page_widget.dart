@@ -84,6 +84,11 @@ class _MeetRoomServiceListPageWidgetState
                     queryBuilder: (meetingRoomListRecord) =>
                         meetingRoomListRecord
                             .where('create_by', isEqualTo: currentUserReference)
+                            .where('status',
+                                isEqualTo: valueOrDefault<int>(
+                                  null,
+                                  1,
+                                ))
                             .orderBy('create_date', descending: true),
                   ),
                   builder: (context, snapshot) {

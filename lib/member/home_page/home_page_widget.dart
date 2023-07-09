@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_ad_banner.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -130,6 +131,33 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   onTap: () async {
                                     if (valueOrDefault<bool>(
                                         currentUserDocument?.isPay, false)) {
+                                      if (valueOrDefault<bool>(
+                                          currentUserDocument?.isFirstTime,
+                                          false)) {
+                                        await showDialog(
+                                          context: context,
+                                          builder: (alertDialogContext) {
+                                            return AlertDialog(
+                                              title: Text(
+                                                  'พิเศษสำหรับท่าน ทดลองใช้งานฟรี 3 เดือน'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          alertDialogContext),
+                                                  child: Text('ตกลง'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+
+                                        await currentUserReference!
+                                            .update(createUsersRecordData(
+                                          isFirstTime: false,
+                                        ));
+                                      }
+
                                       context.pushNamed('MeetManagePage');
                                     } else {
                                       context.pushNamed('PaymentPage');
@@ -346,15 +374,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               ),
               Align(
                 alignment: AlignmentDirectional(0.0, 1.0),
-                child: Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 16.0),
-                  child: FlutterFlowAdBanner(
-                    width: MediaQuery.sizeOf(context).width * 1.0,
-                    height: 80.0,
-                    showsTestAd: true,
-                    androidAdUnitID: 'ca-app-pub-8903107947688683/4513906873',
-                  ),
+                child: FlutterFlowAdBanner(
+                  width: MediaQuery.sizeOf(context).width * 1.0,
+                  height: 60.0,
+                  showsTestAd: true,
+                  androidAdUnitID: 'ca-app-pub-8903107947688683/4513906873',
                 ),
               ),
             ],

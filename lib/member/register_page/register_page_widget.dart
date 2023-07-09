@@ -425,6 +425,9 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                           phoneNumber:
                                               _model.phoneController.text,
                                           createdTime: getCurrentTimestamp,
+                                          isPay: false,
+                                          isFirstTime: true,
+                                          isAppChecker: false,
                                         ));
 
                                     context.goNamedAuth(
