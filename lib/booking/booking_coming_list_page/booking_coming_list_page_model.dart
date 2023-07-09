@@ -18,18 +18,12 @@ class BookingComingListPageModel extends FlutterFlowModel {
   Query? pagingQuery;
   List<StreamSubscription?> streamSubscriptions = [];
 
-  // State field(s) for ListView widget.
-  PagingController<DocumentSnapshot?, BookingListRecord>? pagingController;
-  Query? pagingQuery;
-  List<StreamSubscription?> streamSubscriptions = [];
-
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {}
 
   void dispose() {
     unfocusNode.dispose();
-    streamSubscriptions.forEach((s) => s?.cancel());
     streamSubscriptions.forEach((s) => s?.cancel());
   }
 
