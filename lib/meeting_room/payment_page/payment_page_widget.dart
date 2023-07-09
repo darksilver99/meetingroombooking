@@ -4,6 +4,7 @@ import '/backend/stripe/payment_manager.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -88,10 +89,102 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Kanit',
+                              color: FlutterFlowTheme.of(context).error,
+                              fontSize: 17.0,
+                              fontWeight: FontWeight.w500,
+                            ),
+                      ),
+                    ),
+                    Divider(
+                      thickness: 1.0,
+                      indent: 16.0,
+                      endIndent: 6.0,
+                      color: FlutterFlowTheme.of(context).alternate,
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(16.0, 8.0, 16.0, 0.0),
+                      child: Text(
+                        'เพิ่อเปิดใช้การทำงานดังนี้',
+                        textAlign: TextAlign.center,
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Kanit',
                               fontSize: 18.0,
                               fontWeight: FontWeight.w500,
                             ),
                       ),
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 0.0),
+                            child: Text(
+                              '- แสดงห้องประชุมของคุณให้ผู้จองเห็น',
+                              textAlign: TextAlign.start,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Kanit',
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 0.0),
+                            child: Text(
+                              '- จัดการรายการจองที่เข้ามา',
+                              textAlign: TextAlign.start,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Kanit',
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 0.0),
+                            child: Text(
+                              '- จัดการห้องประชุมของคุณ',
+                              textAlign: TextAlign.start,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Kanit',
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Divider(
+                      thickness: 1.0,
+                      indent: 16.0,
+                      endIndent: 6.0,
+                      color: FlutterFlowTheme.of(context).alternate,
                     ),
                     Padding(
                       padding:
@@ -142,12 +235,22 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                       await currentUserReference!.update(createUsersRecordData(
                         isPay: true,
                       ));
+
+                      await PayHistoryRecord.collection
+                          .doc()
+                          .set(createPayHistoryRecordData(
+                            createDate: getCurrentTimestamp,
+                            createBy: currentUserReference,
+                            status: 1,
+                            amount: 79.00,
+                          ));
                       await showDialog(
                         context: context,
                         builder: (alertDialogContext) {
                           return AlertDialog(
                             title: Text('ชำระเงินเสร็จสิ้น'),
-                            content: Text(_model.paymentId!),
+                            content: Text(
+                                'ท่านสามารถใช้บริการได้ถึงวันที่ ${dateTimeFormat('d/M/y', functions.getNext30Day())}'),
                             actions: [
                               TextButton(
                                 onPressed: () =>
