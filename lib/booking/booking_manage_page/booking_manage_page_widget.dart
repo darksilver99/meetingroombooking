@@ -205,11 +205,18 @@ class _BookingManagePageWidgetState extends State<BookingManagePageWidget> {
               ),
               Align(
                 alignment: AlignmentDirectional(0.0, 1.0),
-                child: FlutterFlowAdBanner(
-                  width: MediaQuery.sizeOf(context).width * 1.0,
-                  height: 60.0,
-                  showsTestAd: true,
-                  androidAdUnitID: 'ca-app-pub-8903107947688683/6456446452',
+                child: Container(
+                  width: double.infinity,
+                  height: 80.0,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                  ),
+                  child: FlutterFlowAdBanner(
+                    width: MediaQuery.sizeOf(context).width * 1.0,
+                    height: 80.0,
+                    showsTestAd: true,
+                    androidAdUnitID: 'ca-app-pub-8903107947688683/6456446452',
+                  ),
                 ),
               ),
             ],
