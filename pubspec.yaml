@@ -32,6 +32,9 @@ dependencies:
   cloud_firestore: 4.8.0
   cloud_firestore_platform_interface: 5.15.0
   cloud_firestore_web: 3.6.0
+  cloud_functions: 4.3.2
+  cloud_functions_platform_interface: 5.4.2
+  cloud_functions_web: 4.5.2
   dropdown_button2: 2.0.0
   easy_debounce: 2.0.1
   equatable: 2.0.5
@@ -52,6 +55,8 @@ dependencies:
   flutter_animate: 4.1.1+1
   flutter_cache_manager: 3.3.0
   flutter_plugin_android_lifecycle: 2.0.9
+  flutter_stripe: 9.2.1
+  flutter_stripe_web: 4.1.1
   font_awesome_flutter: 10.1.0
   from_css_color: 2.0.0
   geocoding: ^2.0.2
@@ -66,6 +71,7 @@ dependencies:
   google_maps_flutter: 2.1.8
   google_maps_flutter_platform_interface: 2.2.1
   google_maps_flutter_web: 0.4.0+1
+  google_mobile_ads: 2.3.0
   google_sign_in: 6.0.2
   google_sign_in_android: 6.1.8
   google_sign_in_ios: 5.6.1
@@ -102,6 +108,10 @@ dependencies:
   smooth_page_indicator: 1.0.1
   sqflite: 2.2.6
   stream_transform: 2.1.0
+  stripe_android: 9.2.1
+  stripe_ios: 9.2.1
+  stripe_js: 3.0.1
+  stripe_platform_interface: 9.2.1
   table_calendar: 3.0.9
   timeago: 3.2.2
   universal_io: 2.2.0

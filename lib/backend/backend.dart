@@ -13,6 +13,7 @@ import 'schema/tambon_record.dart';
 import 'schema/tools_list_record.dart';
 import 'schema/amphure_record.dart';
 import 'schema/booking_status_record.dart';
+import 'schema/pay_history_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart';
@@ -28,6 +29,7 @@ export 'schema/tambon_record.dart';
 export 'schema/tools_list_record.dart';
 export 'schema/amphure_record.dart';
 export 'schema/booking_status_record.dart';
+export 'schema/pay_history_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({
@@ -439,6 +441,58 @@ Future<FFFirestorePage<BookingStatusRecord>> queryBookingStatusRecordPage({
     queryCollectionPage(
       BookingStatusRecord.collection,
       BookingStatusRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query PayHistoryRecords (as a Stream and as a Future).
+Future<int> queryPayHistoryRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      PayHistoryRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<PayHistoryRecord>> queryPayHistoryRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      PayHistoryRecord.collection,
+      PayHistoryRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<PayHistoryRecord>> queryPayHistoryRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      PayHistoryRecord.collection,
+      PayHistoryRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<PayHistoryRecord>> queryPayHistoryRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      PayHistoryRecord.collection,
+      PayHistoryRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,

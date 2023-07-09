@@ -14,8 +14,8 @@ export '/meeting_room/meet_manage_page/meet_manage_page_widget.dart'
     show MeetManagePageWidget;
 export '/booking/booking_coming_list_page/booking_coming_list_page_widget.dart'
     show BookingComingListPageWidget;
-export '/meeting_room/meet_select_area_page/meet_select_area_page_widget.dart'
-    show MeetSelectAreaPageWidget;
+export '/booking/booking_select_area_page/booking_select_area_page_widget.dart'
+    show BookingSelectAreaPageWidget;
 export '/meeting_room/meet_room_list_province_page/meet_room_list_province_page_widget.dart'
     show MeetRoomListProvincePageWidget;
 export '/booking/booking_meet_page/booking_meet_page_widget.dart'
@@ -36,3 +36,5 @@ export '/meeting_room/map_picker_page/map_picker_page_widget.dart'
     show MapPickerPageWidget;
 export '/meeting_room/edit_meet_room_information_page/edit_meet_room_information_page_widget.dart'
     show EditMeetRoomInformationPageWidget;
+export '/meeting_room/payment_page/payment_page_widget.dart'
+    show PaymentPageWidget;
