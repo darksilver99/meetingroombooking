@@ -138,7 +138,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           context: context,
                                           builder: (alertDialogContext) {
                                             return AlertDialog(
-                                              title: Text(
+                                              content: Text(
                                                   'พิเศษสำหรับท่าน ทดลองใช้งานฟรี 3 เดือน'),
                                               actions: [
                                                 TextButton(

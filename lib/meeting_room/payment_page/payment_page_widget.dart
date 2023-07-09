@@ -250,7 +250,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                           return AlertDialog(
                             title: Text('ชำระเงินเสร็จสิ้น'),
                             content: Text(
-                                'ท่านสามารถใช้บริการได้ถึงวันที่ ${dateTimeFormat('d/M/y', functions.getNext30Day())}'),
+                                'ท่านสามารถใช้บริการได้ถึงวันที่ ${dateTimeFormat('d/M/y', functions.getNextDay(30))}'),
                             actions: [
                               TextButton(
                                 onPressed: () =>
