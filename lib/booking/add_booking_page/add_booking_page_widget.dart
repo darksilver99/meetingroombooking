@@ -486,7 +486,7 @@ class _AddBookingPageWidgetState extends State<AddBookingPageWidget> {
               Align(
                 alignment: AlignmentDirectional(0.0, 1.0),
                 child: Container(
-                  width: double.infinity,
+                  width: MediaQuery.sizeOf(context).width * 1.0,
                   height: 80.0,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
