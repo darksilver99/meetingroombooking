@@ -498,6 +498,9 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                                   .error,
                                         ),
                                       );
+
+                                      context.goNamedAuth(
+                                          'LoginPage', context.mounted);
                                     } else {
                                       if (Navigator.of(context).canPop()) {
                                         context.pop();
