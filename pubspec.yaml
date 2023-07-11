@@ -87,6 +87,7 @@ dependencies:
   json_path: 0.4.1
   map_picker: ^0.0.3
   mime_type: 1.0.0
+  package_info_plus: ^3.0.3
   page_transition: 2.0.4
   path_provider: 2.0.14
   path_provider_android: 2.0.25

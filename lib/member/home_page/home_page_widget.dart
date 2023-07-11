@@ -31,7 +31,33 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await actions.setBookingStatus();
+      await actions.setAppVersion();
+      if (FFAppState().appVersion == FFAppState().storeVersion) {
+        await actions.setBookingStatus();
+      } else {
+        await showDialog(
+          context: context,
+          builder: (alertDialogContext) {
+            return AlertDialog(
+              content: Text(
+                  'กรุณาอัพเดทเวอร์ชั่นของแอปพลิเคชันและเปิดแอปพลิเคชันใหม่'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(alertDialogContext),
+                  child: Text('ตกลง'),
+                ),
+              ],
+            );
+          },
+        );
+        if (isAndroid) {
+          await launchURL(FFAppState().androidStoreLink);
+        } else {
+          await launchURL(FFAppState().iosStoreLink);
+        }
+
+        context.goNamed('HomePage');
+      }
     });
   }
 
