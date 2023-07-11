@@ -426,7 +426,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                           phoneNumber:
                                               _model.phoneController.text,
                                           createdTime: getCurrentTimestamp,
-                                          isPay: false,
+                                          isPay: true,
                                           isFirstTime: true,
                                           isAppChecker: false,
                                           availableDate:
