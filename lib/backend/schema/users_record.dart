@@ -101,6 +101,11 @@ class UsersRecord extends FirestoreRecord {
   DateTime? get availableDate => _availableDate;
   bool hasAvailableDate() => _availableDate != null;
 
+  // "max_meeting_room" field.
+  int? _maxMeetingRoom;
+  int get maxMeetingRoom => _maxMeetingRoom ?? 0;
+  bool hasMaxMeetingRoom() => _maxMeetingRoom != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _password = snapshotData['password'] as String?;
@@ -119,6 +124,7 @@ class UsersRecord extends FirestoreRecord {
     _isFirstTime = snapshotData['is_first_time'] as bool?;
     _isAppChecker = snapshotData['is_app_checker'] as bool?;
     _availableDate = snapshotData['available_date'] as DateTime?;
+    _maxMeetingRoom = castToType<int>(snapshotData['max_meeting_room']);
   }
 
   static CollectionReference get collection =>
@@ -172,6 +178,7 @@ Map<String, dynamic> createUsersRecordData({
   bool? isFirstTime,
   bool? isAppChecker,
   DateTime? availableDate,
+  int? maxMeetingRoom,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -192,6 +199,7 @@ Map<String, dynamic> createUsersRecordData({
       'is_first_time': isFirstTime,
       'is_app_checker': isAppChecker,
       'available_date': availableDate,
+      'max_meeting_room': maxMeetingRoom,
     }.withoutNulls,
   );
 
@@ -219,7 +227,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.isPay == e2?.isPay &&
         e1?.isFirstTime == e2?.isFirstTime &&
         e1?.isAppChecker == e2?.isAppChecker &&
-        e1?.availableDate == e2?.availableDate;
+        e1?.availableDate == e2?.availableDate &&
+        e1?.maxMeetingRoom == e2?.maxMeetingRoom;
   }
 
   @override
@@ -240,7 +249,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.isPay,
         e?.isFirstTime,
         e?.isAppChecker,
-        e?.availableDate
+        e?.availableDate,
+        e?.maxMeetingRoom
       ]);
 
   @override
