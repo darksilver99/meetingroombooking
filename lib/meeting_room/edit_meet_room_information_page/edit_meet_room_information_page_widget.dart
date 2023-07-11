@@ -1251,8 +1251,8 @@ class _EditMeetRoomInformationPageWidgetState
                                         status: 2,
                                         deleteBy: currentUserReference,
                                       ));
+                                      context.safePop();
                                     }
-                                    context.safePop();
                                   },
                                   text: 'ลบห้องประชุมนี้',
                                   options: FFButtonOptions(
