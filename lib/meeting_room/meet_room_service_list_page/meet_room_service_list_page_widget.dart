@@ -3,6 +3,7 @@ import '/backend/backend.dart';
 import '/components/no_data_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -48,7 +49,31 @@ class _MeetRoomServiceListPageWidgetState
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
-            context.pushNamed('AddMeetRoomInformationPage');
+            _model.isCanCreateMoreRoom =
+                await actions.checkMaximumCreateMeetingRoom();
+            if (_model.isCanCreateMoreRoom!) {
+              context.pushNamed('AddMeetRoomInformationPage');
+            } else {
+              await showDialog(
+                context: context,
+                builder: (alertDialogContext) {
+                  return AlertDialog(
+                    title: Text(
+                        'ขออภัยบัญชีของท่านไม่สามารถเพิ่มห้องประชุมได้แล้ว'),
+                    content: Text(
+                        'หากต้องการเพิ่มห้องประชุมให้ติดต่อที่เมนู \"จัดการโปรไฟล์\" > \"แจ้งปัญหาการใช้งาน\"'),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(alertDialogContext),
+                        child: Text('ตกลง'),
+                      ),
+                    ],
+                  );
+                },
+              );
+            }
+
+            setState(() {});
           },
           backgroundColor: FlutterFlowTheme.of(context).secondary,
           elevation: 8.0,

@@ -5,3 +5,5 @@ export 'set_booking_status.dart' show setBookingStatus;
 export 'get_tambon_i_d.dart' show getTambonID;
 export 'set_app_version.dart' show setAppVersion;
 export 'close_app.dart' show closeApp;
+export 'check_maximum_create_meeting_room.dart'
+    show checkMaximumCreateMeetingRoom;

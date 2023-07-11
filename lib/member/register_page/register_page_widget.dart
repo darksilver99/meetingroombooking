@@ -431,6 +431,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                           isAppChecker: false,
                                           availableDate:
                                               functions.getNextDay(90),
+                                          maxMeetingRoom: 3,
                                         ));
 
                                     context.goNamedAuth(
