@@ -542,16 +542,15 @@ class _BookingSelectAreaPageWidgetState
                   ),
                 ),
               ),
-              Align(
-                alignment: AlignmentDirectional(0.0, 1.0),
-                child: Container(
-                  width: MediaQuery.sizeOf(context).width * 1.0,
-                  height: 80.0,
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
-                  ),
-                  child: Visibility(
-                    visible: FFAppState().isEnableAd,
+              if (FFAppState().isEnableAd)
+                Align(
+                  alignment: AlignmentDirectional(0.0, 1.0),
+                  child: Container(
+                    width: MediaQuery.sizeOf(context).width * 1.0,
+                    height: 80.0,
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).primaryBackground,
+                    ),
                     child: FlutterFlowAdBanner(
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       height: 80.0,
@@ -560,7 +559,6 @@ class _BookingSelectAreaPageWidgetState
                     ),
                   ),
                 ),
-              ),
             ],
           ),
         ),
