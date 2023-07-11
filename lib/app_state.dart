@@ -28,6 +28,9 @@ class FFAppState extends ChangeNotifier {
     _safeInit(() {
       _iosStoreLink = prefs.getString('ff_iosStoreLink') ?? _iosStoreLink;
     });
+    _safeInit(() {
+      _isEnableAd = prefs.getBool('ff_isEnableAd') ?? _isEnableAd;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -235,6 +238,13 @@ class FFAppState extends ChangeNotifier {
   set iosStoreLink(String _value) {
     _iosStoreLink = _value;
     prefs.setString('ff_iosStoreLink', _value);
+  }
+
+  bool _isEnableAd = false;
+  bool get isEnableAd => _isEnableAd;
+  set isEnableAd(bool _value) {
+    _isEnableAd = _value;
+    prefs.setBool('ff_isEnableAd', _value);
   }
 }
 

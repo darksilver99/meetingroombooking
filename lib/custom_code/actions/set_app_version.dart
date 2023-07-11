@@ -31,4 +31,5 @@ Future setAppVersion() async {
   FFAppState().storeVersion = rs.data()!["store_version"];
   FFAppState().androidStoreLink = rs.data()!["android_store_link"];
   FFAppState().iosStoreLink = rs.data()!["ios_store_link"];
+  FFAppState().isEnableAd = rs.data()!["enable_ad"];
 }

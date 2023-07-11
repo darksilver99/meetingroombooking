@@ -211,11 +211,14 @@ class _BookingManagePageWidgetState extends State<BookingManagePageWidget> {
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                   ),
-                  child: FlutterFlowAdBanner(
-                    width: MediaQuery.sizeOf(context).width * 1.0,
-                    height: 80.0,
-                    showsTestAd: true,
-                    androidAdUnitID: 'ca-app-pub-8903107947688683/6456446452',
+                  child: Visibility(
+                    visible: FFAppState().isEnableAd,
+                    child: FlutterFlowAdBanner(
+                      width: MediaQuery.sizeOf(context).width * 1.0,
+                      height: 80.0,
+                      showsTestAd: true,
+                      androidAdUnitID: 'ca-app-pub-8903107947688683/6456446452',
+                    ),
                   ),
                 ),
               ),
