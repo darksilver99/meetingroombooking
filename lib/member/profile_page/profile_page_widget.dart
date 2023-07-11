@@ -478,10 +478,33 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                       await authManager.signOut();
                                       GoRouter.of(context)
                                           .clearRedirectLocation();
-                                    }
 
-                                    context.goNamedAuth(
-                                        'LoginPage', context.mounted);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'ออกจากระบบเรียบร้อยแล้ว',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Kanit',
+                                                  color: Colors.white,
+                                                ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 2000),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .error,
+                                        ),
+                                      );
+                                    } else {
+                                      if (Navigator.of(context).canPop()) {
+                                        context.pop();
+                                      }
+                                      context.pushNamedAuth(
+                                          'ProfilePage', context.mounted);
+                                    }
                                   },
                                   text: 'ออกจากระบบ',
                                   options: FFButtonOptions(
