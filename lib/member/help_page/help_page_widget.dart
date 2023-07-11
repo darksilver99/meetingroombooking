@@ -420,7 +420,8 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
                                                 .secondary,
                                       ),
                                     );
-                                    context.safePop();
+
+                                    context.goNamed('HomePage');
                                   },
                                   text: 'ส่งข้อมูล',
                                   options: FFButtonOptions(
