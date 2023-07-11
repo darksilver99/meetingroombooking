@@ -485,6 +485,45 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                     ),
                   ),
                 ),
+                Align(
+                  alignment: AlignmentDirectional(1.0, 0.0),
+                  child: Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
+                    child: InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        context.pushNamed('HelpPage');
+                      },
+                      child: Text(
+                        'แจ้งปัญหาการใช้งาน',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Kanit',
+                              color: FlutterFlowTheme.of(context).primary,
+                              fontSize: 16.0,
+                              decoration: TextDecoration.underline,
+                            ),
+                      ),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: AlignmentDirectional(1.0, 0.0),
+                  child: Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
+                    child: Text(
+                      FFAppState().appVersion,
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Kanit',
+                            color: FlutterFlowTheme.of(context).secondaryText,
+                          ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

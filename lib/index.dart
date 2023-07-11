@@ -38,3 +38,4 @@ export '/meeting_room/edit_meet_room_information_page/edit_meet_room_information
     show EditMeetRoomInformationPageWidget;
 export '/meeting_room/payment_page/payment_page_widget.dart'
     show PaymentPageWidget;
+export '/member/help_page/help_page_widget.dart' show HelpPageWidget;

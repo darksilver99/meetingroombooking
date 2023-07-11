@@ -13,12 +13,29 @@ class FFAppState extends ChangeNotifier {
 
   FFAppState._internal();
 
-  Future initializePersistedState() async {}
+  Future initializePersistedState() async {
+    prefs = await SharedPreferences.getInstance();
+    _safeInit(() {
+      _appVersion = prefs.getString('ff_appVersion') ?? _appVersion;
+    });
+    _safeInit(() {
+      _storeVersion = prefs.getString('ff_storeVersion') ?? _storeVersion;
+    });
+    _safeInit(() {
+      _androidStoreLink =
+          prefs.getString('ff_androidStoreLink') ?? _androidStoreLink;
+    });
+    _safeInit(() {
+      _iosStoreLink = prefs.getString('ff_iosStoreLink') ?? _iosStoreLink;
+    });
+  }
 
   void update(VoidCallback callback) {
     callback();
     notifyListeners();
   }
+
+  late SharedPreferences prefs;
 
   int _provinceSelected = 0;
   int get provinceSelected => _provinceSelected;
@@ -190,6 +207,34 @@ class FFAppState extends ChangeNotifier {
     dynamic Function(dynamic) updateFn,
   ) {
     _totalMeetingRoom[_index] = updateFn(_totalMeetingRoom[_index]);
+  }
+
+  String _appVersion = '';
+  String get appVersion => _appVersion;
+  set appVersion(String _value) {
+    _appVersion = _value;
+    prefs.setString('ff_appVersion', _value);
+  }
+
+  String _storeVersion = '';
+  String get storeVersion => _storeVersion;
+  set storeVersion(String _value) {
+    _storeVersion = _value;
+    prefs.setString('ff_storeVersion', _value);
+  }
+
+  String _androidStoreLink = '';
+  String get androidStoreLink => _androidStoreLink;
+  set androidStoreLink(String _value) {
+    _androidStoreLink = _value;
+    prefs.setString('ff_androidStoreLink', _value);
+  }
+
+  String _iosStoreLink = '';
+  String get iosStoreLink => _iosStoreLink;
+  set iosStoreLink(String _value) {
+    _iosStoreLink = _value;
+    prefs.setString('ff_iosStoreLink', _value);
   }
 }
 
