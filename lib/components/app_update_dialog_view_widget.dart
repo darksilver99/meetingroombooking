@@ -43,6 +43,7 @@ class _AppUpdateDialogViewWidgetState extends State<AppUpdateDialogViewWidget> {
 
     return Column(
       mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Material(
           color: Colors.transparent,
