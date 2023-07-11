@@ -117,7 +117,7 @@ class _BookingDialogViewWidgetState extends State<BookingDialogViewWidget> {
                       List<BookingListRecord> containerBookingListRecordList =
                           snapshot.data!;
                       return Container(
-                        height: MediaQuery.sizeOf(context).height * 0.8,
+                        height: MediaQuery.sizeOf(context).height * 0.72,
                         decoration: BoxDecoration(
                           color:
                               FlutterFlowTheme.of(context).secondaryBackground,
