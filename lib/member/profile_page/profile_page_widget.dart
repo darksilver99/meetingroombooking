@@ -446,10 +446,39 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                     0.0, 8.0, 0.0, 0.0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
-                                    GoRouter.of(context).prepareAuthEvent();
-                                    await authManager.signOut();
-                                    GoRouter.of(context)
-                                        .clearRedirectLocation();
+                                    var confirmDialogResponse =
+                                        await showDialog<bool>(
+                                              context: context,
+                                              builder: (alertDialogContext) {
+                                                return AlertDialog(
+                                                  title: Text(
+                                                      'ต้องการออกจากระบบใช่หรือไม่'),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              alertDialogContext,
+                                                              false),
+                                                      child: Text('ยกเลิก'),
+                                                    ),
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              alertDialogContext,
+                                                              true),
+                                                      child: Text('ตกลง'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            ) ??
+                                            false;
+                                    if (confirmDialogResponse) {
+                                      GoRouter.of(context).prepareAuthEvent();
+                                      await authManager.signOut();
+                                      GoRouter.of(context)
+                                          .clearRedirectLocation();
+                                    }
 
                                     context.goNamedAuth(
                                         'LoginPage', context.mounted);
