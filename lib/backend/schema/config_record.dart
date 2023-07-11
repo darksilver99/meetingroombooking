@@ -31,10 +31,16 @@ class ConfigRecord extends FirestoreRecord {
   String get iosStoreLink => _iosStoreLink ?? '';
   bool hasIosStoreLink() => _iosStoreLink != null;
 
+  // "enable_ad" field.
+  bool? _enableAd;
+  bool get enableAd => _enableAd ?? false;
+  bool hasEnableAd() => _enableAd != null;
+
   void _initializeFields() {
     _storeVersion = snapshotData['store_version'] as String?;
     _androidStoreLink = snapshotData['android_store_link'] as String?;
     _iosStoreLink = snapshotData['ios_store_link'] as String?;
+    _enableAd = snapshotData['enable_ad'] as bool?;
   }
 
   static CollectionReference get collection =>
@@ -74,12 +80,14 @@ Map<String, dynamic> createConfigRecordData({
   String? storeVersion,
   String? androidStoreLink,
   String? iosStoreLink,
+  bool? enableAd,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'store_version': storeVersion,
       'android_store_link': androidStoreLink,
       'ios_store_link': iosStoreLink,
+      'enable_ad': enableAd,
     }.withoutNulls,
   );
 
@@ -93,12 +101,13 @@ class ConfigRecordDocumentEquality implements Equality<ConfigRecord> {
   bool equals(ConfigRecord? e1, ConfigRecord? e2) {
     return e1?.storeVersion == e2?.storeVersion &&
         e1?.androidStoreLink == e2?.androidStoreLink &&
-        e1?.iosStoreLink == e2?.iosStoreLink;
+        e1?.iosStoreLink == e2?.iosStoreLink &&
+        e1?.enableAd == e2?.enableAd;
   }
 
   @override
-  int hash(ConfigRecord? e) => const ListEquality()
-      .hash([e?.storeVersion, e?.androidStoreLink, e?.iosStoreLink]);
+  int hash(ConfigRecord? e) => const ListEquality().hash(
+      [e?.storeVersion, e?.androidStoreLink, e?.iosStoreLink, e?.enableAd]);
 
   @override
   bool isValidKey(Object? o) => o is ConfigRecord;
