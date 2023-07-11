@@ -47,6 +47,9 @@ class _AddMeetRoomInformationPageWidgetState
         FFAppState().amphureSelected = 0;
         FFAppState().imageUploadList = [];
         FFAppState().tambonSelected = 0;
+        FFAppState().provinceSelectedValue = '';
+        FFAppState().amphurSelectedValue = '';
+        FFAppState().tambonSelectedValue = '';
       });
     });
 
