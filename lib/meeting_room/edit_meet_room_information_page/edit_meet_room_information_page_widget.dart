@@ -1252,6 +1252,7 @@ class _EditMeetRoomInformationPageWidgetState
                                         deleteBy: currentUserReference,
                                       ));
                                       context.safePop();
+                                      context.safePop();
                                     }
                                   },
                                   text: 'ลบห้องประชุมนี้',
