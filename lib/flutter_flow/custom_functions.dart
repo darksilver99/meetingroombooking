@@ -14,12 +14,54 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '/auth/firebase_auth/auth_util.dart';
 
 String? getMeetingStatusText(int? status) {
-  List resultList = FFAppState()
-      .bookingStatus
-      .where((map) => map.containsValue(status))
-      .toList();
+  String textStatus = "";
+  if (FFAppState().bookingStatus.isEmpty) {
+    switch (status) {
+      case 0:
+        {
+          textStatus = "รออนุมัติ";
+        }
+        break;
 
-  return resultList[0]["name"];
+      case 1:
+        {
+          textStatus = "อนุมัติแล้ว";
+        }
+        break;
+
+      case 2:
+        {
+          textStatus = "ลบรายการแล้ว";
+        }
+        break;
+
+      case 3:
+        {
+          textStatus = "ยกเลิก";
+        }
+        break;
+
+      case 4:
+        {
+          textStatus = "เสร็จสิ้นการประชุมแล้ว";
+        }
+        break;
+
+      default:
+        {
+          textStatus = "รออนุมัติ";
+        }
+        break;
+    }
+  } else {
+    List resultList = FFAppState()
+        .bookingStatus
+        .where((map) => map.containsValue(status))
+        .toList();
+    textStatus = resultList[0]["name"];
+  }
+
+  return textStatus;
 }
 
 String? getSplitLatLng(
