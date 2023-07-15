@@ -34,10 +34,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       await actions.setAppVersion();
       if (FFAppState().isTesting) {
         await actions.setBookingStatus();
-        setState(() {
-          FFAppState().bookingStatus =
-              FFAppState().totalMeetingRoom.toList().cast<dynamic>();
-        });
       } else {
         if (FFAppState().appBuildVersion >= FFAppState().storeBuildVersion) {
           await actions.setBookingStatus();
