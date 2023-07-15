@@ -19,9 +19,6 @@ class FFAppState extends ChangeNotifier {
       _appVersion = prefs.getString('ff_appVersion') ?? _appVersion;
     });
     _safeInit(() {
-      _storeVersion = prefs.getString('ff_storeVersion') ?? _storeVersion;
-    });
-    _safeInit(() {
       _androidStoreLink =
           prefs.getString('ff_androidStoreLink') ?? _androidStoreLink;
     });
@@ -30,6 +27,16 @@ class FFAppState extends ChangeNotifier {
     });
     _safeInit(() {
       _isEnableAd = prefs.getBool('ff_isEnableAd') ?? _isEnableAd;
+    });
+    _safeInit(() {
+      _storeBuildVersion =
+          prefs.getInt('ff_storeBuildVersion') ?? _storeBuildVersion;
+    });
+    _safeInit(() {
+      _appBuildVersion = prefs.getInt('ff_appBuildVersion') ?? _appBuildVersion;
+    });
+    _safeInit(() {
+      _isTesting = prefs.getBool('ff_isTesting') ?? _isTesting;
     });
   }
 
@@ -219,13 +226,6 @@ class FFAppState extends ChangeNotifier {
     prefs.setString('ff_appVersion', _value);
   }
 
-  String _storeVersion = '';
-  String get storeVersion => _storeVersion;
-  set storeVersion(String _value) {
-    _storeVersion = _value;
-    prefs.setString('ff_storeVersion', _value);
-  }
-
   String _androidStoreLink = '';
   String get androidStoreLink => _androidStoreLink;
   set androidStoreLink(String _value) {
@@ -245,6 +245,27 @@ class FFAppState extends ChangeNotifier {
   set isEnableAd(bool _value) {
     _isEnableAd = _value;
     prefs.setBool('ff_isEnableAd', _value);
+  }
+
+  int _storeBuildVersion = 0;
+  int get storeBuildVersion => _storeBuildVersion;
+  set storeBuildVersion(int _value) {
+    _storeBuildVersion = _value;
+    prefs.setInt('ff_storeBuildVersion', _value);
+  }
+
+  int _appBuildVersion = 0;
+  int get appBuildVersion => _appBuildVersion;
+  set appBuildVersion(int _value) {
+    _appBuildVersion = _value;
+    prefs.setInt('ff_appBuildVersion', _value);
+  }
+
+  bool _isTesting = false;
+  bool get isTesting => _isTesting;
+  set isTesting(bool _value) {
+    _isTesting = _value;
+    prefs.setBool('ff_isTesting', _value);
   }
 }
 

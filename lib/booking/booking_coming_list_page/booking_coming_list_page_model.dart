@@ -14,9 +14,11 @@ class BookingComingListPageModel extends FlutterFlowModel {
 
   final unfocusNode = FocusNode();
   // State field(s) for ListView widget.
-  PagingController<DocumentSnapshot?, BookingListRecord>? pagingController;
-  Query? pagingQuery;
-  List<StreamSubscription?> streamSubscriptions = [];
+
+  PagingController<DocumentSnapshot?, BookingListRecord>?
+      listViewPagingController2;
+  Query? listViewPagingQuery2;
+  List<StreamSubscription?> listViewStreamSubscriptions2 = [];
 
   /// Initialization and disposal methods.
 
@@ -24,10 +26,43 @@ class BookingComingListPageModel extends FlutterFlowModel {
 
   void dispose() {
     unfocusNode.dispose();
-    streamSubscriptions.forEach((s) => s?.cancel());
+    listViewStreamSubscriptions2.forEach((s) => s?.cancel());
+    listViewPagingController2?.dispose();
   }
 
   /// Action blocks are added here.
 
   /// Additional helper methods are added here.
+
+  PagingController<DocumentSnapshot?, BookingListRecord> setListViewController2(
+    Query query, {
+    DocumentReference<Object?>? parent,
+  }) {
+    listViewPagingController2 ??= _createListViewController2(query, parent);
+    if (listViewPagingQuery2 != query) {
+      listViewPagingQuery2 = query;
+      listViewPagingController2?.refresh();
+    }
+    return listViewPagingController2!;
+  }
+
+  PagingController<DocumentSnapshot?, BookingListRecord>
+      _createListViewController2(
+    Query query,
+    DocumentReference<Object?>? parent,
+  ) {
+    final controller = PagingController<DocumentSnapshot?, BookingListRecord>(
+        firstPageKey: null);
+    return controller
+      ..addPageRequestListener(
+        (nextPageMarker) => queryBookingListRecordPage(
+          queryBuilder: (_) => listViewPagingQuery2 ??= query,
+          nextPageMarker: nextPageMarker,
+          streamSubscriptions: listViewStreamSubscriptions2,
+          controller: controller,
+          pageSize: 25,
+          isStream: true,
+        ),
+      );
+  }
 }

@@ -118,8 +118,10 @@ class _BookingComingListPageWidgetState
                                       width: 50.0,
                                       height: 50.0,
                                       child: CircularProgressIndicator(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                          FlutterFlowTheme.of(context).primary,
+                                        ),
                                       ),
                                     ),
                                   );
@@ -208,9 +210,13 @@ class _BookingComingListPageWidgetState
                                                                   height: 50.0,
                                                                   child:
                                                                       CircularProgressIndicator(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primary,
+                                                                    valueColor:
+                                                                        AlwaysStoppedAnimation<
+                                                                            Color>(
+                                                                      FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primary,
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               );
@@ -293,91 +299,18 @@ class _BookingComingListPageWidgetState
                             ),
                             PagedListView<DocumentSnapshot<Object?>?,
                                 BookingListRecord>(
-                              pagingController: () {
-                                final Query<Object?> Function(Query<Object?>)
-                                    queryBuilder =
-                                    (bookingListRecord) => bookingListRecord
-                                        .where('status',
-                                            isGreaterThan: valueOrDefault<int>(
-                                              null,
-                                              2,
-                                            ))
-                                        .where('owner_ref',
-                                            isEqualTo: currentUserReference)
-                                        .orderBy('status', descending: true)
-                                        .orderBy('create_date',
-                                            descending: true);
-                                if (_model.pagingController != null) {
-                                  final query = queryBuilder(
-                                      BookingListRecord.collection);
-                                  if (query != _model.pagingQuery) {
-                                    // The query has changed
-                                    _model.pagingQuery = query;
-                                    _model.streamSubscriptions
-                                        .forEach((s) => s?.cancel());
-                                    _model.streamSubscriptions.clear();
-                                    _model.pagingController!.refresh();
-                                  }
-                                  return _model.pagingController!;
-                                }
-
-                                _model.pagingController =
-                                    PagingController(firstPageKey: null);
-                                _model.pagingQuery =
-                                    queryBuilder(BookingListRecord.collection);
-                                _model.pagingController!
-                                    .addPageRequestListener((nextPageMarker) {
-                                  queryBookingListRecordPage(
-                                    queryBuilder: (bookingListRecord) =>
-                                        bookingListRecord
-                                            .where('status',
-                                                isGreaterThan:
-                                                    valueOrDefault<int>(
-                                                  null,
-                                                  2,
-                                                ))
-                                            .where('owner_ref',
-                                                isEqualTo: currentUserReference)
-                                            .orderBy('status', descending: true)
-                                            .orderBy('create_date',
-                                                descending: true),
-                                    nextPageMarker: nextPageMarker,
-                                    pageSize: 25,
-                                    isStream: true,
-                                  ).then((page) {
-                                    _model.pagingController!.appendPage(
-                                      page.data,
-                                      page.nextPageMarker,
-                                    );
-                                    final streamSubscription =
-                                        page.dataStream?.listen((data) {
-                                      data.forEach((item) {
-                                        final itemIndexes = _model
-                                            .pagingController!.itemList!
-                                            .asMap()
-                                            .map((k, v) =>
-                                                MapEntry(v.reference.id, k));
-                                        final index =
-                                            itemIndexes[item.reference.id];
-                                        final items =
-                                            _model.pagingController!.itemList!;
-                                        if (index != null) {
-                                          items.replaceRange(
-                                              index, index + 1, [item]);
-                                          _model.pagingController!.itemList = {
-                                            for (var item in items)
-                                              item.reference: item
-                                          }.values.toList();
-                                        }
-                                      });
-                                      setState(() {});
-                                    });
-                                    _model.streamSubscriptions
-                                        .add(streamSubscription);
-                                  });
-                                });
-                                return _model.pagingController!;
-                              }(),
+                              pagingController: _model.setListViewController2(
+                                BookingListRecord.collection
+                                    .where('status',
+                                        isGreaterThan: valueOrDefault<int>(
+                                          null,
+                                          2,
+                                        ))
+                                    .where('owner_ref',
+                                        isEqualTo: currentUserReference)
+                                    .orderBy('status', descending: true)
+                                    .orderBy('create_date', descending: true),
+                              ),
                               padding: EdgeInsets.zero,
                               reverse: false,
                               scrollDirection: Axis.vertical,
@@ -390,8 +323,21 @@ class _BookingComingListPageWidgetState
                                     width: 50.0,
                                     height: 50.0,
                                     child: CircularProgressIndicator(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        FlutterFlowTheme.of(context).primary,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                // Customize what your widget looks like when it's loading another page.
+                                newPageProgressIndicatorBuilder: (_) => Center(
+                                  child: SizedBox(
+                                    width: 50.0,
+                                    height: 50.0,
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        FlutterFlowTheme.of(context).primary,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -399,7 +345,7 @@ class _BookingComingListPageWidgetState
                                     NoDataWidget(),
                                 itemBuilder: (context, _, listViewIndex) {
                                   final listViewBookingListRecord = _model
-                                      .pagingController!
+                                      .listViewPagingController2!
                                       .itemList![listViewIndex];
                                   return Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -469,9 +415,13 @@ class _BookingComingListPageWidgetState
                                                                 height: 50.0,
                                                                 child:
                                                                     CircularProgressIndicator(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
+                                                                  valueColor:
+                                                                      AlwaysStoppedAnimation<
+                                                                          Color>(
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primary,
+                                                                  ),
                                                                 ),
                                                               ),
                                                             );

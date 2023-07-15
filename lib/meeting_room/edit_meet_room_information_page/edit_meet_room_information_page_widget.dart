@@ -50,14 +50,14 @@ class _EditMeetRoomInformationPageWidgetState
       currentUserLocationValue =
           await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
       _model.currentProvinceID = await actions.getProvinceID(
-        widget.meetRoomParameter!.province,
+        widget.meetRoomParameter?.province,
       );
       _model.currentAmphurID = await actions.getAmphureID(
-        widget.meetRoomParameter!.amphur,
+        widget.meetRoomParameter?.amphur,
         _model.currentProvinceID,
       );
       _model.currentTambonID = await actions.getTambonID(
-        widget.meetRoomParameter!.tambon,
+        widget.meetRoomParameter?.tambon,
         _model.currentAmphurID,
       );
       setState(() {
@@ -68,7 +68,7 @@ class _EditMeetRoomInformationPageWidgetState
         FFAppState().tambonSelected = _model.currentTambonID!;
         FFAppState().locationSelected =
             widget.meetRoomParameter?.hasLocation() == true
-                ? widget.meetRoomParameter!.location
+                ? widget.meetRoomParameter?.location
                 : currentUserLocationValue;
       });
       FFAppState().provinceSelectedValue = widget.meetRoomParameter!.province;
@@ -77,11 +77,11 @@ class _EditMeetRoomInformationPageWidgetState
     });
 
     _model.nameController ??=
-        TextEditingController(text: widget.meetRoomParameter!.name);
+        TextEditingController(text: widget.meetRoomParameter?.name);
     _model.supportTotalController ??= TextEditingController(
-        text: widget.meetRoomParameter!.supportTotal.toString());
+        text: widget.meetRoomParameter?.supportTotal?.toString());
     _model.detailController ??=
-        TextEditingController(text: widget.meetRoomParameter!.detail);
+        TextEditingController(text: widget.meetRoomParameter?.detail);
   }
 
   @override
@@ -572,8 +572,11 @@ class _EditMeetRoomInformationPageWidgetState
                                           width: 50.0,
                                           height: 50.0,
                                           child: CircularProgressIndicator(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
+                                            valueColor:
+                                                AlwaysStoppedAnimation<Color>(
+                                              FlutterFlowTheme.of(context)
+                                                  .primary,
+                                            ),
                                           ),
                                         ),
                                       );
@@ -586,7 +589,7 @@ class _EditMeetRoomInformationPageWidgetState
                                           _model.provinceValueController ??=
                                               FormFieldController<String>(
                                         _model.provinceValue ??=
-                                            widget.meetRoomParameter!.province,
+                                            widget.meetRoomParameter?.province,
                                       ),
                                       options: provinceProvinceRecordList
                                           .map((e) => e.name)
@@ -659,9 +662,11 @@ class _EditMeetRoomInformationPageWidgetState
                                             width: 50.0,
                                             height: 50.0,
                                             child: CircularProgressIndicator(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
+                                              ),
                                             ),
                                           ),
                                         );
@@ -674,7 +679,7 @@ class _EditMeetRoomInformationPageWidgetState
                                             _model.amphureValueController ??=
                                                 FormFieldController<String>(
                                           _model.amphureValue ??=
-                                              widget.meetRoomParameter!.amphur,
+                                              widget.meetRoomParameter?.amphur,
                                         ),
                                         options: amphureAmphureRecordList
                                             .map((e) => e.name)
@@ -747,9 +752,11 @@ class _EditMeetRoomInformationPageWidgetState
                                             width: 50.0,
                                             height: 50.0,
                                             child: CircularProgressIndicator(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
+                                              ),
                                             ),
                                           ),
                                         );
@@ -762,7 +769,7 @@ class _EditMeetRoomInformationPageWidgetState
                                             _model.tambonValueController ??=
                                                 FormFieldController<String>(
                                           _model.tambonValue ??=
-                                              widget.meetRoomParameter!.tambon,
+                                              widget.meetRoomParameter?.tambon,
                                         ),
                                         options: tambonTambonRecordList
                                             .map((e) => e.name)
@@ -822,7 +829,7 @@ class _EditMeetRoomInformationPageWidgetState
                                                         ?.hasLocation() ==
                                                     true
                                                 ? widget
-                                                    .meetRoomParameter!.location
+                                                    .meetRoomParameter?.location
                                                 : currentUserLocationValue,
                                             ParamType.LatLng,
                                           ),
@@ -908,8 +915,11 @@ class _EditMeetRoomInformationPageWidgetState
                                           width: 50.0,
                                           height: 50.0,
                                           child: CircularProgressIndicator(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
+                                            valueColor:
+                                                AlwaysStoppedAnimation<Color>(
+                                              FlutterFlowTheme.of(context)
+                                                  .primary,
+                                            ),
                                           ),
                                         ),
                                       );
@@ -975,7 +985,7 @@ class _EditMeetRoomInformationPageWidgetState
                                       controller:
                                           _model.choiceChipsValueController ??=
                                               FormFieldController<List<String>>(
-                                        widget.meetRoomParameter!.tools,
+                                        widget.meetRoomParameter?.tools,
                                       ),
                                     );
                                   },

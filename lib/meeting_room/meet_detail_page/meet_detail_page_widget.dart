@@ -58,7 +58,7 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         floatingActionButton: Visibility(
           visible:
-              widget.meetingRoomParamameter!.createBy == currentUserReference,
+              widget.meetingRoomParamameter?.createBy == currentUserReference,
           child: FloatingActionButton(
             onPressed: () async {
               context.pushNamed(
@@ -153,8 +153,9 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                               child: Builder(
                                 builder: (context) {
                                   final imageList = widget
-                                      .meetingRoomParamameter!.photo
-                                      .toList();
+                                          .meetingRoomParamameter?.photo
+                                          ?.toList() ??
+                                      [];
                                   return Container(
                                     width: double.infinity,
                                     height: 500.0,
@@ -187,6 +188,14 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                                                     child:
                                                         FlutterFlowExpandedImageView(
                                                       image: CachedNetworkImage(
+                                                        fadeInDuration:
+                                                            Duration(
+                                                                milliseconds:
+                                                                    500),
+                                                        fadeOutDuration:
+                                                            Duration(
+                                                                milliseconds:
+                                                                    500),
                                                         imageUrl: imageListItem,
                                                         fit: BoxFit.contain,
                                                       ),
@@ -205,6 +214,10 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                                                       BorderRadius.circular(
                                                           8.0),
                                                   child: CachedNetworkImage(
+                                                    fadeInDuration: Duration(
+                                                        milliseconds: 500),
+                                                    fadeOutDuration: Duration(
+                                                        milliseconds: 500),
                                                     imageUrl: imageListItem,
                                                     height: 200.0,
                                                     fit: BoxFit.cover,
@@ -286,7 +299,7 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   if (currentUserReference !=
-                                      widget.meetingRoomParamameter!.createBy)
+                                      widget.meetingRoomParamameter?.createBy)
                                     InkWell(
                                       splashColor: Colors.transparent,
                                       focusColor: Colors.transparent,
@@ -294,11 +307,11 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
                                         FFAppState().meetingRoomSelectedRef =
-                                            widget.meetingRoomParamameter!
-                                                .reference;
+                                            widget.meetingRoomParamameter
+                                                ?.reference;
                                         FFAppState().onwerRoomSelectedRef =
-                                            widget.meetingRoomParamameter!
-                                                .createBy;
+                                            widget.meetingRoomParamameter
+                                                ?.createBy;
 
                                         context.pushNamed('BookingMeetPage');
                                       },
@@ -356,7 +369,7 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
                                         await launchURL(
-                                            'https://www.google.com/maps/dir/?api=1&destination=${functions.getSplitLatLng('lat', widget.meetingRoomParamameter!.location)},${functions.getSplitLatLng('lng', widget.meetingRoomParamameter!.location)}');
+                                            'https://www.google.com/maps/dir/?api=1&destination=${functions.getSplitLatLng('lat', widget.meetingRoomParamameter?.location)},${functions.getSplitLatLng('lng', widget.meetingRoomParamameter?.location)}');
                                       },
                                       child: Material(
                                         color: Colors.transparent,
@@ -407,7 +420,7 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                               color: FlutterFlowTheme.of(context).alternate,
                             ),
                             Text(
-                              'ตำบล ${widget.meetingRoomParamameter!.tambon} อำเภอ ${widget.meetingRoomParamameter!.amphur} จังหวัด ${widget.meetingRoomParamameter!.province}',
+                              'ตำบล ${widget.meetingRoomParamameter?.tambon} อำเภอ ${widget.meetingRoomParamameter?.amphur} จังหวัด ${widget.meetingRoomParamameter?.province}',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(

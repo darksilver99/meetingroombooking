@@ -238,80 +238,17 @@ class _MeetRoomListTambonPageWidgetState
                 Expanded(
                   child: PagedListView<DocumentSnapshot<Object?>?,
                       MeetingRoomListRecord>(
-                    pagingController: () {
-                      final Query<Object?> Function(Query<Object?>)
-                          queryBuilder =
-                          (meetingRoomListRecord) => meetingRoomListRecord
-                              .where('status',
-                                  isEqualTo: valueOrDefault<int>(
-                                    null,
-                                    1,
-                                  ))
-                              .where('province', isEqualTo: widget.province)
-                              .where('amphur', isEqualTo: widget.amphur)
-                              .where('tambon', isEqualTo: widget.tambon);
-                      if (_model.pagingController != null) {
-                        final query =
-                            queryBuilder(MeetingRoomListRecord.collection);
-                        if (query != _model.pagingQuery) {
-                          // The query has changed
-                          _model.pagingQuery = query;
-                          _model.streamSubscriptions
-                              .forEach((s) => s?.cancel());
-                          _model.streamSubscriptions.clear();
-                          _model.pagingController!.refresh();
-                        }
-                        return _model.pagingController!;
-                      }
-
-                      _model.pagingController =
-                          PagingController(firstPageKey: null);
-                      _model.pagingQuery =
-                          queryBuilder(MeetingRoomListRecord.collection);
-                      _model.pagingController!
-                          .addPageRequestListener((nextPageMarker) {
-                        queryMeetingRoomListRecordPage(
-                          queryBuilder: (meetingRoomListRecord) =>
-                              meetingRoomListRecord
-                                  .where('status',
-                                      isEqualTo: valueOrDefault<int>(
-                                        null,
-                                        1,
-                                      ))
-                                  .where('province', isEqualTo: widget.province)
-                                  .where('amphur', isEqualTo: widget.amphur)
-                                  .where('tambon', isEqualTo: widget.tambon),
-                          nextPageMarker: nextPageMarker,
-                          pageSize: 25,
-                          isStream: true,
-                        ).then((page) {
-                          _model.pagingController!.appendPage(
-                            page.data,
-                            page.nextPageMarker,
-                          );
-                          final streamSubscription =
-                              page.dataStream?.listen((data) {
-                            data.forEach((item) {
-                              final itemIndexes = _model
-                                  .pagingController!.itemList!
-                                  .asMap()
-                                  .map((k, v) => MapEntry(v.reference.id, k));
-                              final index = itemIndexes[item.reference.id];
-                              final items = _model.pagingController!.itemList!;
-                              if (index != null) {
-                                items.replaceRange(index, index + 1, [item]);
-                                _model.pagingController!.itemList = {
-                                  for (var item in items) item.reference: item
-                                }.values.toList();
-                              }
-                            });
-                            setState(() {});
-                          });
-                          _model.streamSubscriptions.add(streamSubscription);
-                        });
-                      });
-                      return _model.pagingController!;
-                    }(),
+                    pagingController: _model.setListViewController1(
+                      MeetingRoomListRecord.collection
+                          .where('status',
+                              isEqualTo: valueOrDefault<int>(
+                                null,
+                                1,
+                              ))
+                          .where('province', isEqualTo: widget.province)
+                          .where('amphur', isEqualTo: widget.amphur)
+                          .where('tambon', isEqualTo: widget.tambon),
+                    ),
                     padding: EdgeInsets.zero,
                     primary: false,
                     reverse: false,
@@ -324,7 +261,21 @@ class _MeetRoomListTambonPageWidgetState
                           width: 50.0,
                           height: 50.0,
                           child: CircularProgressIndicator(
-                            color: FlutterFlowTheme.of(context).primary,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              FlutterFlowTheme.of(context).primary,
+                            ),
+                          ),
+                        ),
+                      ),
+                      // Customize what your widget looks like when it's loading another page.
+                      newPageProgressIndicatorBuilder: (_) => Center(
+                        child: SizedBox(
+                          width: 50.0,
+                          height: 50.0,
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              FlutterFlowTheme.of(context).primary,
+                            ),
                           ),
                         ),
                       ),
@@ -333,8 +284,9 @@ class _MeetRoomListTambonPageWidgetState
                         child: NoDataWidget(),
                       ),
                       itemBuilder: (context, _, listViewIndex) {
-                        final listViewMeetingRoomListRecord =
-                            _model.pagingController!.itemList![listViewIndex];
+                        final listViewMeetingRoomListRecord = _model
+                            .listViewPagingController1!
+                            .itemList![listViewIndex];
                         return Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 8.0, 16.0, 8.0),
@@ -509,7 +461,9 @@ class _MeetRoomListTambonPageWidgetState
                             width: 50.0,
                             height: 50.0,
                             child: CircularProgressIndicator(
-                              color: FlutterFlowTheme.of(context).primary,
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                FlutterFlowTheme.of(context).primary,
+                              ),
                             ),
                           ),
                         );
