@@ -11,9 +11,8 @@ import 'package:flutter/material.dart';
 Future setBookingStatus() async {
   // Add your function code here!
   var rs = await FirebaseFirestore.instance.collection("booking_status").get();
-  List<Map<String, dynamic>> tmp = [];
   for (var i = 0; i < rs.size; i++) {
-    tmp.add({"id": rs.docs[i].data()["id"], "name": rs.docs[i].data()["name"]});
+    FFAppState().addToBookingStatus(
+        {"id": rs.docs[i].data()["id"], "name": rs.docs[i].data()["name"]});
   }
-  FFAppState().bookingStatus = tmp;
 }
