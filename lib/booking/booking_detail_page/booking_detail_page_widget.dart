@@ -38,15 +38,15 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
 
     _model.usernameController1 ??= TextEditingController(
         text: dateTimeFormat(
-            'd/M/y', widget.bookingDetailParameter!.bookingDate));
+            'd/M/y', widget.bookingDetailParameter?.bookingDate));
     _model.usernameController2 ??= TextEditingController(
-        text: widget.bookingDetailParameter!.bookingStartTime);
+        text: widget.bookingDetailParameter?.bookingStartTime);
     _model.usernameController3 ??= TextEditingController(
-        text: widget.bookingDetailParameter!.bookingEndTime);
+        text: widget.bookingDetailParameter?.bookingEndTime);
     _model.usernameController4 ??=
-        TextEditingController(text: widget.bookingDetailParameter!.remarkUser);
+        TextEditingController(text: widget.bookingDetailParameter?.remarkUser);
     _model.usernameController7 ??=
-        TextEditingController(text: widget.bookingDetailParameter!.remarkOwner);
+        TextEditingController(text: widget.bookingDetailParameter?.remarkOwner);
   }
 
   @override
@@ -121,8 +121,11 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                         width: 50.0,
                                         height: 50.0,
                                         child: CircularProgressIndicator(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                            FlutterFlowTheme.of(context)
+                                                .primary,
+                                          ),
                                         ),
                                       ),
                                     );
@@ -545,7 +548,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                 ),
                               ),
                               if (currentUserReference ==
-                                  widget.bookingDetailParameter!.ownerRef)
+                                  widget.bookingDetailParameter?.ownerRef)
                                 StreamBuilder<UsersRecord>(
                                   stream: UsersRecord.getDocument(
                                       widget.bookingDetailParameter!.createBy!),
@@ -557,8 +560,11 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                           width: 50.0,
                                           height: 50.0,
                                           child: CircularProgressIndicator(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
+                                            valueColor:
+                                                AlwaysStoppedAnimation<Color>(
+                                              FlutterFlowTheme.of(context)
+                                                  .primary,
+                                            ),
                                           ),
                                         ),
                                       );
@@ -775,7 +781,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                               TextFormField(
                                 controller: _model.usernameController7,
                                 readOnly: (widget
-                                            .bookingDetailParameter!.ownerRef !=
+                                            .bookingDetailParameter?.ownerRef !=
                                         currentUserReference) ||
                                     (widget.bookingDetailParameter!.status > 2),
                                 obscureText: false,
@@ -844,21 +850,21 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                         TextSpan(
                                           text: valueOrDefault<String>(
                                             functions.getMeetingStatusText(
-                                                widget.bookingDetailParameter!
-                                                    .status),
+                                                widget.bookingDetailParameter
+                                                    ?.status),
                                             '-',
                                           ),
                                           style: TextStyle(
                                             color: () {
-                                              if (widget.bookingDetailParameter!
-                                                      .status ==
+                                              if (widget.bookingDetailParameter
+                                                      ?.status ==
                                                   0) {
                                                 return FlutterFlowTheme.of(
                                                         context)
                                                     .tertiary;
                                               } else if (widget
-                                                      .bookingDetailParameter!
-                                                      .status ==
+                                                      .bookingDetailParameter
+                                                      ?.status ==
                                                   3) {
                                                 return FlutterFlowTheme.of(
                                                         context)
@@ -879,9 +885,9 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                   ),
                                 ),
                               ),
-                              if ((widget.bookingDetailParameter!.status !=
+                              if ((widget.bookingDetailParameter?.status !=
                                       2) &&
-                                  (widget.bookingDetailParameter!.ownerRef !=
+                                  (widget.bookingDetailParameter?.ownerRef !=
                                       currentUserReference))
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
@@ -897,9 +903,11 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                             width: 50.0,
                                             height: 50.0,
                                             child: CircularProgressIndicator(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
+                                              ),
                                             ),
                                           ),
                                         );
@@ -947,12 +955,12 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                     },
                                   ),
                                 ),
-                              if (widget.bookingDetailParameter!.ownerRef ==
+                              if (widget.bookingDetailParameter?.ownerRef ==
                                   currentUserReference)
                                 Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    if (widget.bookingDetailParameter!.status ==
+                                    if (widget.bookingDetailParameter?.status ==
                                         1)
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -1000,7 +1008,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                           ),
                                         ),
                                       ),
-                                    if (widget.bookingDetailParameter!.status ==
+                                    if (widget.bookingDetailParameter?.status ==
                                         0)
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -1068,11 +1076,11 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                           ),
                                         ),
                                       ),
-                                    if ((widget.bookingDetailParameter!
-                                                .status ==
+                                    if ((widget.bookingDetailParameter
+                                                ?.status ==
                                             0) ||
-                                        (widget.bookingDetailParameter!
-                                                .status ==
+                                        (widget.bookingDetailParameter
+                                                ?.status ==
                                             1))
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(

@@ -29,9 +29,11 @@ Future setAppVersion() async {
   FFAppState().update(() {
     FFAppState().appVersion =
         'Ver ${_packageInfo.version} (${_packageInfo.buildNumber})';
-    FFAppState().storeVersion = rs.data()!["store_version"];
+    FFAppState().storeBuildVersion = rs.data()!["store_version"];
+    FFAppState().appBuildVersion = int.parse(_packageInfo.buildNumber);
     FFAppState().androidStoreLink = rs.data()!["android_store_link"];
     FFAppState().iosStoreLink = rs.data()!["ios_store_link"];
     FFAppState().isEnableAd = rs.data()!["enable_ad"];
+    FFAppState().isTesting = rs.data()!["is_testing"];
   });
 }

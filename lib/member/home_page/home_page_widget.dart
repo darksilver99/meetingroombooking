@@ -32,36 +32,42 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await actions.setAppVersion();
-      if (FFAppState().appVersion == FFAppState().storeVersion) {
+      if (FFAppState().isTesting) {
         await actions.setBookingStatus();
       } else {
-        var confirmDialogResponse = await showDialog<bool>(
-              context: context,
-              builder: (alertDialogContext) {
-                return AlertDialog(
-                  content: Text('กรุณาอัพเดทแอปพลิเคชั่นและเปิดใหม่อีกครั้ง'),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(alertDialogContext, false),
-                      child: Text('ยกเลิก'),
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.pop(alertDialogContext, true),
-                      child: Text('ตกลง'),
-                    ),
-                  ],
-                );
-              },
-            ) ??
-            false;
-        if (confirmDialogResponse) {
-          if (isAndroid) {
-            await launchURL(FFAppState().androidStoreLink);
-          } else {
-            await launchURL(FFAppState().iosStoreLink);
+        if (FFAppState().appBuildVersion >= FFAppState().storeBuildVersion) {
+          await actions.setBookingStatus();
+        } else {
+          var confirmDialogResponse = await showDialog<bool>(
+                context: context,
+                builder: (alertDialogContext) {
+                  return AlertDialog(
+                    content: Text('กรุณาอัพเดทแอปพลิเคชั่นและเปิดใหม่อีกครั้ง'),
+                    actions: [
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.pop(alertDialogContext, false),
+                        child: Text('ยกเลิก'),
+                      ),
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.pop(alertDialogContext, true),
+                        child: Text('ตกลง'),
+                      ),
+                    ],
+                  );
+                },
+              ) ??
+              false;
+          if (confirmDialogResponse) {
+            if (isAndroid) {
+              await launchURL(FFAppState().androidStoreLink);
+            } else {
+              await launchURL(FFAppState().iosStoreLink);
+            }
           }
+          await actions.closeApp();
         }
-        await actions.closeApp();
       }
     });
   }
@@ -244,9 +250,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                 height: 50.0,
                                                 child:
                                                     CircularProgressIndicator(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
+                                                  valueColor:
+                                                      AlwaysStoppedAnimation<
+                                                          Color>(
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                  ),
                                                 ),
                                               ),
                                             );

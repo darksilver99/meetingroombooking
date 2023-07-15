@@ -19,9 +19,11 @@ class MeetRoomListTambonPageModel extends FlutterFlowModel {
   // Algolia Search Results from action on username
   List<MeetingRoomListRecord>? algoliaSearchResults = [];
   // State field(s) for ListView widget.
-  PagingController<DocumentSnapshot?, MeetingRoomListRecord>? pagingController;
-  Query? pagingQuery;
-  List<StreamSubscription?> streamSubscriptions = [];
+
+  PagingController<DocumentSnapshot?, MeetingRoomListRecord>?
+      listViewPagingController1;
+  Query? listViewPagingQuery1;
+  List<StreamSubscription?> listViewStreamSubscriptions1 = [];
 
   /// Initialization and disposal methods.
 
@@ -30,10 +32,45 @@ class MeetRoomListTambonPageModel extends FlutterFlowModel {
   void dispose() {
     unfocusNode.dispose();
     usernameController?.dispose();
-    streamSubscriptions.forEach((s) => s?.cancel());
+    listViewStreamSubscriptions1.forEach((s) => s?.cancel());
+    listViewPagingController1?.dispose();
   }
 
   /// Action blocks are added here.
 
   /// Additional helper methods are added here.
+
+  PagingController<DocumentSnapshot?, MeetingRoomListRecord>
+      setListViewController1(
+    Query query, {
+    DocumentReference<Object?>? parent,
+  }) {
+    listViewPagingController1 ??= _createListViewController1(query, parent);
+    if (listViewPagingQuery1 != query) {
+      listViewPagingQuery1 = query;
+      listViewPagingController1?.refresh();
+    }
+    return listViewPagingController1!;
+  }
+
+  PagingController<DocumentSnapshot?, MeetingRoomListRecord>
+      _createListViewController1(
+    Query query,
+    DocumentReference<Object?>? parent,
+  ) {
+    final controller =
+        PagingController<DocumentSnapshot?, MeetingRoomListRecord>(
+            firstPageKey: null);
+    return controller
+      ..addPageRequestListener(
+        (nextPageMarker) => queryMeetingRoomListRecordPage(
+          queryBuilder: (_) => listViewPagingQuery1 ??= query,
+          nextPageMarker: nextPageMarker,
+          streamSubscriptions: listViewStreamSubscriptions1,
+          controller: controller,
+          pageSize: 25,
+          isStream: true,
+        ),
+      );
+  }
 }
