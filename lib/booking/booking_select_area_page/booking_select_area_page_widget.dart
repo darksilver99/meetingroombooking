@@ -565,7 +565,7 @@ class _BookingSelectAreaPageWidgetState
                     child: FlutterFlowAdBanner(
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       height: 80.0,
-                      showsTestAd: false,
+                      showsTestAd: FFAppState().isTestAd,
                       androidAdUnitID: 'ca-app-pub-8903107947688683/9752176710',
                     ),
                   ),
