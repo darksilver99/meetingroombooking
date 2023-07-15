@@ -41,12 +41,18 @@ class ConfigRecord extends FirestoreRecord {
   bool get isTesting => _isTesting ?? false;
   bool hasIsTesting() => _isTesting != null;
 
+  // "is_test_ad" field.
+  bool? _isTestAd;
+  bool get isTestAd => _isTestAd ?? false;
+  bool hasIsTestAd() => _isTestAd != null;
+
   void _initializeFields() {
     _androidStoreLink = snapshotData['android_store_link'] as String?;
     _iosStoreLink = snapshotData['ios_store_link'] as String?;
     _enableAd = snapshotData['enable_ad'] as bool?;
     _storeVersion = castToType<int>(snapshotData['store_version']);
     _isTesting = snapshotData['is_testing'] as bool?;
+    _isTestAd = snapshotData['is_test_ad'] as bool?;
   }
 
   static CollectionReference get collection =>
@@ -88,6 +94,7 @@ Map<String, dynamic> createConfigRecordData({
   bool? enableAd,
   int? storeVersion,
   bool? isTesting,
+  bool? isTestAd,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -96,6 +103,7 @@ Map<String, dynamic> createConfigRecordData({
       'enable_ad': enableAd,
       'store_version': storeVersion,
       'is_testing': isTesting,
+      'is_test_ad': isTestAd,
     }.withoutNulls,
   );
 
@@ -111,7 +119,8 @@ class ConfigRecordDocumentEquality implements Equality<ConfigRecord> {
         e1?.iosStoreLink == e2?.iosStoreLink &&
         e1?.enableAd == e2?.enableAd &&
         e1?.storeVersion == e2?.storeVersion &&
-        e1?.isTesting == e2?.isTesting;
+        e1?.isTesting == e2?.isTesting &&
+        e1?.isTestAd == e2?.isTestAd;
   }
 
   @override
@@ -120,7 +129,8 @@ class ConfigRecordDocumentEquality implements Equality<ConfigRecord> {
         e?.iosStoreLink,
         e?.enableAd,
         e?.storeVersion,
-        e?.isTesting
+        e?.isTesting,
+        e?.isTestAd
       ]);
 
   @override

@@ -267,6 +267,12 @@ class FFAppState extends ChangeNotifier {
     _isTesting = _value;
     prefs.setBool('ff_isTesting', _value);
   }
+
+  bool _isTestAd = false;
+  bool get isTestAd => _isTestAd;
+  set isTestAd(bool _value) {
+    _isTestAd = _value;
+  }
 }
 
 LatLng? _latLngFromString(String? val) {

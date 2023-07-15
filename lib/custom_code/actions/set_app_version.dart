@@ -35,5 +35,6 @@ Future setAppVersion() async {
     FFAppState().iosStoreLink = rs.data()!["ios_store_link"];
     FFAppState().isEnableAd = rs.data()!["enable_ad"];
     FFAppState().isTesting = rs.data()!["is_testing"];
+    FFAppState().isTestAd = rs.data()!["is_test_ad"];
   });
 }
