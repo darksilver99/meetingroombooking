@@ -786,7 +786,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                     (widget.bookingDetailParameter!.status > 2),
                                 obscureText: false,
                                 decoration: InputDecoration(
-                                  labelText: 'รายละเอียดถึงผู้จอง(หากมี)',
+                                  labelText: 'รายละเอียดถึงผู้จอง',
                                   labelStyle:
                                       FlutterFlowTheme.of(context).labelMedium,
                                   hintStyle:
