@@ -34,6 +34,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       await actions.setAppVersion();
       if (FFAppState().isTesting) {
         await actions.setBookingStatus();
+        setState(() {
+          FFAppState().bookingStatus =
+              FFAppState().totalMeetingRoom.toList().cast<dynamic>();
+        });
       } else {
         if (FFAppState().appBuildVersion >= FFAppState().storeBuildVersion) {
           await actions.setBookingStatus();
@@ -437,7 +441,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     child: FlutterFlowAdBanner(
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       height: 80.0,
-                      showsTestAd: false,
+                      showsTestAd: true,
                       androidAdUnitID: 'ca-app-pub-8903107947688683/4513906873',
                     ),
                   ),
