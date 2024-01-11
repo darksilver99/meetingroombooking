@@ -202,11 +202,27 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                       padding:
                           EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
                       child: Text(
+                        '179 บาท/เดือน',
+                        textAlign: TextAlign.center,
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Kanit',
+                              color: FlutterFlowTheme.of(context).secondaryText,
+                              fontSize: 22.0,
+                              fontWeight: FontWeight.w600,
+                              decoration: TextDecoration.lineThrough,
+                            ),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+                      child: Text(
                         'พิเศษเพียง 79 บาท/เดือน เท่านั้น',
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Kanit',
-                              fontSize: 22.0,
+                              color: FlutterFlowTheme.of(context).error,
+                              fontSize: 32.0,
                               fontWeight: FontWeight.w600,
                             ),
                       ),
@@ -242,37 +258,40 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                       }
                       _model.paymentId = paymentResponse.paymentId ?? '';
 
-                      await currentUserReference!.update(createUsersRecordData(
-                        isPay: true,
-                        availableDate: functions.getNextDay(30),
-                      ));
+                      if (_model.paymentId != null && _model.paymentId != '') {
+                        await currentUserReference!
+                            .update(createUsersRecordData(
+                          isPay: true,
+                          availableDate: functions.getNextDay(30),
+                        ));
 
-                      await PayHistoryRecord.collection
-                          .doc()
-                          .set(createPayHistoryRecordData(
-                            createDate: getCurrentTimestamp,
-                            createBy: currentUserReference,
-                            status: 1,
-                            amount: 79.00,
-                          ));
-                      await showDialog(
-                        context: context,
-                        builder: (alertDialogContext) {
-                          return AlertDialog(
-                            title: Text('ชำระเงินเสร็จสิ้น'),
-                            content: Text(
-                                'ท่านสามารถใช้บริการได้ถึงวันที่ ${dateTimeFormat('d/M/y', functions.getNextDay(30))}'),
-                            actions: [
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.pop(alertDialogContext),
-                                child: Text('ตกลง'),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                      context.safePop();
+                        await PayHistoryRecord.collection
+                            .doc()
+                            .set(createPayHistoryRecordData(
+                              createDate: getCurrentTimestamp,
+                              createBy: currentUserReference,
+                              status: 1,
+                              amount: 79.00,
+                            ));
+                        await showDialog(
+                          context: context,
+                          builder: (alertDialogContext) {
+                            return AlertDialog(
+                              title: Text('ชำระเงินเสร็จสิ้น'),
+                              content: Text(
+                                  'ท่านสามารถใช้บริการได้ถึงวันที่ ${dateTimeFormat('d/M/y', functions.getNextDay(30))}'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.pop(alertDialogContext),
+                                  child: Text('ตกลง'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                        context.safePop();
+                      }
 
                       setState(() {});
                     },
