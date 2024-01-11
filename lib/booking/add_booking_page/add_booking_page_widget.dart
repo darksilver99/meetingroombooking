@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'add_booking_page_model.dart';
@@ -35,8 +36,13 @@ class _AddBookingPageWidgetState extends State<AddBookingPageWidget> {
     _model = createModel(context, () => AddBookingPageModel());
 
     _model.startTimeController ??= TextEditingController();
+    _model.startTimeFocusNode ??= FocusNode();
+
     _model.endTimeController ??= TextEditingController();
+    _model.endTimeFocusNode ??= FocusNode();
+
     _model.remarkUsersController ??= TextEditingController();
+    _model.remarkUsersFocusNode ??= FocusNode();
   }
 
   @override
@@ -48,10 +54,21 @@ class _AddBookingPageWidgetState extends State<AddBookingPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -79,8 +96,7 @@ class _AddBookingPageWidgetState extends State<AddBookingPageWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(
-                          16.0, 16.0, 16.0, 16.0),
+                      padding: EdgeInsets.all(16.0),
                       child: Material(
                         color: Colors.transparent,
                         elevation: 3.0,
@@ -125,6 +141,7 @@ class _AddBookingPageWidgetState extends State<AddBookingPageWidget> {
                                         child: TextFormField(
                                           controller:
                                               _model.startTimeController,
+                                          focusNode: _model.startTimeFocusNode,
                                           readOnly: true,
                                           obscureText: false,
                                           decoration: InputDecoration(
@@ -198,7 +215,7 @@ class _AddBookingPageWidgetState extends State<AddBookingPageWidget> {
                                                 getCurrentTimestamp),
                                           );
                                           if (_datePicked1Time != null) {
-                                            setState(() {
+                                            safeSetState(() {
                                               _model.datePicked1 = DateTime(
                                                 getCurrentTimestamp.year,
                                                 getCurrentTimestamp.month,
@@ -231,6 +248,7 @@ class _AddBookingPageWidgetState extends State<AddBookingPageWidget> {
                                             0.0, 8.0, 0.0, 0.0),
                                         child: TextFormField(
                                           controller: _model.endTimeController,
+                                          focusNode: _model.endTimeFocusNode,
                                           readOnly: true,
                                           obscureText: false,
                                           decoration: InputDecoration(
@@ -304,7 +322,7 @@ class _AddBookingPageWidgetState extends State<AddBookingPageWidget> {
                                                 getCurrentTimestamp),
                                           );
                                           if (_datePicked2Time != null) {
-                                            setState(() {
+                                            safeSetState(() {
                                               _model.datePicked2 = DateTime(
                                                 getCurrentTimestamp.year,
                                                 getCurrentTimestamp.month,
@@ -335,6 +353,7 @@ class _AddBookingPageWidgetState extends State<AddBookingPageWidget> {
                                         0.0, 8.0, 0.0, 0.0),
                                     child: TextFormField(
                                       controller: _model.remarkUsersController,
+                                      focusNode: _model.remarkUsersFocusNode,
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         labelText:
@@ -450,8 +469,7 @@ class _AddBookingPageWidgetState extends State<AddBookingPageWidget> {
                                       options: FFButtonOptions(
                                         width: double.infinity,
                                         height: 40.0,
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 0.0),
+                                        padding: EdgeInsets.all(0.0),
                                         iconPadding:
                                             EdgeInsetsDirectional.fromSTEB(
                                                 0.0, 0.0, 0.0, 0.0),

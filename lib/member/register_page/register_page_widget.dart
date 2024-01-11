@@ -29,10 +29,19 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
     _model = createModel(context, () => RegisterPageModel());
 
     _model.fullnameController ??= TextEditingController();
+    _model.fullnameFocusNode ??= FocusNode();
+
     _model.phoneController ??= TextEditingController();
+    _model.phoneFocusNode ??= FocusNode();
+
     _model.usernameController ??= TextEditingController();
+    _model.usernameFocusNode ??= FocusNode();
+
     _model.passwordController ??= TextEditingController();
+    _model.passwordFocusNode ??= FocusNode();
+
     _model.password2Controller ??= TextEditingController();
+    _model.password2FocusNode ??= FocusNode();
   }
 
   @override
@@ -44,10 +53,21 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -73,8 +93,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+                  padding: EdgeInsets.all(16.0),
                   child: Material(
                     color: Colors.transparent,
                     elevation: 3.0,
@@ -98,6 +117,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                             children: [
                               TextFormField(
                                 controller: _model.fullnameController,
+                                focusNode: _model.fullnameFocusNode,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'ชื่อ-สกุล',
@@ -144,6 +164,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                     0.0, 16.0, 0.0, 0.0),
                                 child: TextFormField(
                                   controller: _model.phoneController,
+                                  focusNode: _model.phoneFocusNode,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'เบอร์โทร',
@@ -200,6 +221,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                     0.0, 16.0, 0.0, 0.0),
                                 child: TextFormField(
                                   controller: _model.usernameController,
+                                  focusNode: _model.usernameFocusNode,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'E-mail',
@@ -252,6 +274,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                     0.0, 16.0, 0.0, 0.0),
                                 child: TextFormField(
                                   controller: _model.passwordController,
+                                  focusNode: _model.passwordFocusNode,
                                   obscureText: !_model.passwordVisibility,
                                   decoration: InputDecoration(
                                     labelText: 'รหัสผ่าน',
@@ -318,6 +341,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                     0.0, 16.0, 0.0, 0.0),
                                 child: TextFormField(
                                   controller: _model.password2Controller,
+                                  focusNode: _model.password2FocusNode,
                                   obscureText: !_model.password2Visibility,
                                   decoration: InputDecoration(
                                     labelText: 'ยืนยันรหัสผ่าน',
@@ -441,8 +465,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                   options: FFButtonOptions(
                                     width: double.infinity,
                                     height: 40.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
+                                    padding: EdgeInsets.all(0.0),
                                     iconPadding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     color: FlutterFlowTheme.of(context).primary,

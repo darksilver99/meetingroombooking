@@ -10,6 +10,8 @@ import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/permissions_util.dart';
+import 'add_meet_room_information_page_widget.dart'
+    show AddMeetRoomInformationPageWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -18,12 +20,14 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class AddMeetRoomInformationPageModel extends FlutterFlowModel {
+class AddMeetRoomInformationPageModel
+    extends FlutterFlowModel<AddMeetRoomInformationPageWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
   // State field(s) for name widget.
+  FocusNode? nameFocusNode;
   TextEditingController? nameController;
   String? Function(BuildContext, String?)? nameControllerValidator;
   String? _nameControllerValidator(BuildContext context, String? val) {
@@ -35,6 +39,7 @@ class AddMeetRoomInformationPageModel extends FlutterFlowModel {
   }
 
   // State field(s) for support_total widget.
+  FocusNode? supportTotalFocusNode;
   TextEditingController? supportTotalController;
   String? Function(BuildContext, String?)? supportTotalControllerValidator;
   String? _supportTotalControllerValidator(BuildContext context, String? val) {
@@ -46,6 +51,7 @@ class AddMeetRoomInformationPageModel extends FlutterFlowModel {
   }
 
   // State field(s) for detail widget.
+  FocusNode? detailFocusNode;
   TextEditingController? detailController;
   String? Function(BuildContext, String?)? detailControllerValidator;
   bool isDataUploading = false;
@@ -79,8 +85,13 @@ class AddMeetRoomInformationPageModel extends FlutterFlowModel {
 
   void dispose() {
     unfocusNode.dispose();
+    nameFocusNode?.dispose();
     nameController?.dispose();
+
+    supportTotalFocusNode?.dispose();
     supportTotalController?.dispose();
+
+    detailFocusNode?.dispose();
     detailController?.dispose();
   }
 

@@ -78,10 +78,15 @@ class _EditMeetRoomInformationPageWidgetState
 
     _model.nameController ??=
         TextEditingController(text: widget.meetRoomParameter?.name);
+    _model.nameFocusNode ??= FocusNode();
+
     _model.supportTotalController ??= TextEditingController(
         text: widget.meetRoomParameter?.supportTotal?.toString());
+    _model.supportTotalFocusNode ??= FocusNode();
+
     _model.detailController ??=
         TextEditingController(text: widget.meetRoomParameter?.detail);
+    _model.detailFocusNode ??= FocusNode();
   }
 
   @override
@@ -93,10 +98,21 @@ class _EditMeetRoomInformationPageWidgetState
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -122,8 +138,7 @@ class _EditMeetRoomInformationPageWidgetState
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+                  padding: EdgeInsets.all(16.0),
                   child: Material(
                     color: Colors.transparent,
                     elevation: 3.0,
@@ -160,6 +175,7 @@ class _EditMeetRoomInformationPageWidgetState
                                     0.0, 8.0, 0.0, 0.0),
                                 child: TextFormField(
                                   controller: _model.nameController,
+                                  focusNode: _model.nameFocusNode,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'ชื่อห้องประชุม',
@@ -211,6 +227,7 @@ class _EditMeetRoomInformationPageWidgetState
                                     0.0, 8.0, 0.0, 0.0),
                                 child: TextFormField(
                                   controller: _model.supportTotalController,
+                                  focusNode: _model.supportTotalFocusNode,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'จำนวนที่รองรับ (คน)',
@@ -268,6 +285,7 @@ class _EditMeetRoomInformationPageWidgetState
                                     0.0, 8.0, 0.0, 0.0),
                                 child: TextFormField(
                                   controller: _model.detailController,
+                                  focusNode: _model.detailFocusNode,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'รายละเอียดเพิ่มเติม (หากมี)',
@@ -394,8 +412,13 @@ class _EditMeetRoomInformationPageWidgetState
                                                               .meetRoomParameter!
                                                               .reference
                                                               .update({
-                                                            'photo': FFAppState()
-                                                                .imageUploadList,
+                                                            ...mapToFirestore(
+                                                              {
+                                                                'photo':
+                                                                    FFAppState()
+                                                                        .imageUploadList,
+                                                              },
+                                                            ),
                                                           });
                                                           setState(() {});
                                                         },
@@ -639,6 +662,7 @@ class _EditMeetRoomInformationPageWidgetState
                                           16.0, 4.0, 16.0, 4.0),
                                       hidesUnderline: true,
                                       isSearchable: true,
+                                      isMultiSelect: false,
                                     );
                                   },
                                 ),
@@ -650,9 +674,11 @@ class _EditMeetRoomInformationPageWidgetState
                                   child: StreamBuilder<List<AmphureRecord>>(
                                     stream: queryAmphureRecord(
                                       queryBuilder: (amphureRecord) =>
-                                          amphureRecord.where('province_id',
-                                              isEqualTo: FFAppState()
-                                                  .provinceSelected),
+                                          amphureRecord.where(
+                                        'province_id',
+                                        isEqualTo:
+                                            FFAppState().provinceSelected,
+                                      ),
                                     ),
                                     builder: (context, snapshot) {
                                       // Customize what your widget looks like when it's loading.
@@ -729,6 +755,7 @@ class _EditMeetRoomInformationPageWidgetState
                                             16.0, 4.0, 16.0, 4.0),
                                         hidesUnderline: true,
                                         isSearchable: true,
+                                        isMultiSelect: false,
                                       );
                                     },
                                   ),
@@ -740,9 +767,10 @@ class _EditMeetRoomInformationPageWidgetState
                                   child: StreamBuilder<List<TambonRecord>>(
                                     stream: queryTambonRecord(
                                       queryBuilder: (tambonRecord) =>
-                                          tambonRecord.where('amphure_id',
-                                              isEqualTo:
-                                                  FFAppState().amphureSelected),
+                                          tambonRecord.where(
+                                        'amphure_id',
+                                        isEqualTo: FFAppState().amphureSelected,
+                                      ),
                                     ),
                                     builder: (context, snapshot) {
                                       // Customize what your widget looks like when it's loading.
@@ -806,6 +834,7 @@ class _EditMeetRoomInformationPageWidgetState
                                             16.0, 4.0, 16.0, 4.0),
                                         hidesUnderline: true,
                                         isSearchable: true,
+                                        isMultiSelect: false,
                                       );
                                     },
                                   ),
@@ -987,6 +1016,7 @@ class _EditMeetRoomInformationPageWidgetState
                                               FormFieldController<List<String>>(
                                         widget.meetRoomParameter?.tools,
                                       ),
+                                      wrapped: true,
                                     );
                                   },
                                 ),
@@ -1045,10 +1075,14 @@ class _EditMeetRoomInformationPageWidgetState
                                                   location: FFAppState()
                                                       .locationSelected,
                                                 ),
-                                                'tools':
-                                                    _model.choiceChipsValues,
-                                                'photo': FFAppState()
-                                                    .imageUploadList,
+                                                ...mapToFirestore(
+                                                  {
+                                                    'tools': _model
+                                                        .choiceChipsValues,
+                                                    'photo': FFAppState()
+                                                        .imageUploadList,
+                                                  },
+                                                ),
                                               });
                                               FFAppState().imageUploadList = [];
                                               FFAppState().locationSelected =
@@ -1199,8 +1233,7 @@ class _EditMeetRoomInformationPageWidgetState
                                   options: FFButtonOptions(
                                     width: double.infinity,
                                     height: 40.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
+                                    padding: EdgeInsets.all(0.0),
                                     iconPadding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     color: FlutterFlowTheme.of(context).primary,
@@ -1269,8 +1302,7 @@ class _EditMeetRoomInformationPageWidgetState
                                   options: FFButtonOptions(
                                     width: double.infinity,
                                     height: 40.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
+                                    padding: EdgeInsets.all(0.0),
                                     iconPadding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     color: FlutterFlowTheme.of(context).error,

@@ -8,6 +8,7 @@ import '/flutter_flow/form_field_controller.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'booking_select_area_page_model.dart';
@@ -54,10 +55,21 @@ class _BookingSelectAreaPageWidgetState
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -89,8 +101,7 @@ class _BookingSelectAreaPageWidgetState
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              16.0, 16.0, 16.0, 16.0),
+                          padding: EdgeInsets.all(16.0),
                           child: Material(
                             color: Colors.transparent,
                             elevation: 3.0,
@@ -200,6 +211,7 @@ class _BookingSelectAreaPageWidgetState
                                                     16.0, 4.0, 16.0, 4.0),
                                             hidesUnderline: true,
                                             isSearchable: true,
+                                            isMultiSelect: false,
                                           );
                                         },
                                       ),
@@ -213,9 +225,10 @@ class _BookingSelectAreaPageWidgetState
                                           stream: queryAmphureRecord(
                                             queryBuilder: (amphureRecord) =>
                                                 amphureRecord.where(
-                                                    'province_id',
-                                                    isEqualTo: FFAppState()
-                                                        .provinceSelected),
+                                              'province_id',
+                                              isEqualTo:
+                                                  FFAppState().provinceSelected,
+                                            ),
                                           ),
                                           builder: (context, snapshot) {
                                             // Customize what your widget looks like when it's loading.
@@ -300,6 +313,7 @@ class _BookingSelectAreaPageWidgetState
                                                       16.0, 4.0, 16.0, 4.0),
                                               hidesUnderline: true,
                                               isSearchable: true,
+                                              isMultiSelect: false,
                                             );
                                           },
                                         ),
@@ -312,9 +326,11 @@ class _BookingSelectAreaPageWidgetState
                                             StreamBuilder<List<TambonRecord>>(
                                           stream: queryTambonRecord(
                                             queryBuilder: (tambonRecord) =>
-                                                tambonRecord.where('amphure_id',
-                                                    isEqualTo: FFAppState()
-                                                        .amphureSelected),
+                                                tambonRecord.where(
+                                              'amphure_id',
+                                              isEqualTo:
+                                                  FFAppState().amphureSelected,
+                                            ),
                                           ),
                                           builder: (context, snapshot) {
                                             // Customize what your widget looks like when it's loading.
@@ -386,6 +402,7 @@ class _BookingSelectAreaPageWidgetState
                                                       16.0, 4.0, 16.0, 4.0),
                                               hidesUnderline: true,
                                               isSearchable: true,
+                                              isMultiSelect: false,
                                             );
                                           },
                                         ),
@@ -517,9 +534,7 @@ class _BookingSelectAreaPageWidgetState
                                         options: FFButtonOptions(
                                           width: double.infinity,
                                           height: 40.0,
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
+                                          padding: EdgeInsets.all(0.0),
                                           iconPadding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 0.0),

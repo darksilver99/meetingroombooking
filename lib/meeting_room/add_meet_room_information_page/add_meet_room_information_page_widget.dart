@@ -54,8 +54,13 @@ class _AddMeetRoomInformationPageWidgetState
     });
 
     _model.nameController ??= TextEditingController();
+    _model.nameFocusNode ??= FocusNode();
+
     _model.supportTotalController ??= TextEditingController();
+    _model.supportTotalFocusNode ??= FocusNode();
+
     _model.detailController ??= TextEditingController();
+    _model.detailFocusNode ??= FocusNode();
   }
 
   @override
@@ -67,10 +72,21 @@ class _AddMeetRoomInformationPageWidgetState
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -96,8 +112,7 @@ class _AddMeetRoomInformationPageWidgetState
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+                  padding: EdgeInsets.all(16.0),
                   child: Material(
                     color: Colors.transparent,
                     elevation: 3.0,
@@ -134,6 +149,7 @@ class _AddMeetRoomInformationPageWidgetState
                                     0.0, 8.0, 0.0, 0.0),
                                 child: TextFormField(
                                   controller: _model.nameController,
+                                  focusNode: _model.nameFocusNode,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'ชื่อห้องประชุม',
@@ -185,6 +201,7 @@ class _AddMeetRoomInformationPageWidgetState
                                     0.0, 8.0, 0.0, 0.0),
                                 child: TextFormField(
                                   controller: _model.supportTotalController,
+                                  focusNode: _model.supportTotalFocusNode,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'จำนวนที่รองรับ (คน)',
@@ -242,6 +259,7 @@ class _AddMeetRoomInformationPageWidgetState
                                     0.0, 8.0, 0.0, 0.0),
                                 child: TextFormField(
                                   controller: _model.detailController,
+                                  focusNode: _model.detailFocusNode,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'รายละเอียดเพิ่มเติม (หากมี)',
@@ -603,6 +621,7 @@ class _AddMeetRoomInformationPageWidgetState
                                           16.0, 4.0, 16.0, 4.0),
                                       hidesUnderline: true,
                                       isSearchable: true,
+                                      isMultiSelect: false,
                                     );
                                   },
                                 ),
@@ -614,9 +633,11 @@ class _AddMeetRoomInformationPageWidgetState
                                   child: StreamBuilder<List<AmphureRecord>>(
                                     stream: queryAmphureRecord(
                                       queryBuilder: (amphureRecord) =>
-                                          amphureRecord.where('province_id',
-                                              isEqualTo: FFAppState()
-                                                  .provinceSelected),
+                                          amphureRecord.where(
+                                        'province_id',
+                                        isEqualTo:
+                                            FFAppState().provinceSelected,
+                                      ),
                                     ),
                                     builder: (context, snapshot) {
                                       // Customize what your widget looks like when it's loading.
@@ -690,6 +711,7 @@ class _AddMeetRoomInformationPageWidgetState
                                             16.0, 4.0, 16.0, 4.0),
                                         hidesUnderline: true,
                                         isSearchable: true,
+                                        isMultiSelect: false,
                                       );
                                     },
                                   ),
@@ -701,9 +723,10 @@ class _AddMeetRoomInformationPageWidgetState
                                   child: StreamBuilder<List<TambonRecord>>(
                                     stream: queryTambonRecord(
                                       queryBuilder: (tambonRecord) =>
-                                          tambonRecord.where('amphure_id',
-                                              isEqualTo:
-                                                  FFAppState().amphureSelected),
+                                          tambonRecord.where(
+                                        'amphure_id',
+                                        isEqualTo: FFAppState().amphureSelected,
+                                      ),
                                     ),
                                     builder: (context, snapshot) {
                                       // Customize what your widget looks like when it's loading.
@@ -764,6 +787,7 @@ class _AddMeetRoomInformationPageWidgetState
                                             16.0, 4.0, 16.0, 4.0),
                                         hidesUnderline: true,
                                         isSearchable: true,
+                                        isMultiSelect: false,
                                       );
                                     },
                                   ),
@@ -940,6 +964,7 @@ class _AddMeetRoomInformationPageWidgetState
                                               FormFieldController<List<String>>(
                                         [],
                                       ),
+                                      wrapped: true,
                                     );
                                   },
                                 ),
@@ -1004,10 +1029,14 @@ class _AddMeetRoomInformationPageWidgetState
                                                   location: FFAppState()
                                                       .locationSelected,
                                                 ),
-                                                'photo': FFAppState()
-                                                    .imageUploadList,
-                                                'tools':
-                                                    _model.choiceChipsValues,
+                                                ...mapToFirestore(
+                                                  {
+                                                    'photo': FFAppState()
+                                                        .imageUploadList,
+                                                    'tools': _model
+                                                        .choiceChipsValues,
+                                                  },
+                                                ),
                                               });
                                               FFAppState().imageUploadList = [];
                                               FFAppState().locationSelected =
@@ -1158,8 +1187,7 @@ class _AddMeetRoomInformationPageWidgetState
                                   options: FFButtonOptions(
                                     width: double.infinity,
                                     height: 40.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
+                                    padding: EdgeInsets.all(0.0),
                                     iconPadding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     color: FlutterFlowTheme.of(context).primary,

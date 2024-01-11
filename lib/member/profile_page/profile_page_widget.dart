@@ -38,8 +38,13 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
 
     _model.fullnameController ??= TextEditingController(
         text: valueOrDefault(currentUserDocument?.fullname, ''));
+    _model.fullnameFocusNode ??= FocusNode();
+
     _model.phoneController ??= TextEditingController(text: currentPhoneNumber);
+    _model.phoneFocusNode ??= FocusNode();
+
     _model.emailController ??= TextEditingController(text: currentUserEmail);
+    _model.emailFocusNode ??= FocusNode();
   }
 
   @override
@@ -51,10 +56,21 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -80,8 +96,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+                  padding: EdgeInsets.all(16.0),
                   child: Material(
                     color: Colors.transparent,
                     elevation: 3.0,
@@ -180,6 +195,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                 child: AuthUserStreamWidget(
                                   builder: (context) => TextFormField(
                                     controller: _model.fullnameController,
+                                    focusNode: _model.fullnameFocusNode,
                                     onChanged: (_) => EasyDebounce.debounce(
                                       '_model.fullnameController',
                                       Duration(milliseconds: 500),
@@ -248,6 +264,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                 child: AuthUserStreamWidget(
                                   builder: (context) => TextFormField(
                                     controller: _model.phoneController,
+                                    focusNode: _model.phoneFocusNode,
                                     onChanged: (_) => EasyDebounce.debounce(
                                       '_model.phoneController',
                                       Duration(milliseconds: 500),
@@ -319,6 +336,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                     0.0, 16.0, 0.0, 16.0),
                                 child: TextFormField(
                                   controller: _model.emailController,
+                                  focusNode: _model.emailFocusNode,
                                   readOnly: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
@@ -419,8 +437,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                     options: FFButtonOptions(
                                       width: double.infinity,
                                       height: 40.0,
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 0.0),
+                                      padding: EdgeInsets.all(0.0),
                                       iconPadding:
                                           EdgeInsetsDirectional.fromSTEB(
                                               0.0, 0.0, 0.0, 0.0),
@@ -513,8 +530,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                   options: FFButtonOptions(
                                     width: double.infinity,
                                     height: 40.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
+                                    padding: EdgeInsets.all(0.0),
                                     iconPadding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     color: FlutterFlowTheme.of(context).error,

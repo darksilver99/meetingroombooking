@@ -29,13 +29,22 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
     _model = createModel(context, () => HelpPageModel());
 
     _model.topicController ??= TextEditingController();
+    _model.topicFocusNode ??= FocusNode();
+
     _model.detailController ??= TextEditingController();
+    _model.detailFocusNode ??= FocusNode();
+
     _model.contactNameController ??= TextEditingController(
         text: valueOrDefault(currentUserDocument?.fullname, ''));
+    _model.contactNameFocusNode ??= FocusNode();
+
     _model.contactPhoneController ??=
         TextEditingController(text: currentPhoneNumber);
+    _model.contactPhoneFocusNode ??= FocusNode();
+
     _model.contactEmailController ??=
         TextEditingController(text: currentUserEmail);
+    _model.contactEmailFocusNode ??= FocusNode();
   }
 
   @override
@@ -47,10 +56,21 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -79,8 +99,7 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
                   key: _model.formKey,
                   autovalidateMode: AutovalidateMode.disabled,
                   child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+                    padding: EdgeInsets.all(16.0),
                     child: Material(
                       color: Colors.transparent,
                       elevation: 3.0,
@@ -105,6 +124,7 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
                                     0.0, 8.0, 0.0, 0.0),
                                 child: TextFormField(
                                   controller: _model.topicController,
+                                  focusNode: _model.topicFocusNode,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'หัวข้อ',
@@ -156,6 +176,7 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
                                     0.0, 8.0, 0.0, 0.0),
                                 child: TextFormField(
                                   controller: _model.detailController,
+                                  focusNode: _model.detailFocusNode,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'รายละเอียด',
@@ -209,6 +230,7 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
                                 child: AuthUserStreamWidget(
                                   builder: (context) => TextFormField(
                                     controller: _model.contactNameController,
+                                    focusNode: _model.contactNameFocusNode,
                                     obscureText: false,
                                     decoration: InputDecoration(
                                       labelText: 'ชื่อผู้แจ้ง',
@@ -267,6 +289,7 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
                                 child: AuthUserStreamWidget(
                                   builder: (context) => TextFormField(
                                     controller: _model.contactPhoneController,
+                                    focusNode: _model.contactPhoneFocusNode,
                                     obscureText: false,
                                     decoration: InputDecoration(
                                       labelText: 'เบอร์โทรศัพท์',
@@ -329,6 +352,7 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
                                     0.0, 8.0, 0.0, 0.0),
                                 child: TextFormField(
                                   controller: _model.contactEmailController,
+                                  focusNode: _model.contactEmailFocusNode,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'E-mail',
@@ -427,8 +451,7 @@ class _HelpPageWidgetState extends State<HelpPageWidget> {
                                   options: FFButtonOptions(
                                     width: double.infinity,
                                     height: 40.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
+                                    padding: EdgeInsets.all(0.0),
                                     iconPadding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     color:
