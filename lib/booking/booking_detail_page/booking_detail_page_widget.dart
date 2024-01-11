@@ -7,6 +7,7 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -39,14 +40,27 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
     _model.usernameController1 ??= TextEditingController(
         text: dateTimeFormat(
             'd/M/y', widget.bookingDetailParameter?.bookingDate));
+    _model.usernameFocusNode1 ??= FocusNode();
+
     _model.usernameController2 ??= TextEditingController(
         text: widget.bookingDetailParameter?.bookingStartTime);
+    _model.usernameFocusNode2 ??= FocusNode();
+
     _model.usernameController3 ??= TextEditingController(
         text: widget.bookingDetailParameter?.bookingEndTime);
+    _model.usernameFocusNode3 ??= FocusNode();
+
     _model.usernameController4 ??=
         TextEditingController(text: widget.bookingDetailParameter?.remarkUser);
+    _model.usernameFocusNode4 ??= FocusNode();
+
+    _model.usernameFocusNode5 ??= FocusNode();
+
+    _model.usernameFocusNode6 ??= FocusNode();
+
     _model.usernameController7 ??=
         TextEditingController(text: widget.bookingDetailParameter?.remarkOwner);
+    _model.usernameFocusNode7 ??= FocusNode();
   }
 
   @override
@@ -58,10 +72,21 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -87,8 +112,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+                  padding: EdgeInsets.all(16.0),
                   child: Material(
                     color: Colors.transparent,
                     elevation: 3.0,
@@ -170,9 +194,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                               BorderRadius.circular(8.0),
                                         ),
                                         child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  8.0, 8.0, 8.0, 8.0),
+                                          padding: EdgeInsets.all(8.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             crossAxisAlignment:
@@ -237,6 +259,10 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                                                 .end,
                                                         children: [
                                                           RichText(
+                                                            textScaleFactor:
+                                                                MediaQuery.of(
+                                                                        context)
+                                                                    .textScaleFactor,
                                                             text: TextSpan(
                                                               children: [
                                                                 TextSpan(
@@ -325,6 +351,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                     0.0, 16.0, 0.0, 0.0),
                                 child: TextFormField(
                                   controller: _model.usernameController1,
+                                  focusNode: _model.usernameFocusNode1,
                                   readOnly: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
@@ -385,6 +412,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                     0.0, 8.0, 0.0, 0.0),
                                 child: TextFormField(
                                   controller: _model.usernameController2,
+                                  focusNode: _model.usernameFocusNode2,
                                   readOnly: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
@@ -440,6 +468,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                     0.0, 8.0, 0.0, 0.0),
                                 child: TextFormField(
                                   controller: _model.usernameController3,
+                                  focusNode: _model.usernameFocusNode3,
                                   readOnly: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
@@ -495,6 +524,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                     0.0, 8.0, 0.0, 0.0),
                                 child: TextFormField(
                                   controller: _model.usernameController4,
+                                  focusNode: _model.usernameFocusNode4,
                                   readOnly: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
@@ -587,6 +617,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                                   TextEditingController(
                                             text: columnUsersRecord.fullname,
                                           ),
+                                          focusNode: _model.usernameFocusNode5,
                                           readOnly: true,
                                           obscureText: false,
                                           decoration: InputDecoration(
@@ -660,6 +691,8 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                               text:
                                                   columnUsersRecord.phoneNumber,
                                             ),
+                                            focusNode:
+                                                _model.usernameFocusNode6,
                                             readOnly: true,
                                             obscureText: false,
                                             decoration: InputDecoration(
@@ -743,8 +776,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                             options: FFButtonOptions(
                                               width: double.infinity,
                                               height: 40.0,
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              padding: EdgeInsets.all(0.0),
                                               iconPadding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color:
@@ -780,6 +812,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                               ),
                               TextFormField(
                                 controller: _model.usernameController7,
+                                focusNode: _model.usernameFocusNode7,
                                 readOnly: (widget
                                             .bookingDetailParameter?.ownerRef !=
                                         currentUserReference) ||
@@ -833,6 +866,8 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 8.0, 0.0, 0.0),
                                   child: RichText(
+                                    textScaleFactor:
+                                        MediaQuery.of(context).textScaleFactor,
                                     text: TextSpan(
                                       children: [
                                         TextSpan(
@@ -928,9 +963,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                         options: FFButtonOptions(
                                           width: double.infinity,
                                           height: 40.0,
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
+                                          padding: EdgeInsets.all(0.0),
                                           iconPadding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 0.0),
@@ -983,9 +1016,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                           options: FFButtonOptions(
                                             width: double.infinity,
                                             height: 40.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
+                                            padding: EdgeInsets.all(0.0),
                                             iconPadding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),
@@ -1051,9 +1082,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                           options: FFButtonOptions(
                                             width: double.infinity,
                                             height: 40.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
+                                            padding: EdgeInsets.all(0.0),
                                             iconPadding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),
@@ -1159,9 +1188,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                           options: FFButtonOptions(
                                             width: double.infinity,
                                             height: 40.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
+                                            padding: EdgeInsets.all(0.0),
                                             iconPadding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),

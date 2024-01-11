@@ -5,13 +5,17 @@ import 'flutter_flow/flutter_flow_util.dart';
 import 'dart:convert';
 
 class FFAppState extends ChangeNotifier {
-  static final FFAppState _instance = FFAppState._internal();
+  static FFAppState _instance = FFAppState._internal();
 
   factory FFAppState() {
     return _instance;
   }
 
   FFAppState._internal();
+
+  static void reset() {
+    _instance = FFAppState._internal();
+  }
 
   Future initializePersistedState() async {
     prefs = await SharedPreferences.getInstance();
@@ -90,6 +94,10 @@ class FFAppState extends ChangeNotifier {
     _imageUploadList[_index] = updateFn(_imageUploadList[_index]);
   }
 
+  void insertAtIndexInImageUploadList(int _index, String _value) {
+    _imageUploadList.insert(_index, _value);
+  }
+
   DocumentReference? _meetingRoomSelectedRef;
   DocumentReference? get meetingRoomSelectedRef => _meetingRoomSelectedRef;
   set meetingRoomSelectedRef(DocumentReference? _value) {
@@ -125,6 +133,10 @@ class FFAppState extends ChangeNotifier {
     dynamic Function(dynamic) updateFn,
   ) {
     _bookingStatus[_index] = updateFn(_bookingStatus[_index]);
+  }
+
+  void insertAtIndexInBookingStatus(int _index, dynamic _value) {
+    _bookingStatus.insert(_index, _value);
   }
 
   bool _isFullList = true;
@@ -182,6 +194,10 @@ class FFAppState extends ChangeNotifier {
     _fakeSelectedDate[_index] = updateFn(_fakeSelectedDate[_index]);
   }
 
+  void insertAtIndexInFakeSelectedDate(int _index, String _value) {
+    _fakeSelectedDate.insert(_index, _value);
+  }
+
   DocumentReference? _userRefBeforDelete;
   DocumentReference? get userRefBeforDelete => _userRefBeforDelete;
   set userRefBeforDelete(DocumentReference? _value) {
@@ -217,6 +233,10 @@ class FFAppState extends ChangeNotifier {
     dynamic Function(dynamic) updateFn,
   ) {
     _totalMeetingRoom[_index] = updateFn(_totalMeetingRoom[_index]);
+  }
+
+  void insertAtIndexInTotalMeetingRoom(int _index, dynamic _value) {
+    _totalMeetingRoom.insert(_index, _value);
   }
 
   String _appVersion = '';

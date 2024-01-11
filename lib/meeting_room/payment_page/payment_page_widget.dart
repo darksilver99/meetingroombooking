@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'payment_page_model.dart';
@@ -39,10 +40,21 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -221,16 +233,14 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                         buttonColor: FlutterFlowTheme.of(context).primary,
                         buttonTextColor: Colors.white,
                       );
-                      if (paymentResponse.paymentId == null) {
-                        if (paymentResponse.errorMessage != null) {
-                          showSnackbar(
-                            context,
-                            'Error: ${paymentResponse.errorMessage}',
-                          );
-                        }
-                        return;
+                      if (paymentResponse.paymentId == null &&
+                          paymentResponse.errorMessage != null) {
+                        showSnackbar(
+                          context,
+                          'Error: ${paymentResponse.errorMessage}',
+                        );
                       }
-                      _model.paymentId = paymentResponse.paymentId!;
+                      _model.paymentId = paymentResponse.paymentId ?? '';
 
                       await currentUserReference!.update(createUsersRecordData(
                         isPay: true,
@@ -270,8 +280,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                     options: FFButtonOptions(
                       width: double.infinity,
                       height: 60.0,
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      padding: EdgeInsets.all(0.0),
                       iconPadding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                       color: FlutterFlowTheme.of(context).primary,

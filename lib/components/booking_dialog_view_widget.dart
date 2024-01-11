@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'booking_dialog_view_model.dart';
@@ -88,16 +89,22 @@ class _BookingDialogViewWidgetState extends State<BookingDialogViewWidget> {
                   StreamBuilder<List<BookingListRecord>>(
                     stream: queryBookingListRecord(
                       queryBuilder: (bookingListRecord) => bookingListRecord
-                          .where('meeting_room_doc',
-                              isEqualTo: FFAppState().meetingRoomSelectedRef)
-                          .where('booking_date',
-                              isGreaterThanOrEqualTo:
-                                  functions.setNewDateTimeForQuery(
-                                      'start', widget.selectedDate))
-                          .where('booking_date',
-                              isLessThanOrEqualTo:
-                                  functions.setNewDateTimeForQuery(
-                                      'end', widget.selectedDate))
+                          .where(
+                            'meeting_room_doc',
+                            isEqualTo: FFAppState().meetingRoomSelectedRef,
+                          )
+                          .where(
+                            'booking_date',
+                            isGreaterThanOrEqualTo:
+                                functions.setNewDateTimeForQuery(
+                                    'start', widget.selectedDate),
+                          )
+                          .where(
+                            'booking_date',
+                            isLessThanOrEqualTo:
+                                functions.setNewDateTimeForQuery(
+                                    'end', widget.selectedDate),
+                          )
                           .orderBy('booking_date')
                           .orderBy('booking_start_time'),
                     ),
@@ -226,8 +233,7 @@ class _BookingDialogViewWidgetState extends State<BookingDialogViewWidget> {
                               options: FFButtonOptions(
                                 width: double.infinity,
                                 height: 40.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
+                                padding: EdgeInsets.all(0.0),
                                 iconPadding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
                                 color: FlutterFlowTheme.of(context).error,
@@ -269,8 +275,7 @@ class _BookingDialogViewWidgetState extends State<BookingDialogViewWidget> {
                               options: FFButtonOptions(
                                 width: double.infinity,
                                 height: 40.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
+                                padding: EdgeInsets.all(0.0),
                                 iconPadding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
                                 color: FlutterFlowTheme.of(context).secondary,

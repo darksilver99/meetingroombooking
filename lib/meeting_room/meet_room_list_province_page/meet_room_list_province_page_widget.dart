@@ -2,9 +2,11 @@ import '/backend/backend.dart';
 import '/components/no_data_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
@@ -43,6 +45,7 @@ class _MeetRoomListProvincePageWidgetState
     _model = createModel(context, () => MeetRoomListProvincePageModel());
 
     _model.usernameController ??= TextEditingController();
+    _model.usernameFocusNode ??= FocusNode();
   }
 
   @override
@@ -54,10 +57,21 @@ class _MeetRoomListProvincePageWidgetState
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -95,13 +109,14 @@ class _MeetRoomListProvincePageWidgetState
                         decoration: BoxDecoration(),
                         child: TextFormField(
                           controller: _model.usernameController,
+                          focusNode: _model.usernameFocusNode,
                           onChanged: (_) => EasyDebounce.debounce(
                             '_model.usernameController',
                             Duration(milliseconds: 500),
                             () async {
                               if (_model.usernameController.text != null &&
                                   _model.usernameController.text != '') {
-                                setState(
+                                safeSetState(
                                     () => _model.algoliaSearchResults = null);
                                 await MeetingRoomListRecord.search(
                                   term: _model.usernameController.text,
@@ -178,7 +193,7 @@ class _MeetRoomListProvincePageWidgetState
                                               null &&
                                           _model.usernameController.text !=
                                               '') {
-                                        setState(() =>
+                                        safeSetState(() =>
                                             _model.algoliaSearchResults = null);
                                         await MeetingRoomListRecord.search(
                                           term: _model.usernameController.text,
@@ -246,12 +261,17 @@ class _MeetRoomListProvincePageWidgetState
                       MeetingRoomListRecord>(
                     pagingController: _model.setListViewController1(
                       MeetingRoomListRecord.collection
-                          .where('status',
-                              isEqualTo: valueOrDefault<int>(
-                                null,
-                                1,
-                              ))
-                          .where('province', isEqualTo: widget.province),
+                          .where(
+                            'status',
+                            isEqualTo: valueOrDefault<int>(
+                              null,
+                              1,
+                            ),
+                          )
+                          .where(
+                            'province',
+                            isEqualTo: widget.province,
+                          ),
                     ),
                     padding: EdgeInsets.zero,
                     primary: false,
@@ -329,8 +349,7 @@ class _MeetRoomListProvincePageWidgetState
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8.0, 8.0, 8.0, 8.0),
+                                  padding: EdgeInsets.all(8.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
@@ -383,6 +402,9 @@ class _MeetRoomListProvincePageWidgetState
                                                     MainAxisAlignment.end,
                                                 children: [
                                                   RichText(
+                                                    textScaleFactor:
+                                                        MediaQuery.of(context)
+                                                            .textScaleFactor,
                                                     text: TextSpan(
                                                       children: [
                                                         TextSpan(
@@ -527,8 +549,7 @@ class _MeetRoomListProvincePageWidgetState
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        8.0, 8.0, 8.0, 8.0),
+                                    padding: EdgeInsets.all(8.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
@@ -579,6 +600,9 @@ class _MeetRoomListProvincePageWidgetState
                                                       MainAxisAlignment.end,
                                                   children: [
                                                     RichText(
+                                                      textScaleFactor:
+                                                          MediaQuery.of(context)
+                                                              .textScaleFactor,
                                                       text: TextSpan(
                                                         children: [
                                                           TextSpan(
