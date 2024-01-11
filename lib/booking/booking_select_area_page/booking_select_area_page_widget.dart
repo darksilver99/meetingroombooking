@@ -133,7 +133,10 @@ class _BookingSelectAreaPageWidgetState
                                           0.0, 8.0, 0.0, 0.0),
                                       child:
                                           StreamBuilder<List<ProvinceRecord>>(
-                                        stream: queryProvinceRecord(),
+                                        stream: queryProvinceRecord(
+                                          queryBuilder: (provinceRecord) =>
+                                              provinceRecord.orderBy('name'),
+                                        ),
                                         builder: (context, snapshot) {
                                           // Customize what your widget looks like when it's loading.
                                           if (!snapshot.hasData) {
@@ -235,11 +238,13 @@ class _BookingSelectAreaPageWidgetState
                                             StreamBuilder<List<AmphureRecord>>(
                                           stream: queryAmphureRecord(
                                             queryBuilder: (amphureRecord) =>
-                                                amphureRecord.where(
-                                              'province_id',
-                                              isEqualTo:
-                                                  FFAppState().provinceSelected,
-                                            ),
+                                                amphureRecord
+                                                    .where(
+                                                      'province_id',
+                                                      isEqualTo: FFAppState()
+                                                          .provinceSelected,
+                                                    )
+                                                    .orderBy('name'),
                                           ),
                                           builder: (context, snapshot) {
                                             // Customize what your widget looks like when it's loading.
@@ -341,11 +346,13 @@ class _BookingSelectAreaPageWidgetState
                                             StreamBuilder<List<TambonRecord>>(
                                           stream: queryTambonRecord(
                                             queryBuilder: (tambonRecord) =>
-                                                tambonRecord.where(
-                                              'amphure_id',
-                                              isEqualTo:
-                                                  FFAppState().amphureSelected,
-                                            ),
+                                                tambonRecord
+                                                    .where(
+                                                      'amphure_id',
+                                                      isEqualTo: FFAppState()
+                                                          .amphureSelected,
+                                                    )
+                                                    .orderBy('name'),
                                           ),
                                           builder: (context, snapshot) {
                                             // Customize what your widget looks like when it's loading.

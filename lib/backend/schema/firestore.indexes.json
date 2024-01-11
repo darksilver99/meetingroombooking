@@ -55,6 +55,34 @@
       ]
     },
     {
+      "collectionGroup": "amphure",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "province_id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "name",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "tambon",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "amphure_id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "name",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "booking_list",
       "queryScope": "COLLECTION",
       "fields": [
