@@ -1,3 +1,5 @@
+import 'package:meeting_room_booking/custom_toon/custom_toon.dart';
+
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_ad_banner.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
@@ -28,6 +30,10 @@ class _BookingSelectAreaPageWidgetState
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  List<Map<String, int>> listTotalProvince = [];
+  List<Map<String, int>> listTotalAmphure = [];
+  List<Map<String, int>> listTotalTambon = [];
+
   @override
   void initState() {
     super.initState();
@@ -35,6 +41,7 @@ class _BookingSelectAreaPageWidgetState
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      listTotalProvince = await findTotalMeetingRoomEachPlace('province', '', '');
       setState(() {
         FFAppState().provinceSelected = 0;
         FFAppState().amphureSelected = 0;
@@ -157,6 +164,9 @@ class _BookingSelectAreaPageWidgetState
                                             options: provinceProvinceRecordList
                                                 .map((e) => e.name)
                                                 .toList(),
+                                            optionLabels: provinceProvinceRecordList
+                                                .map((e) => getTotal(e.name,listTotalProvince))
+                                                .toList(),
                                             onChanged: (val) async {
                                               setState(() =>
                                                   _model.provinceValue = val);
@@ -164,6 +174,7 @@ class _BookingSelectAreaPageWidgetState
                                                   await actions.getProvinceID(
                                                 _model.provinceValue,
                                               );
+                                              listTotalAmphure = await findTotalMeetingRoomEachPlace('amphur', val, '');
                                               setState(() {
                                                 FFAppState().provinceSelected =
                                                     _model.provinceID!;
@@ -261,6 +272,9 @@ class _BookingSelectAreaPageWidgetState
                                               options: amphureAmphureRecordList
                                                   .map((e) => e.name)
                                                   .toList(),
+                                              optionLabels: amphureAmphureRecordList
+                                                  .map((e) => getTotal(e.name,listTotalAmphure))
+                                                  .toList(),
                                               onChanged: (val) async {
                                                 setState(() =>
                                                     _model.amphureValue = val);
@@ -269,6 +283,7 @@ class _BookingSelectAreaPageWidgetState
                                                   _model.amphureValue,
                                                   FFAppState().provinceSelected,
                                                 );
+                                                listTotalTambon = await findTotalMeetingRoomEachPlace('tambon', FFAppState().provinceSelectedValue, val);
                                                 setState(() {
                                                   FFAppState().amphureSelected =
                                                       _model.amphureID!;
@@ -362,6 +377,9 @@ class _BookingSelectAreaPageWidgetState
                                                       null),
                                               options: tambonTambonRecordList
                                                   .map((e) => e.name)
+                                                  .toList(),
+                                              optionLabels: tambonTambonRecordList
+                                                  .map((e) => getTotal(e.name,listTotalTambon))
                                                   .toList(),
                                               onChanged: (val) async {
                                                 setState(() =>
