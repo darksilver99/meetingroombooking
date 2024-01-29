@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:meeting_room_booking/auth/firebase_auth/auth_util.dart';
 
 Future<List<Map<String, int>>> findTotalMeetingRoomEachPlace(type, province, amphur) async {
   List<Map<String, int>> list = [];
@@ -52,3 +56,12 @@ String getTotal(name, list) {
   }
   return newString;
 }
+
+Future subscribeToTopic() async {
+  var userID = currentUserReference!.id;
+  await FirebaseMessaging.instance.subscribeToTopic(userID);
+  var platForm = Platform.isIOS ? "ios" : "android";
+  await FirebaseMessaging.instance.subscribeToTopic(platForm);
+  await FirebaseMessaging.instance.subscribeToTopic("meetingroombooking");
+}
+

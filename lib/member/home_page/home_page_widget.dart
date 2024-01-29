@@ -1,3 +1,5 @@
+import 'package:meeting_room_booking/custom_toon/custom_toon.dart';
+
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_ad_banner.dart';
@@ -33,6 +35,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      subscribeToTopic();
       await actions.setAppVersion();
       if (FFAppState().isTesting) {
         await actions.setBookingStatus();
