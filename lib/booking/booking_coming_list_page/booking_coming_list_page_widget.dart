@@ -14,10 +14,10 @@ import 'booking_coming_list_page_model.dart';
 export 'booking_coming_list_page_model.dart';
 
 class BookingComingListPageWidget extends StatefulWidget {
-  const BookingComingListPageWidget({Key? key}) : super(key: key);
+  const BookingComingListPageWidget({super.key});
 
   @override
-  _BookingComingListPageWidgetState createState() =>
+  State<BookingComingListPageWidget> createState() =>
       _BookingComingListPageWidgetState();
 }
 

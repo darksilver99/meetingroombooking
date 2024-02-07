@@ -11,14 +11,15 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'profile_page_model.dart';
 export 'profile_page_model.dart';
 
 class ProfilePageWidget extends StatefulWidget {
-  const ProfilePageWidget({Key? key}) : super(key: key);
+  const ProfilePageWidget({super.key});
 
   @override
-  _ProfilePageWidgetState createState() => _ProfilePageWidgetState();
+  State<ProfilePageWidget> createState() => _ProfilePageWidgetState();
 }
 
 class _ProfilePageWidgetState extends State<ProfilePageWidget> {
@@ -133,27 +134,29 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                           await showDialog<bool>(
                                                 context: context,
                                                 builder: (alertDialogContext) {
-                                                  return AlertDialog(
-                                                    title: Text(
-                                                        'ต้องการลบบัญชีหรือไม่?'),
-                                                    content: Text(
-                                                        'หากลบแล้วจะไม่สามารถเรียกข้อมูลเดิมกลับมาได้อีก'),
-                                                    actions: [
-                                                      TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.pop(
-                                                                alertDialogContext,
-                                                                false),
-                                                        child: Text('ยกเลิก'),
-                                                      ),
-                                                      TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.pop(
-                                                                alertDialogContext,
-                                                                true),
-                                                        child: Text('ยืนยัน'),
-                                                      ),
-                                                    ],
+                                                  return WebViewAware(
+                                                    child: AlertDialog(
+                                                      title: Text(
+                                                          'ต้องการลบบัญชีหรือไม่?'),
+                                                      content: Text(
+                                                          'หากลบแล้วจะไม่สามารถเรียกข้อมูลเดิมกลับมาได้อีก'),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  alertDialogContext,
+                                                                  false),
+                                                          child: Text('ยกเลิก'),
+                                                        ),
+                                                        TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  alertDialogContext,
+                                                                  true),
+                                                          child: Text('ยืนยัน'),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   );
                                                 },
                                               ) ??
@@ -467,25 +470,27 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                         await showDialog<bool>(
                                               context: context,
                                               builder: (alertDialogContext) {
-                                                return AlertDialog(
-                                                  title: Text(
-                                                      'ต้องการออกจากระบบใช่หรือไม่'),
-                                                  actions: [
-                                                    TextButton(
-                                                      onPressed: () =>
-                                                          Navigator.pop(
-                                                              alertDialogContext,
-                                                              false),
-                                                      child: Text('ยกเลิก'),
-                                                    ),
-                                                    TextButton(
-                                                      onPressed: () =>
-                                                          Navigator.pop(
-                                                              alertDialogContext,
-                                                              true),
-                                                      child: Text('ตกลง'),
-                                                    ),
-                                                  ],
+                                                return WebViewAware(
+                                                  child: AlertDialog(
+                                                    title: Text(
+                                                        'ต้องการออกจากระบบใช่หรือไม่'),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext,
+                                                                false),
+                                                        child: Text('ยกเลิก'),
+                                                      ),
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext,
+                                                                true),
+                                                        child: Text('ตกลง'),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 );
                                               },
                                             ) ??

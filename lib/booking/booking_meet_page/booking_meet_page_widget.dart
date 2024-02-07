@@ -8,14 +8,15 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'booking_meet_page_model.dart';
 export 'booking_meet_page_model.dart';
 
 class BookingMeetPageWidget extends StatefulWidget {
-  const BookingMeetPageWidget({Key? key}) : super(key: key);
+  const BookingMeetPageWidget({super.key});
 
   @override
-  _BookingMeetPageWidgetState createState() => _BookingMeetPageWidgetState();
+  State<BookingMeetPageWidget> createState() => _BookingMeetPageWidgetState();
 }
 
 class _BookingMeetPageWidgetState extends State<BookingMeetPageWidget> {
@@ -118,27 +119,30 @@ class _BookingMeetPageWidgetState extends State<BookingMeetPageWidget> {
                                     context: context,
                                     builder: (dialogContext) {
                                       return Dialog(
+                                        elevation: 0,
                                         insetPadding: EdgeInsets.zero,
                                         backgroundColor: Colors.transparent,
                                         alignment:
                                             AlignmentDirectional(0.0, 0.0)
                                                 .resolve(
                                                     Directionality.of(context)),
-                                        child: GestureDetector(
-                                          onTap: () => _model
-                                                  .unfocusNode.canRequestFocus
-                                              ? FocusScope.of(context)
-                                                  .requestFocus(
-                                                      _model.unfocusNode)
-                                              : FocusScope.of(context)
-                                                  .unfocus(),
-                                          child: Container(
-                                            width: MediaQuery.sizeOf(context)
-                                                    .width *
-                                                0.95,
-                                            child: BookingDialogViewWidget(
-                                              selectedDate: _model
-                                                  .calendarSelectedDay!.start,
+                                        child: WebViewAware(
+                                          child: GestureDetector(
+                                            onTap: () => _model
+                                                    .unfocusNode.canRequestFocus
+                                                ? FocusScope.of(context)
+                                                    .requestFocus(
+                                                        _model.unfocusNode)
+                                                : FocusScope.of(context)
+                                                    .unfocus(),
+                                            child: Container(
+                                              width: MediaQuery.sizeOf(context)
+                                                      .width *
+                                                  0.95,
+                                              child: BookingDialogViewWidget(
+                                                selectedDate: _model
+                                                    .calendarSelectedDay!.start,
+                                              ),
                                             ),
                                           ),
                                         ),

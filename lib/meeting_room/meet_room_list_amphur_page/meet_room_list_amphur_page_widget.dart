@@ -15,21 +15,20 @@ export 'meet_room_list_amphur_page_model.dart';
 
 class MeetRoomListAmphurPageWidget extends StatefulWidget {
   const MeetRoomListAmphurPageWidget({
-    Key? key,
+    super.key,
     String? province,
     String? amphur,
     String? tambon,
   })  : this.province = province ?? '-',
         this.amphur = amphur ?? '-',
-        this.tambon = tambon ?? '-',
-        super(key: key);
+        this.tambon = tambon ?? '-';
 
   final String province;
   final String amphur;
   final String tambon;
 
   @override
-  _MeetRoomListAmphurPageWidgetState createState() =>
+  State<MeetRoomListAmphurPageWidget> createState() =>
       _MeetRoomListAmphurPageWidgetState();
 }
 

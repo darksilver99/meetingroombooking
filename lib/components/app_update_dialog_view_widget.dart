@@ -9,10 +9,10 @@ import 'app_update_dialog_view_model.dart';
 export 'app_update_dialog_view_model.dart';
 
 class AppUpdateDialogViewWidget extends StatefulWidget {
-  const AppUpdateDialogViewWidget({Key? key}) : super(key: key);
+  const AppUpdateDialogViewWidget({super.key});
 
   @override
-  _AppUpdateDialogViewWidgetState createState() =>
+  State<AppUpdateDialogViewWidget> createState() =>
       _AppUpdateDialogViewWidgetState();
 }
 

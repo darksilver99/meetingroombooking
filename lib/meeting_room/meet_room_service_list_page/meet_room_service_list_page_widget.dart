@@ -10,14 +10,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'meet_room_service_list_page_model.dart';
 export 'meet_room_service_list_page_model.dart';
 
 class MeetRoomServiceListPageWidget extends StatefulWidget {
-  const MeetRoomServiceListPageWidget({Key? key}) : super(key: key);
+  const MeetRoomServiceListPageWidget({super.key});
 
   @override
-  _MeetRoomServiceListPageWidgetState createState() =>
+  State<MeetRoomServiceListPageWidget> createState() =>
       _MeetRoomServiceListPageWidgetState();
 }
 
@@ -70,17 +71,19 @@ class _MeetRoomServiceListPageWidgetState
               await showDialog(
                 context: context,
                 builder: (alertDialogContext) {
-                  return AlertDialog(
-                    title: Text(
-                        'ขออภัยบัญชีของท่านไม่สามารถเพิ่มห้องประชุมได้แล้ว'),
-                    content: Text(
-                        'หากต้องการเพิ่มห้องประชุมให้ติดต่อที่เมนู \"จัดการโปรไฟล์\" > \"แจ้งปัญหาการใช้งาน\"'),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.pop(alertDialogContext),
-                        child: Text('ตกลง'),
-                      ),
-                    ],
+                  return WebViewAware(
+                    child: AlertDialog(
+                      title: Text(
+                          'ขออภัยบัญชีของท่านไม่สามารถเพิ่มห้องประชุมได้แล้ว'),
+                      content: Text(
+                          'หากต้องการเพิ่มห้องประชุมให้ติดต่อที่เมนู \"จัดการโปรไฟล์\" > \"แจ้งปัญหาการใช้งาน\"'),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(alertDialogContext),
+                          child: Text('ตกลง'),
+                        ),
+                      ],
+                    ),
                   );
                 },
               );

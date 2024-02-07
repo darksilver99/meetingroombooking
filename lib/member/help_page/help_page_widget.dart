@@ -12,10 +12,10 @@ import 'help_page_model.dart';
 export 'help_page_model.dart';
 
 class HelpPageWidget extends StatefulWidget {
-  const HelpPageWidget({Key? key}) : super(key: key);
+  const HelpPageWidget({super.key});
 
   @override
-  _HelpPageWidgetState createState() => _HelpPageWidgetState();
+  State<HelpPageWidget> createState() => _HelpPageWidgetState();
 }
 
 class _HelpPageWidgetState extends State<HelpPageWidget> {

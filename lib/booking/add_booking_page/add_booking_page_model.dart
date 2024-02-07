@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 
 class AddBookingPageModel extends FlutterFlowModel<AddBookingPageWidget> {
   ///  State fields for stateful widgets in this page.

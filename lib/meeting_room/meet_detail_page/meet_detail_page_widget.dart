@@ -21,14 +21,14 @@ export 'meet_detail_page_model.dart';
 
 class MeetDetailPageWidget extends StatefulWidget {
   const MeetDetailPageWidget({
-    Key? key,
+    super.key,
     required this.meetingRoomParamameter,
-  }) : super(key: key);
+  });
 
   final MeetingRoomListRecord? meetingRoomParamameter;
 
   @override
-  _MeetDetailPageWidgetState createState() => _MeetDetailPageWidgetState();
+  State<MeetDetailPageWidget> createState() => _MeetDetailPageWidgetState();
 }
 
 class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
