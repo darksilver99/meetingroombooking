@@ -17,10 +17,10 @@ import 'booking_select_area_page_model.dart';
 export 'booking_select_area_page_model.dart';
 
 class BookingSelectAreaPageWidget extends StatefulWidget {
-  const BookingSelectAreaPageWidget({Key? key}) : super(key: key);
+  const BookingSelectAreaPageWidget({super.key});
 
   @override
-  _BookingSelectAreaPageWidgetState createState() =>
+  State<BookingSelectAreaPageWidget> createState() =>
       _BookingSelectAreaPageWidgetState();
 }
 
@@ -198,6 +198,9 @@ class _BookingSelectAreaPageWidgetState
                                             searchHintTextStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .labelMedium,
+                                            searchTextStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium,
                                             textStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .bodyMedium,
@@ -305,6 +308,9 @@ class _BookingSelectAreaPageWidgetState
                                               searchHintTextStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .labelMedium,
+                                              searchTextStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium,
                                               textStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium,
@@ -399,6 +405,9 @@ class _BookingSelectAreaPageWidgetState
                                               searchHintTextStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .labelMedium,
+                                              searchTextStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium,
                                               textStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium,

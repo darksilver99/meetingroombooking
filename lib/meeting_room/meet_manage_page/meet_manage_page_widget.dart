@@ -11,10 +11,10 @@ import 'meet_manage_page_model.dart';
 export 'meet_manage_page_model.dart';
 
 class MeetManagePageWidget extends StatefulWidget {
-  const MeetManagePageWidget({Key? key}) : super(key: key);
+  const MeetManagePageWidget({super.key});
 
   @override
-  _MeetManagePageWidgetState createState() => _MeetManagePageWidgetState();
+  State<MeetManagePageWidget> createState() => _MeetManagePageWidgetState();
 }
 
 class _MeetManagePageWidgetState extends State<MeetManagePageWidget> {

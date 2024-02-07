@@ -8,10 +8,10 @@ import 'no_data_model.dart';
 export 'no_data_model.dart';
 
 class NoDataWidget extends StatefulWidget {
-  const NoDataWidget({Key? key}) : super(key: key);
+  const NoDataWidget({super.key});
 
   @override
-  _NoDataWidgetState createState() => _NoDataWidgetState();
+  State<NoDataWidget> createState() => _NoDataWidgetState();
 }
 
 class _NoDataWidgetState extends State<NoDataWidget> {

@@ -17,19 +17,20 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'edit_meet_room_information_page_model.dart';
 export 'edit_meet_room_information_page_model.dart';
 
 class EditMeetRoomInformationPageWidget extends StatefulWidget {
   const EditMeetRoomInformationPageWidget({
-    Key? key,
+    super.key,
     required this.meetRoomParameter,
-  }) : super(key: key);
+  });
 
   final MeetingRoomListRecord? meetRoomParameter;
 
   @override
-  _EditMeetRoomInformationPageWidgetState createState() =>
+  State<EditMeetRoomInformationPageWidget> createState() =>
       _EditMeetRoomInformationPageWidgetState();
 }
 
@@ -641,6 +642,9 @@ class _EditMeetRoomInformationPageWidgetState
                                       searchHintTextStyle:
                                           FlutterFlowTheme.of(context)
                                               .labelMedium,
+                                      searchTextStyle:
+                                          FlutterFlowTheme.of(context)
+                                              .bodyMedium,
                                       textStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium,
                                       hintText: 'เลือกจังหวัด',
@@ -733,6 +737,9 @@ class _EditMeetRoomInformationPageWidgetState
                                         searchHintTextStyle:
                                             FlutterFlowTheme.of(context)
                                                 .labelMedium,
+                                        searchTextStyle:
+                                            FlutterFlowTheme.of(context)
+                                                .bodyMedium,
                                         textStyle: FlutterFlowTheme.of(context)
                                             .bodyMedium,
                                         hintText: 'เลือกอำเภอ',
@@ -812,6 +819,9 @@ class _EditMeetRoomInformationPageWidgetState
                                         searchHintTextStyle:
                                             FlutterFlowTheme.of(context)
                                                 .labelMedium,
+                                        searchTextStyle:
+                                            FlutterFlowTheme.of(context)
+                                                .bodyMedium,
                                         textStyle: FlutterFlowTheme.of(context)
                                             .bodyMedium,
                                         hintText: 'เลือกตำบล',
@@ -1261,27 +1271,29 @@ class _EditMeetRoomInformationPageWidgetState
                                         await showDialog<bool>(
                                               context: context,
                                               builder: (alertDialogContext) {
-                                                return AlertDialog(
-                                                  title: Text(
-                                                      'ต้องการลบห้องประชุมนี้ใช่หรือไม่'),
-                                                  content: Text(
-                                                      'หากลบแล้วจะไม่สามารถเรียกคืนได้อีก'),
-                                                  actions: [
-                                                    TextButton(
-                                                      onPressed: () =>
-                                                          Navigator.pop(
-                                                              alertDialogContext,
-                                                              false),
-                                                      child: Text('ยกเลิก'),
-                                                    ),
-                                                    TextButton(
-                                                      onPressed: () =>
-                                                          Navigator.pop(
-                                                              alertDialogContext,
-                                                              true),
-                                                      child: Text('ตกลง'),
-                                                    ),
-                                                  ],
+                                                return WebViewAware(
+                                                  child: AlertDialog(
+                                                    title: Text(
+                                                        'ต้องการลบห้องประชุมนี้ใช่หรือไม่'),
+                                                    content: Text(
+                                                        'หากลบแล้วจะไม่สามารถเรียกคืนได้อีก'),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext,
+                                                                false),
+                                                        child: Text('ยกเลิก'),
+                                                      ),
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext,
+                                                                true),
+                                                        child: Text('ตกลง'),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 );
                                               },
                                             ) ??

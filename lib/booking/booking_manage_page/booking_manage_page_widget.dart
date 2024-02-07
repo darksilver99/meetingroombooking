@@ -10,10 +10,10 @@ import 'booking_manage_page_model.dart';
 export 'booking_manage_page_model.dart';
 
 class BookingManagePageWidget extends StatefulWidget {
-  const BookingManagePageWidget({Key? key}) : super(key: key);
+  const BookingManagePageWidget({super.key});
 
   @override
-  _BookingManagePageWidgetState createState() =>
+  State<BookingManagePageWidget> createState() =>
       _BookingManagePageWidgetState();
 }
 

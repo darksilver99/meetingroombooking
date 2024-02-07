@@ -13,14 +13,14 @@ export 'booking_dialog_view_model.dart';
 
 class BookingDialogViewWidget extends StatefulWidget {
   const BookingDialogViewWidget({
-    Key? key,
+    super.key,
     required this.selectedDate,
-  }) : super(key: key);
+  });
 
   final DateTime? selectedDate;
 
   @override
-  _BookingDialogViewWidgetState createState() =>
+  State<BookingDialogViewWidget> createState() =>
       _BookingDialogViewWidgetState();
 }
 

@@ -41,3 +41,4 @@ export '/meeting_room/payment_page/payment_page_widget.dart'
 export '/member/help_page/help_page_widget.dart' show HelpPageWidget;
 export '/member/forget_password_page/forget_password_page_widget.dart'
     show ForgetPasswordPageWidget;
+export '/web_view_page/web_view_page_widget.dart' show WebViewPageWidget;

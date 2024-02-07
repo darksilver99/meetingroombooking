@@ -10,14 +10,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'payment_page_model.dart';
 export 'payment_page_model.dart';
 
 class PaymentPageWidget extends StatefulWidget {
-  const PaymentPageWidget({Key? key}) : super(key: key);
+  const PaymentPageWidget({super.key});
 
   @override
-  _PaymentPageWidgetState createState() => _PaymentPageWidgetState();
+  State<PaymentPageWidget> createState() => _PaymentPageWidgetState();
 }
 
 class _PaymentPageWidgetState extends State<PaymentPageWidget> {
@@ -276,17 +277,19 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                         await showDialog(
                           context: context,
                           builder: (alertDialogContext) {
-                            return AlertDialog(
-                              title: Text('ชำระเงินเสร็จสิ้น'),
-                              content: Text(
-                                  'ท่านสามารถใช้บริการได้ถึงวันที่ ${dateTimeFormat('d/M/y', functions.getNextDay(30))}'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () =>
-                                      Navigator.pop(alertDialogContext),
-                                  child: Text('ตกลง'),
-                                ),
-                              ],
+                            return WebViewAware(
+                              child: AlertDialog(
+                                title: Text('ชำระเงินเสร็จสิ้น'),
+                                content: Text(
+                                    'ท่านสามารถใช้บริการได้ถึงวันที่ ${dateTimeFormat('d/M/y', functions.getNextDay(30))}'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('ตกลง'),
+                                  ),
+                                ],
+                              ),
                             );
                           },
                         );

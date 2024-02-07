@@ -11,19 +11,20 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'booking_detail_page_model.dart';
 export 'booking_detail_page_model.dart';
 
 class BookingDetailPageWidget extends StatefulWidget {
   const BookingDetailPageWidget({
-    Key? key,
+    super.key,
     required this.bookingDetailParameter,
-  }) : super(key: key);
+  });
 
   final BookingListRecord? bookingDetailParameter;
 
   @override
-  _BookingDetailPageWidgetState createState() =>
+  State<BookingDetailPageWidget> createState() =>
       _BookingDetailPageWidgetState();
 }
 
@@ -1121,29 +1122,31 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                                       context: context,
                                                       builder:
                                                           (alertDialogContext) {
-                                                        return AlertDialog(
-                                                          title: Text(
-                                                              'ต้องการยกเลิกการจองนี้?'),
-                                                          content: Text(
-                                                              'คำแนะนำ ควรระบุ \"รายละเอียดถึงผู้จอง\"  หรือโทรแจ้งผู้จองถึงสาเหตุที่ยกเลิก'),
-                                                          actions: [
-                                                            TextButton(
-                                                              onPressed: () =>
-                                                                  Navigator.pop(
-                                                                      alertDialogContext,
-                                                                      false),
-                                                              child: Text(
-                                                                  'ยกเลิก'),
-                                                            ),
-                                                            TextButton(
-                                                              onPressed: () =>
-                                                                  Navigator.pop(
-                                                                      alertDialogContext,
-                                                                      true),
-                                                              child: Text(
-                                                                  'ยืนยัน'),
-                                                            ),
-                                                          ],
+                                                        return WebViewAware(
+                                                          child: AlertDialog(
+                                                            title: Text(
+                                                                'ต้องการยกเลิกการจองนี้?'),
+                                                            content: Text(
+                                                                'คำแนะนำ ควรระบุ \"รายละเอียดถึงผู้จอง\"  หรือโทรแจ้งผู้จองถึงสาเหตุที่ยกเลิก'),
+                                                            actions: [
+                                                              TextButton(
+                                                                onPressed: () =>
+                                                                    Navigator.pop(
+                                                                        alertDialogContext,
+                                                                        false),
+                                                                child: Text(
+                                                                    'ยกเลิก'),
+                                                              ),
+                                                              TextButton(
+                                                                onPressed: () =>
+                                                                    Navigator.pop(
+                                                                        alertDialogContext,
+                                                                        true),
+                                                                child: Text(
+                                                                    'ยืนยัน'),
+                                                              ),
+                                                            ],
+                                                          ),
                                                         );
                                                       },
                                                     ) ??

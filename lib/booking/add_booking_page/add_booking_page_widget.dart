@@ -10,19 +10,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'add_booking_page_model.dart';
 export 'add_booking_page_model.dart';
 
 class AddBookingPageWidget extends StatefulWidget {
   const AddBookingPageWidget({
-    Key? key,
+    super.key,
     required this.dateSeleceteParameter,
-  }) : super(key: key);
+  });
 
   final DateTime? dateSeleceteParameter;
 
   @override
-  _AddBookingPageWidgetState createState() => _AddBookingPageWidgetState();
+  State<AddBookingPageWidget> createState() => _AddBookingPageWidgetState();
 }
 
 class _AddBookingPageWidgetState extends State<AddBookingPageWidget> {
@@ -446,19 +447,21 @@ class _AddBookingPageWidgetState extends State<AddBookingPageWidget> {
                                         await showDialog(
                                           context: context,
                                           builder: (alertDialogContext) {
-                                            return AlertDialog(
-                                              title: Text(
-                                                  'จองห้องประชุมเรียบร้อยแล้ว'),
-                                              content: Text(
-                                                  'ตรวจสอบรายการของของคุณโดยเลือกเมนู \"ต้องการหาห้องประชุม ?\" จากนั้นเลือก \"รายการจองของฉัน\"'),
-                                              actions: [
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(
-                                                          alertDialogContext),
-                                                  child: Text('ตกลง'),
-                                                ),
-                                              ],
+                                            return WebViewAware(
+                                              child: AlertDialog(
+                                                title: Text(
+                                                    'จองห้องประชุมเรียบร้อยแล้ว'),
+                                                content: Text(
+                                                    'ตรวจสอบรายการของของคุณโดยเลือกเมนู \"ต้องการหาห้องประชุม ?\" จากนั้นเลือก \"รายการจองของฉัน\"'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext),
+                                                    child: Text('ตกลง'),
+                                                  ),
+                                                ],
+                                              ),
                                             );
                                           },
                                         );

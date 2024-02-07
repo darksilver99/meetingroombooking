@@ -21,10 +21,10 @@ import 'add_meet_room_information_page_model.dart';
 export 'add_meet_room_information_page_model.dart';
 
 class AddMeetRoomInformationPageWidget extends StatefulWidget {
-  const AddMeetRoomInformationPageWidget({Key? key}) : super(key: key);
+  const AddMeetRoomInformationPageWidget({super.key});
 
   @override
-  _AddMeetRoomInformationPageWidgetState createState() =>
+  State<AddMeetRoomInformationPageWidget> createState() =>
       _AddMeetRoomInformationPageWidgetState();
 }
 
@@ -600,6 +600,9 @@ class _AddMeetRoomInformationPageWidgetState
                                       searchHintTextStyle:
                                           FlutterFlowTheme.of(context)
                                               .labelMedium,
+                                      searchTextStyle:
+                                          FlutterFlowTheme.of(context)
+                                              .bodyMedium,
                                       textStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium,
                                       hintText: 'เลือกจังหวัด',
@@ -689,6 +692,9 @@ class _AddMeetRoomInformationPageWidgetState
                                         searchHintTextStyle:
                                             FlutterFlowTheme.of(context)
                                                 .labelMedium,
+                                        searchTextStyle:
+                                            FlutterFlowTheme.of(context)
+                                                .bodyMedium,
                                         textStyle: FlutterFlowTheme.of(context)
                                             .bodyMedium,
                                         hintText: 'เลือกอำเภอ',
@@ -765,6 +771,9 @@ class _AddMeetRoomInformationPageWidgetState
                                         searchHintTextStyle:
                                             FlutterFlowTheme.of(context)
                                                 .labelMedium,
+                                        searchTextStyle:
+                                            FlutterFlowTheme.of(context)
+                                                .bodyMedium,
                                         textStyle: FlutterFlowTheme.of(context)
                                             .bodyMedium,
                                         hintText: 'เลือกตำบล',

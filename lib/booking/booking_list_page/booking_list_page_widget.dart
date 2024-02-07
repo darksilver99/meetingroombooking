@@ -14,10 +14,10 @@ import 'booking_list_page_model.dart';
 export 'booking_list_page_model.dart';
 
 class BookingListPageWidget extends StatefulWidget {
-  const BookingListPageWidget({Key? key}) : super(key: key);
+  const BookingListPageWidget({super.key});
 
   @override
-  _BookingListPageWidgetState createState() => _BookingListPageWidgetState();
+  State<BookingListPageWidget> createState() => _BookingListPageWidgetState();
 }
 
 class _BookingListPageWidgetState extends State<BookingListPageWidget>
