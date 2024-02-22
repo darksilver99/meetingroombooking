@@ -9,8 +9,10 @@ import 'package:provider/provider.dart';
 class NoDataModel extends FlutterFlowModel<NoDataWidget> {
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {}
 
+  @override
   void dispose() {}
 
   /// Action blocks are added here.

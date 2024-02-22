@@ -20,6 +20,7 @@ class BookingMeetPageModel extends FlutterFlowModel<BookingMeetPageWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     calendarSelectedDay = DateTimeRange(
       start: DateTime.now().startOfDay,
@@ -27,6 +28,7 @@ class BookingMeetPageModel extends FlutterFlowModel<BookingMeetPageWidget> {
     );
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
   }

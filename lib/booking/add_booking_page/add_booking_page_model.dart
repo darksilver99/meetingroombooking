@@ -51,11 +51,13 @@ class AddBookingPageModel extends FlutterFlowModel<AddBookingPageWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     startTimeControllerValidator = _startTimeControllerValidator;
     endTimeControllerValidator = _endTimeControllerValidator;
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     startTimeFocusNode?.dispose();

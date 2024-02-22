@@ -474,7 +474,7 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                                             .toList(),
                                         onChanged: (val) => setState(() =>
                                             _model.choiceChipsValue =
-                                                val?.first),
+                                                val?.firstOrNull),
                                         selectedChipStyle: ChipStyle(
                                           backgroundColor:
                                               FlutterFlowTheme.of(context)

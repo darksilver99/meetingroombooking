@@ -13,8 +13,10 @@ import 'package:provider/provider.dart';
 class BookingDialogViewModel extends FlutterFlowModel<BookingDialogViewWidget> {
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {}
 
+  @override
   void dispose() {}
 
   /// Action blocks are added here.

@@ -110,6 +110,10 @@ class _BookingMeetPageWidgetState extends State<BookingMeetPageWidget> {
                               initialDate: getCurrentTimestamp,
                               rowHeight: 64.0,
                               onChange: (DateTimeRange? newSelectedDate) async {
+                                if (_model.calendarSelectedDay ==
+                                    newSelectedDate) {
+                                  return;
+                                }
                                 _model.calendarSelectedDay = newSelectedDate;
                                 FFAppState().addToFakeSelectedDate(_model
                                     .calendarSelectedDay!.start

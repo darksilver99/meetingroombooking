@@ -73,16 +73,20 @@ class AddMeetRoomInformationPageModel
   String? tambonValue;
   FormFieldController<String>? tambonValueController;
   // State field(s) for ChoiceChips widget.
-  List<String>? choiceChipsValues;
   FormFieldController<List<String>>? choiceChipsValueController;
+  List<String>? get choiceChipsValues => choiceChipsValueController?.value;
+  set choiceChipsValues(List<String>? val) =>
+      choiceChipsValueController?.value = val;
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     nameControllerValidator = _nameControllerValidator;
     supportTotalControllerValidator = _supportTotalControllerValidator;
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     nameFocusNode?.dispose();
