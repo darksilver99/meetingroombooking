@@ -133,7 +133,8 @@ class _BookingListPageWidgetState extends State<BookingListPageWidget>
                                         isEqualTo: currentUserReference,
                                       )
                                       .orderBy('status')
-                                      .orderBy('create_date', descending: true),
+                                      .orderBy('booking_date',
+                                          descending: true),
                             ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
@@ -286,7 +287,7 @@ class _BookingListPageWidgetState extends State<BookingListPageWidget>
                                                       MainAxisAlignment.end,
                                                   children: [
                                                     Text(
-                                                      'วันที่ทำรายการ ${dateTimeFormat('d/M/y', listViewBookingListRecord.createDate)} ${dateTimeFormat('Hm', listViewBookingListRecord.createDate)}',
+                                                      'วันที่จอง ${dateTimeFormat('d/M/y', listViewBookingListRecord.bookingDate)} ${listViewBookingListRecord.bookingStartTime}-${listViewBookingListRecord.bookingEndTime}',
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
@@ -329,7 +330,7 @@ class _BookingListPageWidgetState extends State<BookingListPageWidget>
                                     isEqualTo: currentUserReference,
                                   )
                                   .orderBy('status', descending: true)
-                                  .orderBy('create_date', descending: true),
+                                  .orderBy('booking_date', descending: true),
                             ),
                             padding: EdgeInsets.zero,
                             reverse: false,
@@ -496,7 +497,7 @@ class _BookingListPageWidgetState extends State<BookingListPageWidget>
                                                     MainAxisAlignment.end,
                                                 children: [
                                                   Text(
-                                                    'วันที่ทำรายการ ${dateTimeFormat('d/M/y', listViewBookingListRecord.createDate)} ${dateTimeFormat('Hm', listViewBookingListRecord.createDate)}',
+                                                    'วันที่จอง ${dateTimeFormat('d/M/y', listViewBookingListRecord.bookingDate)} ${listViewBookingListRecord.bookingStartTime}-${listViewBookingListRecord.bookingEndTime}',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
