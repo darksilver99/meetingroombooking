@@ -13,7 +13,6 @@ import 'auth/firebase_auth/auth_util.dart';
 import 'backend/firebase/firebase_config.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
-import 'flutter_flow/internationalization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'flutter_flow/nav/nav.dart';
@@ -68,7 +67,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Locale? _locale;
   ThemeMode _themeMode = FlutterFlowTheme.themeMode;
 
   late Stream<BaseAuthUser> userStream;
@@ -108,10 +106,6 @@ class _MyAppState extends State<MyApp> {
     authUserSub.cancel();
 
     super.dispose();
-  }
-
-  void setLocale(String language) {
-    setState(() => _locale = createLocale(language));
   }
 
   void setThemeMode(ThemeMode mode) => setState(() {
@@ -206,12 +200,10 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp.router(
       title: 'MeetingRoomBooking',
       localizationsDelegates: [
-        FFLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      locale: _locale,
       supportedLocales: const [Locale('en', '')],
       theme: ThemeData(
         brightness: Brightness.light,

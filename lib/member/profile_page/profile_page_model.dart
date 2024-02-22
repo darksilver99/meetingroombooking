@@ -50,11 +50,13 @@ class ProfilePageModel extends FlutterFlowModel<ProfilePageWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     fullnameControllerValidator = _fullnameControllerValidator;
     phoneControllerValidator = _phoneControllerValidator;
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     fullnameFocusNode?.dispose();

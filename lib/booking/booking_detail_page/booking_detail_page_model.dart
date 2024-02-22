@@ -50,8 +50,10 @@ class BookingDetailPageModel extends FlutterFlowModel<BookingDetailPageWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {}
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     usernameFocusNode1?.dispose();
