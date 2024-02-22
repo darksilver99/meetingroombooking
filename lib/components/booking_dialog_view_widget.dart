@@ -50,40 +50,59 @@ class _BookingDialogViewWidgetState extends State<BookingDialogViewWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      children: [
-        Material(
-          color: Colors.transparent,
-          elevation: 3.0,
-          shape: RoundedRectangleBorder(
+    return Align(
+      alignment: AlignmentDirectional(0.0, 0.0),
+      child: Material(
+        color: Colors.transparent,
+        elevation: 3.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+        child: Container(
+          width: MediaQuery.sizeOf(context).width * 0.75,
+          decoration: BoxDecoration(
+            color: FlutterFlowTheme.of(context).secondaryBackground,
             borderRadius: BorderRadius.circular(16.0),
           ),
-          child: Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: FlutterFlowTheme.of(context).secondaryBackground,
-              borderRadius: BorderRadius.circular(16.0),
-            ),
-            child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+          child: Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(8.0, 16.0, 8.0, 8.0),
+            child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Align(
-                    alignment: AlignmentDirectional(-1.0, 0.0),
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
-                      child: Text(
-                        'ต้องการจองวันที่ ${dateTimeFormat('d/M/y', widget.selectedDate)}',
-                        textAlign: TextAlign.start,
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Kanit',
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.w500,
-                            ),
-                      ),
+                  Container(
+                    width: 100.0,
+                    height: 100.0,
+                    clipBehavior: Clip.antiAlias,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                    ),
+                    child: Image.asset(
+                      'assets/images/iTunesArtwork@3x.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 8.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            'ต้องการจองวันที่ ${dateTimeFormat('d/M/y', widget.selectedDate)}',
+                            textAlign: TextAlign.center,
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Kanit',
+                                  fontSize: 24.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   if (false)
@@ -234,7 +253,7 @@ class _BookingDialogViewWidgetState extends State<BookingDialogViewWidget> {
                               text: 'ยกเลิก',
                               options: FFButtonOptions(
                                 width: double.infinity,
-                                height: 40.0,
+                                height: 50.0,
                                 padding: EdgeInsets.all(0.0),
                                 iconPadding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
@@ -244,6 +263,8 @@ class _BookingDialogViewWidgetState extends State<BookingDialogViewWidget> {
                                     .override(
                                       fontFamily: 'Kanit',
                                       color: Colors.white,
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                 elevation: 3.0,
                                 borderSide: BorderSide(
@@ -276,7 +297,7 @@ class _BookingDialogViewWidgetState extends State<BookingDialogViewWidget> {
                               text: 'ยืนยันการจอง',
                               options: FFButtonOptions(
                                 width: double.infinity,
-                                height: 40.0,
+                                height: 50.0,
                                 padding: EdgeInsets.all(0.0),
                                 iconPadding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
@@ -286,6 +307,8 @@ class _BookingDialogViewWidgetState extends State<BookingDialogViewWidget> {
                                     .override(
                                       fontFamily: 'Kanit',
                                       color: Colors.white,
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                 elevation: 3.0,
                                 borderSide: BorderSide(
@@ -305,7 +328,7 @@ class _BookingDialogViewWidgetState extends State<BookingDialogViewWidget> {
             ),
           ),
         ),
-      ],
+      ),
     );
   }
 }
