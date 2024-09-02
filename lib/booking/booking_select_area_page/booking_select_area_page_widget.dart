@@ -8,7 +8,6 @@ import '/flutter_flow/form_field_controller.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'booking_select_area_page_model.dart';
@@ -35,14 +34,13 @@ class _BookingSelectAreaPageWidgetState
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() {
-        FFAppState().provinceSelected = 0;
-        FFAppState().amphureSelected = 0;
-        FFAppState().tambonSelected = 0;
-        FFAppState().provinceSelectedValue = '';
-        FFAppState().amphurSelectedValue = '';
-        FFAppState().tambonSelectedValue = '';
-      });
+      FFAppState().provinceSelected = 0;
+      FFAppState().amphureSelected = 0;
+      FFAppState().tambonSelected = 0;
+      FFAppState().provinceSelectedValue = '';
+      FFAppState().amphurSelectedValue = '';
+      FFAppState().tambonSelectedValue = '';
+      setState(() {});
     });
   }
 
@@ -55,21 +53,10 @@ class _BookingSelectAreaPageWidgetState
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -82,6 +69,7 @@ class _BookingSelectAreaPageWidgetState
                   fontFamily: 'Kanit',
                   color: Colors.white,
                   fontSize: 22.0,
+                  letterSpacing: 0.0,
                 ),
           ),
           actions: [],
@@ -152,6 +140,7 @@ class _BookingSelectAreaPageWidgetState
                                           List<ProvinceRecord>
                                               provinceProvinceRecordList =
                                               snapshot.data!;
+
                                           return FlutterFlowDropDown<String>(
                                             controller: _model
                                                     .provinceValueController ??=
@@ -167,12 +156,10 @@ class _BookingSelectAreaPageWidgetState
                                                   await actions.getProvinceID(
                                                 _model.provinceValue,
                                               );
-                                              setState(() {
-                                                FFAppState().provinceSelected =
-                                                    _model.provinceID!;
-                                                FFAppState().amphureSelected =
-                                                    0;
-                                              });
+                                              FFAppState().provinceSelected =
+                                                  _model.provinceID!;
+                                              FFAppState().amphureSelected = 0;
+                                              setState(() {});
                                               FFAppState()
                                                       .provinceSelectedValue =
                                                   _model.provinceValue!;
@@ -186,13 +173,25 @@ class _BookingSelectAreaPageWidgetState
                                             width: double.infinity,
                                             searchHintTextStyle:
                                                 FlutterFlowTheme.of(context)
-                                                    .labelMedium,
+                                                    .labelMedium
+                                                    .override(
+                                                      fontFamily: 'Kanit',
+                                                      letterSpacing: 0.0,
+                                                    ),
                                             searchTextStyle:
                                                 FlutterFlowTheme.of(context)
-                                                    .bodyMedium,
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Kanit',
+                                                      letterSpacing: 0.0,
+                                                    ),
                                             textStyle:
                                                 FlutterFlowTheme.of(context)
-                                                    .bodyMedium,
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Kanit',
+                                                      letterSpacing: 0.0,
+                                                    ),
                                             hintText: 'เลือกจังหวัด',
                                             searchHintText:
                                                 'Search for an item...',
@@ -261,6 +260,7 @@ class _BookingSelectAreaPageWidgetState
                                             List<AmphureRecord>
                                                 amphureAmphureRecordList =
                                                 snapshot.data!;
+
                                             return FlutterFlowDropDown<String>(
                                               controller: _model
                                                       .amphureValueController ??=
@@ -277,10 +277,9 @@ class _BookingSelectAreaPageWidgetState
                                                   _model.amphureValue,
                                                   FFAppState().provinceSelected,
                                                 );
-                                                setState(() {
-                                                  FFAppState().amphureSelected =
-                                                      _model.amphureID!;
-                                                });
+                                                FFAppState().amphureSelected =
+                                                    _model.amphureID!;
+                                                setState(() {});
                                                 FFAppState()
                                                         .amphurSelectedValue =
                                                     _model.amphureValue!;
@@ -292,13 +291,25 @@ class _BookingSelectAreaPageWidgetState
                                               width: double.infinity,
                                               searchHintTextStyle:
                                                   FlutterFlowTheme.of(context)
-                                                      .labelMedium,
+                                                      .labelMedium
+                                                      .override(
+                                                        fontFamily: 'Kanit',
+                                                        letterSpacing: 0.0,
+                                                      ),
                                               searchTextStyle:
                                                   FlutterFlowTheme.of(context)
-                                                      .bodyMedium,
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Kanit',
+                                                        letterSpacing: 0.0,
+                                                      ),
                                               textStyle:
                                                   FlutterFlowTheme.of(context)
-                                                      .bodyMedium,
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Kanit',
+                                                        letterSpacing: 0.0,
+                                                      ),
                                               hintText: 'เลือกอำเภอ',
                                               searchHintText:
                                                   'Search for an item...',
@@ -368,6 +379,7 @@ class _BookingSelectAreaPageWidgetState
                                             List<TambonRecord>
                                                 tambonTambonRecordList =
                                                 snapshot.data!;
+
                                             return FlutterFlowDropDown<String>(
                                               controller: _model
                                                       .tambonValueController ??=
@@ -386,13 +398,25 @@ class _BookingSelectAreaPageWidgetState
                                               width: double.infinity,
                                               searchHintTextStyle:
                                                   FlutterFlowTheme.of(context)
-                                                      .labelMedium,
+                                                      .labelMedium
+                                                      .override(
+                                                        fontFamily: 'Kanit',
+                                                        letterSpacing: 0.0,
+                                                      ),
                                               searchTextStyle:
                                                   FlutterFlowTheme.of(context)
-                                                      .bodyMedium,
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Kanit',
+                                                        letterSpacing: 0.0,
+                                                      ),
                                               textStyle:
                                                   FlutterFlowTheme.of(context)
-                                                      .bodyMedium,
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Kanit',
+                                                        letterSpacing: 0.0,
+                                                      ),
                                               hintText: 'เลือกตำบล',
                                               searchHintText:
                                                   'Search for an item...',
@@ -431,7 +455,11 @@ class _BookingSelectAreaPageWidgetState
                                         child: Text(
                                           '*ต้องเลือกจังหวัด',
                                           style: FlutterFlowTheme.of(context)
-                                              .bodyMedium,
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Kanit',
+                                                letterSpacing: 0.0,
+                                              ),
                                         ),
                                       ),
                                     ),
@@ -532,6 +560,7 @@ class _BookingSelectAreaPageWidgetState
                                                           .override(
                                                             fontFamily: 'Kanit',
                                                             color: Colors.white,
+                                                            letterSpacing: 0.0,
                                                           ),
                                                     ),
                                                     duration: Duration(
@@ -562,6 +591,7 @@ class _BookingSelectAreaPageWidgetState
                                                   .override(
                                                     fontFamily: 'Kanit',
                                                     color: Colors.white,
+                                                    letterSpacing: 0.0,
                                                   ),
                                           elevation: 3.0,
                                           borderSide: BorderSide(

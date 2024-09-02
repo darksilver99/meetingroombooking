@@ -7,7 +7,6 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -38,29 +37,29 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
     super.initState();
     _model = createModel(context, () => BookingDetailPageModel());
 
-    _model.usernameController1 ??= TextEditingController(
+    _model.usernameTextController1 ??= TextEditingController(
         text: dateTimeFormat(
-            'd/M/y', widget.bookingDetailParameter?.bookingDate));
+            "d/M/y", widget!.bookingDetailParameter?.bookingDate));
     _model.usernameFocusNode1 ??= FocusNode();
 
-    _model.usernameController2 ??= TextEditingController(
-        text: widget.bookingDetailParameter?.bookingStartTime);
+    _model.usernameTextController2 ??= TextEditingController(
+        text: widget!.bookingDetailParameter?.bookingStartTime);
     _model.usernameFocusNode2 ??= FocusNode();
 
-    _model.usernameController3 ??= TextEditingController(
-        text: widget.bookingDetailParameter?.bookingEndTime);
+    _model.usernameTextController3 ??= TextEditingController(
+        text: widget!.bookingDetailParameter?.bookingEndTime);
     _model.usernameFocusNode3 ??= FocusNode();
 
-    _model.usernameController4 ??=
-        TextEditingController(text: widget.bookingDetailParameter?.remarkUser);
+    _model.usernameTextController4 ??=
+        TextEditingController(text: widget!.bookingDetailParameter?.remarkUser);
     _model.usernameFocusNode4 ??= FocusNode();
 
     _model.usernameFocusNode5 ??= FocusNode();
 
     _model.usernameFocusNode6 ??= FocusNode();
 
-    _model.usernameController7 ??=
-        TextEditingController(text: widget.bookingDetailParameter?.remarkOwner);
+    _model.usernameTextController7 ??= TextEditingController(
+        text: widget!.bookingDetailParameter?.remarkOwner);
     _model.usernameFocusNode7 ??= FocusNode();
   }
 
@@ -73,21 +72,8 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -100,6 +86,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                   fontFamily: 'Kanit',
                   color: Colors.white,
                   fontSize: 22.0,
+                  letterSpacing: 0.0,
                 ),
           ),
           actions: [],
@@ -136,8 +123,9 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               StreamBuilder<MeetingRoomListRecord>(
-                                stream: MeetingRoomListRecord.getDocument(widget
-                                    .bookingDetailParameter!.meetingRoomDoc!),
+                                stream: MeetingRoomListRecord.getDocument(
+                                    widget!.bookingDetailParameter!
+                                        .meetingRoomDoc!),
                                 builder: (context, snapshot) {
                                   // Customize what your widget looks like when it's loading.
                                   if (!snapshot.hasData) {
@@ -155,8 +143,10 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                       ),
                                     );
                                   }
+
                                   final containerMeetingRoomListRecord =
                                       snapshot.data!;
+
                                   return InkWell(
                                     splashColor: Colors.transparent,
                                     focusColor: Colors.transparent,
@@ -235,6 +225,8 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                                               fontFamily:
                                                                   'Kanit',
                                                               fontSize: 16.0,
+                                                              letterSpacing:
+                                                                  0.0,
                                                             ),
                                                       ),
                                                       Expanded(
@@ -249,6 +241,8 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                                                 fontFamily:
                                                                     'Kanit',
                                                                 fontSize: 12.0,
+                                                                letterSpacing:
+                                                                    0.0,
                                                               ),
                                                         ),
                                                       ),
@@ -260,10 +254,10 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                                                 .end,
                                                         children: [
                                                           RichText(
-                                                            textScaleFactor:
+                                                            textScaler:
                                                                 MediaQuery.of(
                                                                         context)
-                                                                    .textScaleFactor,
+                                                                    .textScaler,
                                                             text: TextSpan(
                                                               children: [
                                                                 TextSpan(
@@ -279,6 +273,8 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                                                             .secondaryText,
                                                                         fontSize:
                                                                             10.0,
+                                                                        letterSpacing:
+                                                                            0.0,
                                                                         fontWeight:
                                                                             FontWeight.w200,
                                                                       ),
@@ -315,6 +311,8 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                                                         .secondaryText,
                                                                     fontSize:
                                                                         10.0,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w200,
@@ -351,8 +349,9 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 16.0, 0.0, 0.0),
                                 child: TextFormField(
-                                  controller: _model.usernameController1,
+                                  controller: _model.usernameTextController1,
                                   focusNode: _model.usernameFocusNode1,
+                                  autofocus: false,
                                   readOnly: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
@@ -363,9 +362,14 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                           fontFamily: 'Kanit',
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryText,
+                                          letterSpacing: 0.0,
                                         ),
                                     hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          letterSpacing: 0.0,
+                                        ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color:
@@ -402,9 +406,14 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                     fillColor:
                                         FlutterFlowTheme.of(context).alternate,
                                   ),
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
-                                  validator: _model.usernameController1Validator
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        letterSpacing: 0.0,
+                                      ),
+                                  validator: _model
+                                      .usernameTextController1Validator
                                       .asValidator(context),
                                 ),
                               ),
@@ -412,16 +421,25 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 8.0, 0.0, 0.0),
                                 child: TextFormField(
-                                  controller: _model.usernameController2,
+                                  controller: _model.usernameTextController2,
                                   focusNode: _model.usernameFocusNode2,
+                                  autofocus: false,
                                   readOnly: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'เวลาเริ่มต้น',
                                     labelStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          letterSpacing: 0.0,
+                                        ),
                                     hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          letterSpacing: 0.0,
+                                        ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color:
@@ -458,9 +476,14 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                     fillColor:
                                         FlutterFlowTheme.of(context).alternate,
                                   ),
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
-                                  validator: _model.usernameController2Validator
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        letterSpacing: 0.0,
+                                      ),
+                                  validator: _model
+                                      .usernameTextController2Validator
                                       .asValidator(context),
                                 ),
                               ),
@@ -468,16 +491,25 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 8.0, 0.0, 0.0),
                                 child: TextFormField(
-                                  controller: _model.usernameController3,
+                                  controller: _model.usernameTextController3,
                                   focusNode: _model.usernameFocusNode3,
+                                  autofocus: false,
                                   readOnly: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'เวลาสิ้นสุด',
                                     labelStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          letterSpacing: 0.0,
+                                        ),
                                     hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          letterSpacing: 0.0,
+                                        ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color:
@@ -514,9 +546,14 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                     fillColor:
                                         FlutterFlowTheme.of(context).alternate,
                                   ),
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
-                                  validator: _model.usernameController3Validator
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        letterSpacing: 0.0,
+                                      ),
+                                  validator: _model
+                                      .usernameTextController3Validator
                                       .asValidator(context),
                                 ),
                               ),
@@ -524,16 +561,25 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 8.0, 0.0, 0.0),
                                 child: TextFormField(
-                                  controller: _model.usernameController4,
+                                  controller: _model.usernameTextController4,
                                   focusNode: _model.usernameFocusNode4,
+                                  autofocus: false,
                                   readOnly: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'รายละเอียดจากผู้จอง',
                                     labelStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          letterSpacing: 0.0,
+                                        ),
                                     hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          letterSpacing: 0.0,
+                                        ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color:
@@ -570,19 +616,24 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                     fillColor:
                                         FlutterFlowTheme.of(context).alternate,
                                   ),
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        letterSpacing: 0.0,
+                                      ),
                                   maxLines: 5,
                                   minLines: 5,
-                                  validator: _model.usernameController4Validator
+                                  validator: _model
+                                      .usernameTextController4Validator
                                       .asValidator(context),
                                 ),
                               ),
                               if (currentUserReference ==
-                                  widget.bookingDetailParameter?.ownerRef)
+                                  widget!.bookingDetailParameter?.ownerRef)
                                 StreamBuilder<UsersRecord>(
-                                  stream: UsersRecord.getDocument(
-                                      widget.bookingDetailParameter!.createBy!),
+                                  stream: UsersRecord.getDocument(widget!
+                                      .bookingDetailParameter!.createBy!),
                                   builder: (context, snapshot) {
                                     // Customize what your widget looks like when it's loading.
                                     if (!snapshot.hasData) {
@@ -600,7 +651,9 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                         ),
                                       );
                                     }
+
                                     final columnUsersRecord = snapshot.data!;
+
                                     return Column(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
@@ -614,21 +667,30 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                         ),
                                         TextFormField(
                                           controller:
-                                              _model.usernameController5 ??=
+                                              _model.usernameTextController5 ??=
                                                   TextEditingController(
                                             text: columnUsersRecord.fullname,
                                           ),
                                           focusNode: _model.usernameFocusNode5,
+                                          autofocus: false,
                                           readOnly: true,
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             labelText: 'ผู้จอง',
                                             labelStyle:
                                                 FlutterFlowTheme.of(context)
-                                                    .labelMedium,
+                                                    .labelMedium
+                                                    .override(
+                                                      fontFamily: 'Kanit',
+                                                      letterSpacing: 0.0,
+                                                    ),
                                             hintStyle:
                                                 FlutterFlowTheme.of(context)
-                                                    .labelMedium,
+                                                    .labelMedium
+                                                    .override(
+                                                      fontFamily: 'Kanit',
+                                                      letterSpacing: 0.0,
+                                                    ),
                                             enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
                                                 color:
@@ -676,9 +738,13 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                                     .alternate,
                                           ),
                                           style: FlutterFlowTheme.of(context)
-                                              .bodyMedium,
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Kanit',
+                                                letterSpacing: 0.0,
+                                              ),
                                           validator: _model
-                                              .usernameController5Validator
+                                              .usernameTextController5Validator
                                               .asValidator(context),
                                         ),
                                         Padding(
@@ -686,24 +752,33 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 8.0, 0.0, 0.0),
                                           child: TextFormField(
-                                            controller:
-                                                _model.usernameController6 ??=
-                                                    TextEditingController(
+                                            controller: _model
+                                                    .usernameTextController6 ??=
+                                                TextEditingController(
                                               text:
                                                   columnUsersRecord.phoneNumber,
                                             ),
                                             focusNode:
                                                 _model.usernameFocusNode6,
+                                            autofocus: false,
                                             readOnly: true,
                                             obscureText: false,
                                             decoration: InputDecoration(
                                               labelText: 'เบอร์โทรผู้จอง',
                                               labelStyle:
                                                   FlutterFlowTheme.of(context)
-                                                      .labelMedium,
+                                                      .labelMedium
+                                                      .override(
+                                                        fontFamily: 'Kanit',
+                                                        letterSpacing: 0.0,
+                                                      ),
                                               hintStyle:
                                                   FlutterFlowTheme.of(context)
-                                                      .labelMedium,
+                                                      .labelMedium
+                                                      .override(
+                                                        fontFamily: 'Kanit',
+                                                        letterSpacing: 0.0,
+                                                      ),
                                               enabledBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
                                                   color: FlutterFlowTheme.of(
@@ -751,9 +826,13 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                                       .alternate,
                                             ),
                                             style: FlutterFlowTheme.of(context)
-                                                .bodyMedium,
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Kanit',
+                                                  letterSpacing: 0.0,
+                                                ),
                                             validator: _model
-                                                .usernameController6Validator
+                                                .usernameTextController6Validator
                                                 .asValidator(context),
                                           ),
                                         ),
@@ -789,6 +868,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                                       .override(
                                                         fontFamily: 'Kanit',
                                                         color: Colors.white,
+                                                        letterSpacing: 0.0,
                                                       ),
                                               elevation: 3.0,
                                               borderSide: BorderSide(
@@ -812,19 +892,29 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                 color: FlutterFlowTheme.of(context).alternate,
                               ),
                               TextFormField(
-                                controller: _model.usernameController7,
+                                controller: _model.usernameTextController7,
                                 focusNode: _model.usernameFocusNode7,
-                                readOnly: (widget
+                                autofocus: false,
+                                readOnly: (widget!
                                             .bookingDetailParameter?.ownerRef !=
                                         currentUserReference) ||
-                                    (widget.bookingDetailParameter!.status > 2),
+                                    (widget!.bookingDetailParameter!.status >
+                                        2),
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'รายละเอียดถึงผู้จอง',
-                                  labelStyle:
-                                      FlutterFlowTheme.of(context).labelMedium,
-                                  hintStyle:
-                                      FlutterFlowTheme.of(context).labelMedium,
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        letterSpacing: 0.0,
+                                      ),
+                                  hintStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        letterSpacing: 0.0,
+                                      ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context).line,
@@ -855,10 +945,16 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                 ),
-                                style: FlutterFlowTheme.of(context).bodyMedium,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Kanit',
+                                      letterSpacing: 0.0,
+                                    ),
                                 maxLines: 5,
                                 minLines: 5,
-                                validator: _model.usernameController7Validator
+                                validator: _model
+                                    .usernameTextController7Validator
                                     .asValidator(context),
                               ),
                               Align(
@@ -867,8 +963,8 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 8.0, 0.0, 0.0),
                                   child: RichText(
-                                    textScaleFactor:
-                                        MediaQuery.of(context).textScaleFactor,
+                                    textScaler:
+                                        MediaQuery.of(context).textScaler,
                                     text: TextSpan(
                                       children: [
                                         TextSpan(
@@ -880,25 +976,26 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primaryText,
+                                                letterSpacing: 0.0,
                                                 fontWeight: FontWeight.bold,
                                               ),
                                         ),
                                         TextSpan(
                                           text: valueOrDefault<String>(
                                             functions.getMeetingStatusText(
-                                                widget.bookingDetailParameter
+                                                widget!.bookingDetailParameter
                                                     ?.status),
                                             '-',
                                           ),
                                           style: TextStyle(
                                             color: () {
-                                              if (widget.bookingDetailParameter
+                                              if (widget!.bookingDetailParameter
                                                       ?.status ==
                                                   0) {
                                                 return FlutterFlowTheme.of(
                                                         context)
                                                     .tertiary;
-                                              } else if (widget
+                                              } else if (widget!
                                                       .bookingDetailParameter
                                                       ?.status ==
                                                   3) {
@@ -916,20 +1013,24 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                         )
                                       ],
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyMedium,
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Kanit',
+                                            letterSpacing: 0.0,
+                                          ),
                                     ),
                                   ),
                                 ),
                               ),
-                              if ((widget.bookingDetailParameter?.status !=
+                              if ((widget!.bookingDetailParameter?.status !=
                                       2) &&
-                                  (widget.bookingDetailParameter?.ownerRef !=
+                                  (widget!.bookingDetailParameter?.ownerRef !=
                                       currentUserReference))
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 16.0, 0.0, 0.0),
                                   child: FutureBuilder<UsersRecord>(
-                                    future: UsersRecord.getDocumentOnce(widget
+                                    future: UsersRecord.getDocumentOnce(widget!
                                         .bookingDetailParameter!.ownerRef!),
                                     builder: (context, snapshot) {
                                       // Customize what your widget looks like when it's loading.
@@ -948,7 +1049,9 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                           ),
                                         );
                                       }
+
                                       final buttonUsersRecord = snapshot.data!;
+
                                       return FFButtonWidget(
                                         onPressed: () async {
                                           await launchUrl(Uri(
@@ -976,6 +1079,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                                   .override(
                                                     fontFamily: 'Kanit',
                                                     color: Colors.white,
+                                                    letterSpacing: 0.0,
                                                   ),
                                           elevation: 3.0,
                                           borderSide: BorderSide(
@@ -989,19 +1093,21 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                     },
                                   ),
                                 ),
-                              if (widget.bookingDetailParameter?.ownerRef ==
+                              if (widget!.bookingDetailParameter?.ownerRef ==
                                   currentUserReference)
                                 Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    if (widget.bookingDetailParameter?.status ==
+                                    if (widget!
+                                            .bookingDetailParameter?.status ==
                                         1)
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 16.0, 0.0, 0.0),
                                         child: FFButtonWidget(
                                           onPressed: () async {
-                                            await widget.bookingDetailParameter!
+                                            await widget!
+                                                .bookingDetailParameter!
                                                 .reference
                                                 .update(
                                                     createBookingListRecordData(
@@ -1009,7 +1115,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                               updateBy: currentUserReference,
                                               status: 4,
                                               remarkOwner: _model
-                                                  .usernameController7.text,
+                                                  .usernameTextController7.text,
                                             ));
                                             context.safePop();
                                           },
@@ -1029,6 +1135,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                                     .override(
                                                       fontFamily: 'Kanit',
                                                       color: Colors.white,
+                                                      letterSpacing: 0.0,
                                                     ),
                                             elevation: 3.0,
                                             borderSide: BorderSide(
@@ -1040,14 +1147,16 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                           ),
                                         ),
                                       ),
-                                    if (widget.bookingDetailParameter?.status ==
+                                    if (widget!
+                                            .bookingDetailParameter?.status ==
                                         0)
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 16.0, 0.0, 0.0),
                                         child: FFButtonWidget(
                                           onPressed: () async {
-                                            await widget.bookingDetailParameter!
+                                            await widget!
+                                                .bookingDetailParameter!
                                                 .reference
                                                 .update(
                                                     createBookingListRecordData(
@@ -1055,7 +1164,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                               updateBy: currentUserReference,
                                               status: 1,
                                               remarkOwner: _model
-                                                  .usernameController7.text,
+                                                  .usernameTextController7.text,
                                             ));
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
@@ -1068,6 +1177,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                                       .override(
                                                         fontFamily: 'Kanit',
                                                         color: Colors.white,
+                                                        letterSpacing: 0.0,
                                                       ),
                                                 ),
                                                 duration: Duration(
@@ -1095,6 +1205,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                                     .override(
                                                       fontFamily: 'Kanit',
                                                       color: Colors.white,
+                                                      letterSpacing: 0.0,
                                                     ),
                                             elevation: 3.0,
                                             borderSide: BorderSide(
@@ -1106,10 +1217,10 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                           ),
                                         ),
                                       ),
-                                    if ((widget.bookingDetailParameter
+                                    if ((widget!.bookingDetailParameter
                                                 ?.status ==
                                             0) ||
-                                        (widget.bookingDetailParameter
+                                        (widget!.bookingDetailParameter
                                                 ?.status ==
                                             1))
                                       Padding(
@@ -1152,7 +1263,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                                     ) ??
                                                     false;
                                             if (confirmDialogResponse) {
-                                              await widget
+                                              await widget!
                                                   .bookingDetailParameter!
                                                   .reference
                                                   .update(
@@ -1161,7 +1272,8 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                                 updateBy: currentUserReference,
                                                 status: 3,
                                                 remarkOwner: _model
-                                                    .usernameController7.text,
+                                                    .usernameTextController7
+                                                    .text,
                                               ));
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(
@@ -1174,6 +1286,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                                         .override(
                                                           fontFamily: 'Kanit',
                                                           color: Colors.white,
+                                                          letterSpacing: 0.0,
                                                         ),
                                                   ),
                                                   duration: Duration(
@@ -1203,6 +1316,7 @@ class _BookingDetailPageWidgetState extends State<BookingDetailPageWidget> {
                                                     .override(
                                                       fontFamily: 'Kanit',
                                                       color: Colors.white,
+                                                      letterSpacing: 0.0,
                                                     ),
                                             elevation: 3.0,
                                             borderSide: BorderSide(

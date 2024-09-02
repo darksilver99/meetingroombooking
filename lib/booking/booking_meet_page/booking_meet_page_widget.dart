@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
@@ -44,21 +43,10 @@ class _BookingMeetPageWidgetState extends State<BookingMeetPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -71,6 +59,7 @@ class _BookingMeetPageWidgetState extends State<BookingMeetPageWidget> {
                   fontFamily: 'Kanit',
                   color: Colors.white,
                   fontSize: 22.0,
+                  letterSpacing: 0.0,
                 ),
           ),
           actions: [],
@@ -132,12 +121,8 @@ class _BookingMeetPageWidgetState extends State<BookingMeetPageWidget> {
                                                     Directionality.of(context)),
                                         child: WebViewAware(
                                           child: GestureDetector(
-                                            onTap: () => _model
-                                                    .unfocusNode.canRequestFocus
-                                                ? FocusScope.of(context)
-                                                    .requestFocus(
-                                                        _model.unfocusNode)
-                                                : FocusScope.of(context)
+                                            onTap: () =>
+                                                FocusScope.of(dialogContext)
                                                     .unfocus(),
                                             child: Container(
                                               width: MediaQuery.sizeOf(context)
@@ -152,7 +137,7 @@ class _BookingMeetPageWidgetState extends State<BookingMeetPageWidget> {
                                         ),
                                       );
                                     },
-                                  ).then((value) => setState(() {}));
+                                  );
                                 }
                                 setState(() {});
                               },
@@ -161,19 +146,33 @@ class _BookingMeetPageWidgetState extends State<BookingMeetPageWidget> {
                                   .override(
                                     fontFamily: 'Kanit',
                                     fontSize: 24.0,
+                                    letterSpacing: 0.0,
                                   ),
                               dayOfWeekStyle: FlutterFlowTheme.of(context)
                                   .labelLarge
                                   .override(
                                     fontFamily: 'Kanit',
                                     fontSize: 14.0,
+                                    letterSpacing: 0.0,
                                   ),
-                              dateStyle:
-                                  FlutterFlowTheme.of(context).bodyMedium,
-                              selectedDateStyle:
-                                  FlutterFlowTheme.of(context).titleSmall,
-                              inactiveDateStyle:
-                                  FlutterFlowTheme.of(context).labelMedium,
+                              dateStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Kanit',
+                                    letterSpacing: 0.0,
+                                  ),
+                              selectedDateStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    fontFamily: 'Kanit',
+                                    letterSpacing: 0.0,
+                                  ),
+                              inactiveDateStyle: FlutterFlowTheme.of(context)
+                                  .labelMedium
+                                  .override(
+                                    fontFamily: 'Kanit',
+                                    letterSpacing: 0.0,
+                                  ),
                             ),
                           ),
                         ],
@@ -200,7 +199,12 @@ class _BookingMeetPageWidgetState extends State<BookingMeetPageWidget> {
                               8.0, 0.0, 0.0, 0.0),
                           child: Text(
                             'มีผู้จองบางช่วงเวลาแล้วในวันนี้',
-                            style: FlutterFlowTheme.of(context).bodyMedium,
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Kanit',
+                                  letterSpacing: 0.0,
+                                ),
                           ),
                         ),
                       ),

@@ -7,7 +7,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
@@ -43,21 +42,8 @@ class _MeetRoomServiceListPageWidgetState
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -108,6 +94,7 @@ class _MeetRoomServiceListPageWidgetState
                   fontFamily: 'Kanit',
                   color: Colors.white,
                   fontSize: 22.0,
+                  letterSpacing: 0.0,
                 ),
           ),
           actions: [],
@@ -163,6 +150,7 @@ class _MeetRoomServiceListPageWidgetState
                         ),
                       );
                     }
+
                     return ListView.builder(
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,
@@ -244,6 +232,7 @@ class _MeetRoomServiceListPageWidgetState
                                                         .override(
                                                           fontFamily: 'Kanit',
                                                           fontSize: 18.0,
+                                                          letterSpacing: 0.0,
                                                         ),
                                               ),
                                               Expanded(
@@ -253,7 +242,11 @@ class _MeetRoomServiceListPageWidgetState
                                                   maxLines: 2,
                                                   style: FlutterFlowTheme.of(
                                                           context)
-                                                      .bodyMedium,
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Kanit',
+                                                        letterSpacing: 0.0,
+                                                      ),
                                                 ),
                                               ),
                                               Row(
@@ -262,9 +255,9 @@ class _MeetRoomServiceListPageWidgetState
                                                     MainAxisAlignment.end,
                                                 children: [
                                                   RichText(
-                                                    textScaleFactor:
+                                                    textScaler:
                                                         MediaQuery.of(context)
-                                                            .textScaleFactor,
+                                                            .textScaler,
                                                     text: TextSpan(
                                                       children: [
                                                         TextSpan(
@@ -278,6 +271,8 @@ class _MeetRoomServiceListPageWidgetState
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .secondaryText,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .normal,
@@ -301,17 +296,16 @@ class _MeetRoomServiceListPageWidgetState
                                                           style: TextStyle(),
                                                         )
                                                       ],
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Kanit',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryText,
-                                                              ),
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Kanit',
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondaryText,
+                                                            letterSpacing: 0.0,
+                                                          ),
                                                     ),
                                                   ),
                                                 ],

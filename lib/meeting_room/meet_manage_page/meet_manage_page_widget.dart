@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'meet_manage_page_model.dart';
@@ -37,21 +36,8 @@ class _MeetManagePageWidgetState extends State<MeetManagePageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -64,6 +50,7 @@ class _MeetManagePageWidgetState extends State<MeetManagePageWidget> {
                   fontFamily: 'Kanit',
                   color: Colors.white,
                   fontSize: 22.0,
+                  letterSpacing: 0.0,
                 ),
           ),
           actions: [],
@@ -125,6 +112,7 @@ class _MeetManagePageWidgetState extends State<MeetManagePageWidget> {
                                           .override(
                                             fontFamily: 'Kanit',
                                             fontSize: 22.0,
+                                            letterSpacing: 0.0,
                                           ),
                                     ),
                                   ),
@@ -202,6 +190,7 @@ class _MeetManagePageWidgetState extends State<MeetManagePageWidget> {
                                   );
                                 }
                                 int rowCount = snapshot.data!;
+
                                 return Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -223,6 +212,7 @@ class _MeetManagePageWidgetState extends State<MeetManagePageWidget> {
                                               .override(
                                                 fontFamily: 'Kanit',
                                                 fontSize: 22.0,
+                                                letterSpacing: 0.0,
                                               ),
                                         ),
                                       ),
@@ -249,6 +239,7 @@ class _MeetManagePageWidgetState extends State<MeetManagePageWidget> {
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .secondaryBackground,
+                                                  letterSpacing: 0.0,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                           ),
@@ -280,13 +271,14 @@ class _MeetManagePageWidgetState extends State<MeetManagePageWidget> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Text(
-                              'ท่านสามารถใช้งานได้ถึงวันที่ ${dateTimeFormat('d/M/y', currentUserDocument?.availableDate)}',
+                              'ท่านสามารถใช้งานได้ถึงวันที่ ${dateTimeFormat("d/M/y", currentUserDocument?.availableDate)}',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
                                     fontFamily: 'Kanit',
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryText,
+                                    letterSpacing: 0.0,
                                   ),
                             ),
                           ],

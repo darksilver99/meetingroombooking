@@ -53,239 +53,239 @@ class FFAppState extends ChangeNotifier {
 
   int _provinceSelected = 0;
   int get provinceSelected => _provinceSelected;
-  set provinceSelected(int _value) {
-    _provinceSelected = _value;
+  set provinceSelected(int value) {
+    _provinceSelected = value;
   }
 
   int _amphureSelected = 0;
   int get amphureSelected => _amphureSelected;
-  set amphureSelected(int _value) {
-    _amphureSelected = _value;
+  set amphureSelected(int value) {
+    _amphureSelected = value;
   }
 
   int _tambonSelected = 0;
   int get tambonSelected => _tambonSelected;
-  set tambonSelected(int _value) {
-    _tambonSelected = _value;
+  set tambonSelected(int value) {
+    _tambonSelected = value;
   }
 
   List<String> _imageUploadList = [];
   List<String> get imageUploadList => _imageUploadList;
-  set imageUploadList(List<String> _value) {
-    _imageUploadList = _value;
+  set imageUploadList(List<String> value) {
+    _imageUploadList = value;
   }
 
-  void addToImageUploadList(String _value) {
-    _imageUploadList.add(_value);
+  void addToImageUploadList(String value) {
+    imageUploadList.add(value);
   }
 
-  void removeFromImageUploadList(String _value) {
-    _imageUploadList.remove(_value);
+  void removeFromImageUploadList(String value) {
+    imageUploadList.remove(value);
   }
 
-  void removeAtIndexFromImageUploadList(int _index) {
-    _imageUploadList.removeAt(_index);
+  void removeAtIndexFromImageUploadList(int index) {
+    imageUploadList.removeAt(index);
   }
 
   void updateImageUploadListAtIndex(
-    int _index,
+    int index,
     String Function(String) updateFn,
   ) {
-    _imageUploadList[_index] = updateFn(_imageUploadList[_index]);
+    imageUploadList[index] = updateFn(_imageUploadList[index]);
   }
 
-  void insertAtIndexInImageUploadList(int _index, String _value) {
-    _imageUploadList.insert(_index, _value);
+  void insertAtIndexInImageUploadList(int index, String value) {
+    imageUploadList.insert(index, value);
   }
 
   DocumentReference? _meetingRoomSelectedRef;
   DocumentReference? get meetingRoomSelectedRef => _meetingRoomSelectedRef;
-  set meetingRoomSelectedRef(DocumentReference? _value) {
-    _meetingRoomSelectedRef = _value;
+  set meetingRoomSelectedRef(DocumentReference? value) {
+    _meetingRoomSelectedRef = value;
   }
 
   DocumentReference? _onwerRoomSelectedRef;
   DocumentReference? get onwerRoomSelectedRef => _onwerRoomSelectedRef;
-  set onwerRoomSelectedRef(DocumentReference? _value) {
-    _onwerRoomSelectedRef = _value;
+  set onwerRoomSelectedRef(DocumentReference? value) {
+    _onwerRoomSelectedRef = value;
   }
 
   List<dynamic> _bookingStatus = [];
   List<dynamic> get bookingStatus => _bookingStatus;
-  set bookingStatus(List<dynamic> _value) {
-    _bookingStatus = _value;
+  set bookingStatus(List<dynamic> value) {
+    _bookingStatus = value;
   }
 
-  void addToBookingStatus(dynamic _value) {
-    _bookingStatus.add(_value);
+  void addToBookingStatus(dynamic value) {
+    bookingStatus.add(value);
   }
 
-  void removeFromBookingStatus(dynamic _value) {
-    _bookingStatus.remove(_value);
+  void removeFromBookingStatus(dynamic value) {
+    bookingStatus.remove(value);
   }
 
-  void removeAtIndexFromBookingStatus(int _index) {
-    _bookingStatus.removeAt(_index);
+  void removeAtIndexFromBookingStatus(int index) {
+    bookingStatus.removeAt(index);
   }
 
   void updateBookingStatusAtIndex(
-    int _index,
+    int index,
     dynamic Function(dynamic) updateFn,
   ) {
-    _bookingStatus[_index] = updateFn(_bookingStatus[_index]);
+    bookingStatus[index] = updateFn(_bookingStatus[index]);
   }
 
-  void insertAtIndexInBookingStatus(int _index, dynamic _value) {
-    _bookingStatus.insert(_index, _value);
+  void insertAtIndexInBookingStatus(int index, dynamic value) {
+    bookingStatus.insert(index, value);
   }
 
   bool _isFullList = true;
   bool get isFullList => _isFullList;
-  set isFullList(bool _value) {
-    _isFullList = _value;
+  set isFullList(bool value) {
+    _isFullList = value;
   }
 
   LatLng? _locationSelected;
   LatLng? get locationSelected => _locationSelected;
-  set locationSelected(LatLng? _value) {
-    _locationSelected = _value;
+  set locationSelected(LatLng? value) {
+    _locationSelected = value;
   }
 
   String _provinceSelectedValue = '';
   String get provinceSelectedValue => _provinceSelectedValue;
-  set provinceSelectedValue(String _value) {
-    _provinceSelectedValue = _value;
+  set provinceSelectedValue(String value) {
+    _provinceSelectedValue = value;
   }
 
   String _amphurSelectedValue = '';
   String get amphurSelectedValue => _amphurSelectedValue;
-  set amphurSelectedValue(String _value) {
-    _amphurSelectedValue = _value;
+  set amphurSelectedValue(String value) {
+    _amphurSelectedValue = value;
   }
 
   String _tambonSelectedValue = '';
   String get tambonSelectedValue => _tambonSelectedValue;
-  set tambonSelectedValue(String _value) {
-    _tambonSelectedValue = _value;
+  set tambonSelectedValue(String value) {
+    _tambonSelectedValue = value;
   }
 
   List<String> _fakeSelectedDate = [];
   List<String> get fakeSelectedDate => _fakeSelectedDate;
-  set fakeSelectedDate(List<String> _value) {
-    _fakeSelectedDate = _value;
+  set fakeSelectedDate(List<String> value) {
+    _fakeSelectedDate = value;
   }
 
-  void addToFakeSelectedDate(String _value) {
-    _fakeSelectedDate.add(_value);
+  void addToFakeSelectedDate(String value) {
+    fakeSelectedDate.add(value);
   }
 
-  void removeFromFakeSelectedDate(String _value) {
-    _fakeSelectedDate.remove(_value);
+  void removeFromFakeSelectedDate(String value) {
+    fakeSelectedDate.remove(value);
   }
 
-  void removeAtIndexFromFakeSelectedDate(int _index) {
-    _fakeSelectedDate.removeAt(_index);
+  void removeAtIndexFromFakeSelectedDate(int index) {
+    fakeSelectedDate.removeAt(index);
   }
 
   void updateFakeSelectedDateAtIndex(
-    int _index,
+    int index,
     String Function(String) updateFn,
   ) {
-    _fakeSelectedDate[_index] = updateFn(_fakeSelectedDate[_index]);
+    fakeSelectedDate[index] = updateFn(_fakeSelectedDate[index]);
   }
 
-  void insertAtIndexInFakeSelectedDate(int _index, String _value) {
-    _fakeSelectedDate.insert(_index, _value);
+  void insertAtIndexInFakeSelectedDate(int index, String value) {
+    fakeSelectedDate.insert(index, value);
   }
 
   DocumentReference? _userRefBeforDelete;
   DocumentReference? get userRefBeforDelete => _userRefBeforDelete;
-  set userRefBeforDelete(DocumentReference? _value) {
-    _userRefBeforDelete = _value;
+  set userRefBeforDelete(DocumentReference? value) {
+    _userRefBeforDelete = value;
   }
 
   bool _isChangeProfileDetail = false;
   bool get isChangeProfileDetail => _isChangeProfileDetail;
-  set isChangeProfileDetail(bool _value) {
-    _isChangeProfileDetail = _value;
+  set isChangeProfileDetail(bool value) {
+    _isChangeProfileDetail = value;
   }
 
   List<dynamic> _totalMeetingRoom = [];
   List<dynamic> get totalMeetingRoom => _totalMeetingRoom;
-  set totalMeetingRoom(List<dynamic> _value) {
-    _totalMeetingRoom = _value;
+  set totalMeetingRoom(List<dynamic> value) {
+    _totalMeetingRoom = value;
   }
 
-  void addToTotalMeetingRoom(dynamic _value) {
-    _totalMeetingRoom.add(_value);
+  void addToTotalMeetingRoom(dynamic value) {
+    totalMeetingRoom.add(value);
   }
 
-  void removeFromTotalMeetingRoom(dynamic _value) {
-    _totalMeetingRoom.remove(_value);
+  void removeFromTotalMeetingRoom(dynamic value) {
+    totalMeetingRoom.remove(value);
   }
 
-  void removeAtIndexFromTotalMeetingRoom(int _index) {
-    _totalMeetingRoom.removeAt(_index);
+  void removeAtIndexFromTotalMeetingRoom(int index) {
+    totalMeetingRoom.removeAt(index);
   }
 
   void updateTotalMeetingRoomAtIndex(
-    int _index,
+    int index,
     dynamic Function(dynamic) updateFn,
   ) {
-    _totalMeetingRoom[_index] = updateFn(_totalMeetingRoom[_index]);
+    totalMeetingRoom[index] = updateFn(_totalMeetingRoom[index]);
   }
 
-  void insertAtIndexInTotalMeetingRoom(int _index, dynamic _value) {
-    _totalMeetingRoom.insert(_index, _value);
+  void insertAtIndexInTotalMeetingRoom(int index, dynamic value) {
+    totalMeetingRoom.insert(index, value);
   }
 
   String _appVersion = '';
   String get appVersion => _appVersion;
-  set appVersion(String _value) {
-    _appVersion = _value;
-    prefs.setString('ff_appVersion', _value);
+  set appVersion(String value) {
+    _appVersion = value;
+    prefs.setString('ff_appVersion', value);
   }
 
   String _androidStoreLink = '';
   String get androidStoreLink => _androidStoreLink;
-  set androidStoreLink(String _value) {
-    _androidStoreLink = _value;
-    prefs.setString('ff_androidStoreLink', _value);
+  set androidStoreLink(String value) {
+    _androidStoreLink = value;
+    prefs.setString('ff_androidStoreLink', value);
   }
 
   String _iosStoreLink = '';
   String get iosStoreLink => _iosStoreLink;
-  set iosStoreLink(String _value) {
-    _iosStoreLink = _value;
-    prefs.setString('ff_iosStoreLink', _value);
+  set iosStoreLink(String value) {
+    _iosStoreLink = value;
+    prefs.setString('ff_iosStoreLink', value);
   }
 
   bool _isEnableAd = false;
   bool get isEnableAd => _isEnableAd;
-  set isEnableAd(bool _value) {
-    _isEnableAd = _value;
-    prefs.setBool('ff_isEnableAd', _value);
+  set isEnableAd(bool value) {
+    _isEnableAd = value;
+    prefs.setBool('ff_isEnableAd', value);
   }
 
   int _storeBuildVersion = 0;
   int get storeBuildVersion => _storeBuildVersion;
-  set storeBuildVersion(int _value) {
-    _storeBuildVersion = _value;
-    prefs.setInt('ff_storeBuildVersion', _value);
+  set storeBuildVersion(int value) {
+    _storeBuildVersion = value;
+    prefs.setInt('ff_storeBuildVersion', value);
   }
 
   int _appBuildVersion = 0;
   int get appBuildVersion => _appBuildVersion;
-  set appBuildVersion(int _value) {
-    _appBuildVersion = _value;
-    prefs.setInt('ff_appBuildVersion', _value);
+  set appBuildVersion(int value) {
+    _appBuildVersion = value;
+    prefs.setInt('ff_appBuildVersion', value);
   }
 
   bool _isTesting = false;
   bool get isTesting => _isTesting;
-  set isTesting(bool _value) {
-    _isTesting = _value;
-    prefs.setBool('ff_isTesting', _value);
+  set isTesting(bool value) {
+    _isTesting = value;
+    prefs.setBool('ff_isTesting', value);
   }
 }
 

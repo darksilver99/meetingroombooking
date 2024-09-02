@@ -8,7 +8,6 @@ import 'booking_detail_page_widget.dart' show BookingDetailPageWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -21,64 +20,57 @@ class BookingDetailPageModel extends FlutterFlowModel<BookingDetailPageWidget> {
   final formKey = GlobalKey<FormState>();
   // State field(s) for username widget.
   FocusNode? usernameFocusNode1;
-  TextEditingController? usernameController1;
-  String? Function(BuildContext, String?)? usernameController1Validator;
+  TextEditingController? usernameTextController1;
+  String? Function(BuildContext, String?)? usernameTextController1Validator;
   // State field(s) for username widget.
   FocusNode? usernameFocusNode2;
-  TextEditingController? usernameController2;
-  String? Function(BuildContext, String?)? usernameController2Validator;
+  TextEditingController? usernameTextController2;
+  String? Function(BuildContext, String?)? usernameTextController2Validator;
   // State field(s) for username widget.
   FocusNode? usernameFocusNode3;
-  TextEditingController? usernameController3;
-  String? Function(BuildContext, String?)? usernameController3Validator;
+  TextEditingController? usernameTextController3;
+  String? Function(BuildContext, String?)? usernameTextController3Validator;
   // State field(s) for username widget.
   FocusNode? usernameFocusNode4;
-  TextEditingController? usernameController4;
-  String? Function(BuildContext, String?)? usernameController4Validator;
+  TextEditingController? usernameTextController4;
+  String? Function(BuildContext, String?)? usernameTextController4Validator;
   // State field(s) for username widget.
   FocusNode? usernameFocusNode5;
-  TextEditingController? usernameController5;
-  String? Function(BuildContext, String?)? usernameController5Validator;
+  TextEditingController? usernameTextController5;
+  String? Function(BuildContext, String?)? usernameTextController5Validator;
   // State field(s) for username widget.
   FocusNode? usernameFocusNode6;
-  TextEditingController? usernameController6;
-  String? Function(BuildContext, String?)? usernameController6Validator;
+  TextEditingController? usernameTextController6;
+  String? Function(BuildContext, String?)? usernameTextController6Validator;
   // State field(s) for username widget.
   FocusNode? usernameFocusNode7;
-  TextEditingController? usernameController7;
-  String? Function(BuildContext, String?)? usernameController7Validator;
-
-  /// Initialization and disposal methods.
+  TextEditingController? usernameTextController7;
+  String? Function(BuildContext, String?)? usernameTextController7Validator;
 
   @override
   void initState(BuildContext context) {}
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     usernameFocusNode1?.dispose();
-    usernameController1?.dispose();
+    usernameTextController1?.dispose();
 
     usernameFocusNode2?.dispose();
-    usernameController2?.dispose();
+    usernameTextController2?.dispose();
 
     usernameFocusNode3?.dispose();
-    usernameController3?.dispose();
+    usernameTextController3?.dispose();
 
     usernameFocusNode4?.dispose();
-    usernameController4?.dispose();
+    usernameTextController4?.dispose();
 
     usernameFocusNode5?.dispose();
-    usernameController5?.dispose();
+    usernameTextController5?.dispose();
 
     usernameFocusNode6?.dispose();
-    usernameController6?.dispose();
+    usernameTextController6?.dispose();
 
     usernameFocusNode7?.dispose();
-    usernameController7?.dispose();
+    usernameTextController7?.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

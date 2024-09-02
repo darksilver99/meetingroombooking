@@ -18,9 +18,9 @@ class RegisterPageModel extends FlutterFlowModel<RegisterPageWidget> {
   final formKey = GlobalKey<FormState>();
   // State field(s) for fullname widget.
   FocusNode? fullnameFocusNode;
-  TextEditingController? fullnameController;
-  String? Function(BuildContext, String?)? fullnameControllerValidator;
-  String? _fullnameControllerValidator(BuildContext context, String? val) {
+  TextEditingController? fullnameTextController;
+  String? Function(BuildContext, String?)? fullnameTextControllerValidator;
+  String? _fullnameTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
     }
@@ -30,9 +30,9 @@ class RegisterPageModel extends FlutterFlowModel<RegisterPageWidget> {
 
   // State field(s) for phone widget.
   FocusNode? phoneFocusNode;
-  TextEditingController? phoneController;
-  String? Function(BuildContext, String?)? phoneControllerValidator;
-  String? _phoneControllerValidator(BuildContext context, String? val) {
+  TextEditingController? phoneTextController;
+  String? Function(BuildContext, String?)? phoneTextControllerValidator;
+  String? _phoneTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
     }
@@ -42,9 +42,9 @@ class RegisterPageModel extends FlutterFlowModel<RegisterPageWidget> {
 
   // State field(s) for username widget.
   FocusNode? usernameFocusNode;
-  TextEditingController? usernameController;
-  String? Function(BuildContext, String?)? usernameControllerValidator;
-  String? _usernameControllerValidator(BuildContext context, String? val) {
+  TextEditingController? usernameTextController;
+  String? Function(BuildContext, String?)? usernameTextControllerValidator;
+  String? _usernameTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
     }
@@ -54,10 +54,10 @@ class RegisterPageModel extends FlutterFlowModel<RegisterPageWidget> {
 
   // State field(s) for password widget.
   FocusNode? passwordFocusNode;
-  TextEditingController? passwordController;
+  TextEditingController? passwordTextController;
   late bool passwordVisibility;
-  String? Function(BuildContext, String?)? passwordControllerValidator;
-  String? _passwordControllerValidator(BuildContext context, String? val) {
+  String? Function(BuildContext, String?)? passwordTextControllerValidator;
+  String? _passwordTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
     }
@@ -67,10 +67,10 @@ class RegisterPageModel extends FlutterFlowModel<RegisterPageWidget> {
 
   // State field(s) for password2 widget.
   FocusNode? password2FocusNode;
-  TextEditingController? password2Controller;
+  TextEditingController? password2TextController;
   late bool password2Visibility;
-  String? Function(BuildContext, String?)? password2ControllerValidator;
-  String? _password2ControllerValidator(BuildContext context, String? val) {
+  String? Function(BuildContext, String?)? password2TextControllerValidator;
+  String? _password2TextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
     }
@@ -81,39 +81,32 @@ class RegisterPageModel extends FlutterFlowModel<RegisterPageWidget> {
   // State field(s) for Checkbox widget.
   bool? checkboxValue;
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {
-    fullnameControllerValidator = _fullnameControllerValidator;
-    phoneControllerValidator = _phoneControllerValidator;
-    usernameControllerValidator = _usernameControllerValidator;
+    fullnameTextControllerValidator = _fullnameTextControllerValidator;
+    phoneTextControllerValidator = _phoneTextControllerValidator;
+    usernameTextControllerValidator = _usernameTextControllerValidator;
     passwordVisibility = false;
-    passwordControllerValidator = _passwordControllerValidator;
+    passwordTextControllerValidator = _passwordTextControllerValidator;
     password2Visibility = false;
-    password2ControllerValidator = _password2ControllerValidator;
+    password2TextControllerValidator = _password2TextControllerValidator;
   }
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     fullnameFocusNode?.dispose();
-    fullnameController?.dispose();
+    fullnameTextController?.dispose();
 
     phoneFocusNode?.dispose();
-    phoneController?.dispose();
+    phoneTextController?.dispose();
 
     usernameFocusNode?.dispose();
-    usernameController?.dispose();
+    usernameTextController?.dispose();
 
     passwordFocusNode?.dispose();
-    passwordController?.dispose();
+    passwordTextController?.dispose();
 
     password2FocusNode?.dispose();
-    password2Controller?.dispose();
+    password2TextController?.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

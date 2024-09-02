@@ -6,7 +6,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
@@ -43,7 +42,7 @@ class _MeetRoomListTambonPageWidgetState
     super.initState();
     _model = createModel(context, () => MeetRoomListTambonPageModel());
 
-    _model.usernameController ??= TextEditingController();
+    _model.usernameTextController ??= TextEditingController();
     _model.usernameFocusNode ??= FocusNode();
   }
 
@@ -56,21 +55,10 @@ class _MeetRoomListTambonPageWidgetState
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -83,6 +71,7 @@ class _MeetRoomListTambonPageWidgetState
                   fontFamily: 'Kanit',
                   color: Colors.white,
                   fontSize: 22.0,
+                  letterSpacing: 0.0,
                 ),
           ),
           actions: [],
@@ -107,18 +96,18 @@ class _MeetRoomListTambonPageWidgetState
                         height: 52.0,
                         decoration: BoxDecoration(),
                         child: TextFormField(
-                          controller: _model.usernameController,
+                          controller: _model.usernameTextController,
                           focusNode: _model.usernameFocusNode,
                           onChanged: (_) => EasyDebounce.debounce(
-                            '_model.usernameController',
+                            '_model.usernameTextController',
                             Duration(milliseconds: 500),
                             () async {
-                              if (_model.usernameController.text != null &&
-                                  _model.usernameController.text != '') {
+                              if (_model.usernameTextController.text != null &&
+                                  _model.usernameTextController.text != '') {
                                 safeSetState(
                                     () => _model.algoliaSearchResults = null);
                                 await MeetingRoomListRecord.search(
-                                  term: _model.usernameController.text,
+                                  term: _model.usernameTextController.text,
                                 )
                                     .then(
                                         (r) => _model.algoliaSearchResults = r)
@@ -126,26 +115,31 @@ class _MeetRoomListTambonPageWidgetState
                                         _model.algoliaSearchResults = [])
                                     .whenComplete(() => setState(() {}));
 
-                                setState(() {
-                                  FFAppState().isFullList = false;
-                                });
+                                FFAppState().isFullList = false;
+                                setState(() {});
                               } else {
-                                setState(() {
-                                  FFAppState().isFullList = true;
-                                });
+                                FFAppState().isFullList = true;
+                                setState(() {});
                               }
                             },
                           ),
+                          autofocus: false,
                           obscureText: false,
                           decoration: InputDecoration(
-                            labelStyle:
-                                FlutterFlowTheme.of(context).labelMedium,
+                            isDense: false,
+                            labelStyle: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .override(
+                                  fontFamily: 'Kanit',
+                                  letterSpacing: 0.0,
+                                ),
                             hintText: 'ค้นหาจากชื่อ',
                             hintStyle: FlutterFlowTheme.of(context)
                                 .labelMedium
                                 .override(
                                   fontFamily: 'Kanit',
                                   fontSize: 12.0,
+                                  letterSpacing: 0.0,
                                 ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
@@ -184,18 +178,19 @@ class _MeetRoomListTambonPageWidgetState
                               size: 24.0,
                             ),
                             suffixIcon: _model
-                                    .usernameController!.text.isNotEmpty
+                                    .usernameTextController!.text.isNotEmpty
                                 ? InkWell(
                                     onTap: () async {
-                                      _model.usernameController?.clear();
-                                      if (_model.usernameController.text !=
+                                      _model.usernameTextController?.clear();
+                                      if (_model.usernameTextController.text !=
                                               null &&
-                                          _model.usernameController.text !=
+                                          _model.usernameTextController.text !=
                                               '') {
                                         safeSetState(() =>
                                             _model.algoliaSearchResults = null);
                                         await MeetingRoomListRecord.search(
-                                          term: _model.usernameController.text,
+                                          term: _model
+                                              .usernameTextController.text,
                                         )
                                             .then((r) =>
                                                 _model.algoliaSearchResults = r)
@@ -204,13 +199,11 @@ class _MeetRoomListTambonPageWidgetState
                                             .whenComplete(
                                                 () => setState(() {}));
 
-                                        setState(() {
-                                          FFAppState().isFullList = false;
-                                        });
+                                        FFAppState().isFullList = false;
+                                        setState(() {});
                                       } else {
-                                        setState(() {
-                                          FFAppState().isFullList = true;
-                                        });
+                                        FFAppState().isFullList = true;
+                                        setState(() {});
                                       }
 
                                       setState(() {});
@@ -223,8 +216,12 @@ class _MeetRoomListTambonPageWidgetState
                                   )
                                 : null,
                           ),
-                          style: FlutterFlowTheme.of(context).bodyMedium,
-                          validator: _model.usernameControllerValidator
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Kanit',
+                                    letterSpacing: 0.0,
+                                  ),
+                          validator: _model.usernameTextControllerValidator
                               .asValidator(context),
                         ),
                       ),
@@ -237,12 +234,13 @@ class _MeetRoomListTambonPageWidgetState
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(16.0, 8.0, 16.0, 8.0),
                   child: Text(
-                    'จังหวัด ${widget.province} อำเภอ ${widget.amphur} ตำบล ${widget.tambon}',
+                    'จังหวัด ${widget!.province} อำเภอ ${widget!.amphur} ตำบล ${widget!.tambon}',
                     maxLines: 1,
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Kanit',
                           color: FlutterFlowTheme.of(context).secondaryText,
                           fontSize: 12.0,
+                          letterSpacing: 0.0,
                           fontWeight: FontWeight.w300,
                         ),
                   ),
@@ -263,15 +261,15 @@ class _MeetRoomListTambonPageWidgetState
                           )
                           .where(
                             'province',
-                            isEqualTo: widget.province,
+                            isEqualTo: widget!.province,
                           )
                           .where(
                             'amphur',
-                            isEqualTo: widget.amphur,
+                            isEqualTo: widget!.amphur,
                           )
                           .where(
                             'tambon',
-                            isEqualTo: widget.tambon,
+                            isEqualTo: widget!.tambon,
                           ),
                     ),
                     padding: EdgeInsets.zero,
@@ -385,6 +383,7 @@ class _MeetRoomListTambonPageWidgetState
                                                         .override(
                                                           fontFamily: 'Kanit',
                                                           fontSize: 18.0,
+                                                          letterSpacing: 0.0,
                                                         ),
                                               ),
                                               Expanded(
@@ -394,7 +393,11 @@ class _MeetRoomListTambonPageWidgetState
                                                   maxLines: 2,
                                                   style: FlutterFlowTheme.of(
                                                           context)
-                                                      .bodyMedium,
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Kanit',
+                                                        letterSpacing: 0.0,
+                                                      ),
                                                 ),
                                               ),
                                               Row(
@@ -403,9 +406,9 @@ class _MeetRoomListTambonPageWidgetState
                                                     MainAxisAlignment.end,
                                                 children: [
                                                   RichText(
-                                                    textScaleFactor:
+                                                    textScaler:
                                                         MediaQuery.of(context)
-                                                            .textScaleFactor,
+                                                            .textScaler,
                                                     text: TextSpan(
                                                       children: [
                                                         TextSpan(
@@ -419,6 +422,8 @@ class _MeetRoomListTambonPageWidgetState
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .secondaryText,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .normal,
@@ -442,17 +447,16 @@ class _MeetRoomListTambonPageWidgetState
                                                           style: TextStyle(),
                                                         )
                                                       ],
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Kanit',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryText,
-                                                              ),
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Kanit',
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondaryText,
+                                                            letterSpacing: 0.0,
+                                                          ),
                                                     ),
                                                   ),
                                                 ],
@@ -478,9 +482,9 @@ class _MeetRoomListTambonPageWidgetState
                     builder: (context) {
                       if (_model.algoliaSearchResults
                               ?.where((e) =>
-                                  (widget.province == e.province) &&
-                                  (widget.amphur == e.amphur) &&
-                                  (widget.tambon == e.tambon))
+                                  (widget!.province == e.province) &&
+                                  (widget!.amphur == e.amphur) &&
+                                  (widget!.tambon == e.tambon))
                               .toList() ==
                           null) {
                         return Center(
@@ -497,9 +501,9 @@ class _MeetRoomListTambonPageWidgetState
                       }
                       final resultSearchList = _model.algoliaSearchResults
                               ?.where((e) =>
-                                  (widget.province == e.province) &&
-                                  (widget.amphur == e.amphur) &&
-                                  (widget.tambon == e.tambon))
+                                  (widget!.province == e.province) &&
+                                  (widget!.amphur == e.amphur) &&
+                                  (widget!.tambon == e.tambon))
                               .toList()
                               ?.toList() ??
                           [];
@@ -509,6 +513,7 @@ class _MeetRoomListTambonPageWidgetState
                           child: NoDataWidget(),
                         );
                       }
+
                       return ListView.builder(
                         padding: EdgeInsets.zero,
                         primary: false,
@@ -589,6 +594,7 @@ class _MeetRoomListTambonPageWidgetState
                                                       .override(
                                                         fontFamily: 'Kanit',
                                                         fontSize: 18.0,
+                                                        letterSpacing: 0.0,
                                                       ),
                                                 ),
                                                 Expanded(
@@ -597,7 +603,11 @@ class _MeetRoomListTambonPageWidgetState
                                                     maxLines: 2,
                                                     style: FlutterFlowTheme.of(
                                                             context)
-                                                        .bodyMedium,
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Kanit',
+                                                          letterSpacing: 0.0,
+                                                        ),
                                                   ),
                                                 ),
                                                 Row(
@@ -607,9 +617,9 @@ class _MeetRoomListTambonPageWidgetState
                                                       MainAxisAlignment.end,
                                                   children: [
                                                     RichText(
-                                                      textScaleFactor:
+                                                      textScaler:
                                                           MediaQuery.of(context)
-                                                              .textScaleFactor,
+                                                              .textScaler,
                                                       text: TextSpan(
                                                         children: [
                                                           TextSpan(
@@ -623,6 +633,8 @@ class _MeetRoomListTambonPageWidgetState
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
                                                                       .secondaryText,
+                                                                  letterSpacing:
+                                                                      0.0,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .normal,
@@ -656,6 +668,8 @@ class _MeetRoomListTambonPageWidgetState
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
                                                                       .secondaryText,
+                                                                  letterSpacing:
+                                                                      0.0,
                                                                 ),
                                                       ),
                                                     ),

@@ -42,24 +42,23 @@ class _AddMeetRoomInformationPageWidgetState
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() {
-        FFAppState().provinceSelected = 0;
-        FFAppState().amphureSelected = 0;
-        FFAppState().imageUploadList = [];
-        FFAppState().tambonSelected = 0;
-        FFAppState().provinceSelectedValue = '';
-        FFAppState().amphurSelectedValue = '';
-        FFAppState().tambonSelectedValue = '';
-      });
+      FFAppState().provinceSelected = 0;
+      FFAppState().amphureSelected = 0;
+      FFAppState().imageUploadList = [];
+      FFAppState().tambonSelected = 0;
+      FFAppState().provinceSelectedValue = '';
+      FFAppState().amphurSelectedValue = '';
+      FFAppState().tambonSelectedValue = '';
+      setState(() {});
     });
 
-    _model.nameController ??= TextEditingController();
+    _model.nameTextController ??= TextEditingController();
     _model.nameFocusNode ??= FocusNode();
 
-    _model.supportTotalController ??= TextEditingController();
+    _model.supportTotalTextController ??= TextEditingController();
     _model.supportTotalFocusNode ??= FocusNode();
 
-    _model.detailController ??= TextEditingController();
+    _model.detailTextController ??= TextEditingController();
     _model.detailFocusNode ??= FocusNode();
   }
 
@@ -72,21 +71,10 @@ class _AddMeetRoomInformationPageWidgetState
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -99,6 +87,7 @@ class _AddMeetRoomInformationPageWidgetState
                   fontFamily: 'Kanit',
                   color: Colors.white,
                   fontSize: 22.0,
+                  letterSpacing: 0.0,
                 ),
           ),
           actions: [],
@@ -142,21 +131,31 @@ class _AddMeetRoomInformationPageWidgetState
                                     .override(
                                       fontFamily: 'Kanit',
                                       fontSize: 18.0,
+                                      letterSpacing: 0.0,
                                     ),
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 8.0, 0.0, 0.0),
                                 child: TextFormField(
-                                  controller: _model.nameController,
+                                  controller: _model.nameTextController,
                                   focusNode: _model.nameFocusNode,
+                                  autofocus: false,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'ชื่อห้องประชุม',
                                     labelStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          letterSpacing: 0.0,
+                                        ),
                                     hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          letterSpacing: 0.0,
+                                        ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color:
@@ -190,9 +189,13 @@ class _AddMeetRoomInformationPageWidgetState
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                   ),
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
-                                  validator: _model.nameControllerValidator
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        letterSpacing: 0.0,
+                                      ),
+                                  validator: _model.nameTextControllerValidator
                                       .asValidator(context),
                                 ),
                               ),
@@ -200,15 +203,24 @@ class _AddMeetRoomInformationPageWidgetState
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 8.0, 0.0, 0.0),
                                 child: TextFormField(
-                                  controller: _model.supportTotalController,
+                                  controller: _model.supportTotalTextController,
                                   focusNode: _model.supportTotalFocusNode,
+                                  autofocus: false,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'จำนวนที่รองรับ (คน)',
                                     labelStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          letterSpacing: 0.0,
+                                        ),
                                     hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          letterSpacing: 0.0,
+                                        ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color:
@@ -242,11 +254,15 @@ class _AddMeetRoomInformationPageWidgetState
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                   ),
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        letterSpacing: 0.0,
+                                      ),
                                   keyboardType: TextInputType.number,
                                   validator: _model
-                                      .supportTotalControllerValidator
+                                      .supportTotalTextControllerValidator
                                       .asValidator(context),
                                   inputFormatters: [
                                     FilteringTextInputFormatter.allow(
@@ -258,15 +274,24 @@ class _AddMeetRoomInformationPageWidgetState
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 8.0, 0.0, 0.0),
                                 child: TextFormField(
-                                  controller: _model.detailController,
+                                  controller: _model.detailTextController,
                                   focusNode: _model.detailFocusNode,
+                                  autofocus: false,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'รายละเอียดเพิ่มเติม (หากมี)',
                                     labelStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          letterSpacing: 0.0,
+                                        ),
                                     hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          letterSpacing: 0.0,
+                                        ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color:
@@ -300,12 +325,17 @@ class _AddMeetRoomInformationPageWidgetState
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                   ),
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        letterSpacing: 0.0,
+                                      ),
                                   maxLines: null,
                                   minLines: 5,
                                   keyboardType: TextInputType.multiline,
-                                  validator: _model.detailControllerValidator
+                                  validator: _model
+                                      .detailTextControllerValidator
                                       .asValidator(context),
                                 ),
                               ),
@@ -321,6 +351,7 @@ class _AddMeetRoomInformationPageWidgetState
                                     builder: (context) {
                                       final uploadImageList =
                                           FFAppState().imageUploadList.toList();
+
                                       return SingleChildScrollView(
                                         scrollDirection: Axis.horizontal,
                                         child: Row(
@@ -378,11 +409,10 @@ class _AddMeetRoomInformationPageWidgetState
                                                               .refFromURL(
                                                                   uploadImageListItem)
                                                               .delete();
-                                                          setState(() {
-                                                            FFAppState()
-                                                                .removeFromImageUploadList(
-                                                                    uploadImageListItem);
-                                                          });
+                                                          FFAppState()
+                                                              .removeFromImageUploadList(
+                                                                  uploadImageListItem);
+                                                          setState(() {});
                                                         },
                                                         child: Icon(
                                                           Icons.cancel,
@@ -472,10 +502,9 @@ class _AddMeetRoomInformationPageWidgetState
 
                                       if (_model.uploadedFileUrl != null &&
                                           _model.uploadedFileUrl != '') {
-                                        setState(() {
-                                          FFAppState().addToImageUploadList(
-                                              _model.uploadedFileUrl);
-                                        });
+                                        FFAppState().addToImageUploadList(
+                                            _model.uploadedFileUrl);
+                                        setState(() {});
                                       }
                                     } else {
                                       ScaffoldMessenger.of(context)
@@ -488,6 +517,7 @@ class _AddMeetRoomInformationPageWidgetState
                                                 .override(
                                                   fontFamily: 'Kanit',
                                                   color: Colors.white,
+                                                  letterSpacing: 0.0,
                                                 ),
                                           ),
                                           duration:
@@ -516,6 +546,7 @@ class _AddMeetRoomInformationPageWidgetState
                                         .override(
                                           fontFamily: 'Kanit',
                                           color: Colors.white,
+                                          letterSpacing: 0.0,
                                         ),
                                     elevation: 3.0,
                                     borderSide: BorderSide(
@@ -541,6 +572,7 @@ class _AddMeetRoomInformationPageWidgetState
                                       .override(
                                         fontFamily: 'Kanit',
                                         fontSize: 18.0,
+                                        letterSpacing: 0.0,
                                       ),
                                 ),
                               ),
@@ -569,6 +601,7 @@ class _AddMeetRoomInformationPageWidgetState
                                     List<ProvinceRecord>
                                         provinceProvinceRecordList =
                                         snapshot.data!;
+
                                     return FlutterFlowDropDown<String>(
                                       controller:
                                           _model.provinceValueController ??=
@@ -583,12 +616,11 @@ class _AddMeetRoomInformationPageWidgetState
                                             await actions.getProvinceID(
                                           _model.provinceValue,
                                         );
-                                        setState(() {
-                                          FFAppState().provinceSelected =
-                                              _model.provinceID!;
-                                          FFAppState().amphureSelected = 0;
-                                          FFAppState().tambonSelected = 0;
-                                        });
+                                        FFAppState().provinceSelected =
+                                            _model.provinceID!;
+                                        FFAppState().amphureSelected = 0;
+                                        FFAppState().tambonSelected = 0;
+                                        setState(() {});
                                         FFAppState().provinceSelectedValue =
                                             _model.provinceValue!;
                                         FFAppState().amphurSelectedValue = '';
@@ -599,12 +631,24 @@ class _AddMeetRoomInformationPageWidgetState
                                       width: double.infinity,
                                       searchHintTextStyle:
                                           FlutterFlowTheme.of(context)
-                                              .labelMedium,
+                                              .labelMedium
+                                              .override(
+                                                fontFamily: 'Kanit',
+                                                letterSpacing: 0.0,
+                                              ),
                                       searchTextStyle:
                                           FlutterFlowTheme.of(context)
-                                              .bodyMedium,
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Kanit',
+                                                letterSpacing: 0.0,
+                                              ),
                                       textStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium,
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Kanit',
+                                            letterSpacing: 0.0,
+                                          ),
                                       hintText: 'เลือกจังหวัด',
                                       searchHintText: 'Search for an item...',
                                       icon: Icon(
@@ -662,6 +706,7 @@ class _AddMeetRoomInformationPageWidgetState
                                       List<AmphureRecord>
                                           amphureAmphureRecordList =
                                           snapshot.data!;
+
                                       return FlutterFlowDropDown<String>(
                                         controller: _model
                                                 .amphureValueController ??=
@@ -677,11 +722,10 @@ class _AddMeetRoomInformationPageWidgetState
                                             _model.amphureValue,
                                             FFAppState().provinceSelected,
                                           );
-                                          setState(() {
-                                            FFAppState().amphureSelected =
-                                                _model.amphureID!;
-                                            FFAppState().tambonSelected = 0;
-                                          });
+                                          FFAppState().amphureSelected =
+                                              _model.amphureID!;
+                                          FFAppState().tambonSelected = 0;
+                                          setState(() {});
                                           FFAppState().amphurSelectedValue =
                                               _model.amphureValue!;
                                           FFAppState().tambonSelectedValue = '';
@@ -691,12 +735,24 @@ class _AddMeetRoomInformationPageWidgetState
                                         width: double.infinity,
                                         searchHintTextStyle:
                                             FlutterFlowTheme.of(context)
-                                                .labelMedium,
+                                                .labelMedium
+                                                .override(
+                                                  fontFamily: 'Kanit',
+                                                  letterSpacing: 0.0,
+                                                ),
                                         searchTextStyle:
                                             FlutterFlowTheme.of(context)
-                                                .bodyMedium,
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Kanit',
+                                                  letterSpacing: 0.0,
+                                                ),
                                         textStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium,
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Kanit',
+                                              letterSpacing: 0.0,
+                                            ),
                                         hintText: 'เลือกอำเภอ',
                                         searchHintText: 'Search for an item...',
                                         icon: Icon(
@@ -754,6 +810,7 @@ class _AddMeetRoomInformationPageWidgetState
                                       List<TambonRecord>
                                           tambonTambonRecordList =
                                           snapshot.data!;
+
                                       return FlutterFlowDropDown<String>(
                                         controller: _model
                                                 .tambonValueController ??=
@@ -770,12 +827,24 @@ class _AddMeetRoomInformationPageWidgetState
                                         width: double.infinity,
                                         searchHintTextStyle:
                                             FlutterFlowTheme.of(context)
-                                                .labelMedium,
+                                                .labelMedium
+                                                .override(
+                                                  fontFamily: 'Kanit',
+                                                  letterSpacing: 0.0,
+                                                ),
                                         searchTextStyle:
                                             FlutterFlowTheme.of(context)
-                                                .bodyMedium,
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Kanit',
+                                                  letterSpacing: 0.0,
+                                                ),
                                         textStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium,
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Kanit',
+                                              letterSpacing: 0.0,
+                                            ),
                                         hintText: 'เลือกตำบล',
                                         searchHintText: 'Search for an item...',
                                         icon: Icon(
@@ -832,6 +901,7 @@ class _AddMeetRoomInformationPageWidgetState
                                                 .override(
                                                   fontFamily: 'Kanit',
                                                   color: Colors.white,
+                                                  letterSpacing: 0.0,
                                                 ),
                                           ),
                                           duration:
@@ -860,6 +930,7 @@ class _AddMeetRoomInformationPageWidgetState
                                         .override(
                                           fontFamily: 'Kanit',
                                           color: Colors.white,
+                                          letterSpacing: 0.0,
                                         ),
                                     elevation: 3.0,
                                     borderSide: BorderSide(
@@ -885,6 +956,7 @@ class _AddMeetRoomInformationPageWidgetState
                                       .override(
                                         fontFamily: 'Kanit',
                                         fontSize: 18.0,
+                                        letterSpacing: 0.0,
                                       ),
                                 ),
                               ),
@@ -913,6 +985,7 @@ class _AddMeetRoomInformationPageWidgetState
                                     List<ToolsListRecord>
                                         choiceChipsToolsListRecordList =
                                         snapshot.data!;
+
                                     return FlutterFlowChoiceChips(
                                       options: choiceChipsToolsListRecordList
                                           .map((e) => e.name)
@@ -931,6 +1004,7 @@ class _AddMeetRoomInformationPageWidgetState
                                               fontFamily: 'Kanit',
                                               color: Colors.white,
                                               fontSize: 16.0,
+                                              letterSpacing: 0.0,
                                             ),
                                         iconColor: Colors.white,
                                         iconSize: 18.0,
@@ -951,6 +1025,7 @@ class _AddMeetRoomInformationPageWidgetState
                                               fontFamily: 'Kanit',
                                               color: Colors.white,
                                               fontSize: 16.0,
+                                              letterSpacing: 0.0,
                                             ),
                                         iconColor: FlutterFlowTheme.of(context)
                                             .secondaryText,
@@ -1020,13 +1095,13 @@ class _AddMeetRoomInformationPageWidgetState
                                                       currentUserReference,
                                                   status: 1,
                                                   name: _model
-                                                      .nameController.text,
+                                                      .nameTextController.text,
                                                   detail: _model
-                                                      .detailController.text,
-                                                  supportTotal: int.tryParse(
-                                                      _model
-                                                          .supportTotalController
-                                                          .text),
+                                                      .detailTextController
+                                                      .text,
+                                                  supportTotal: int.tryParse(_model
+                                                      .supportTotalTextController
+                                                      .text),
                                                   province: FFAppState()
                                                       .provinceSelectedValue,
                                                   amphur: FFAppState()
@@ -1070,6 +1145,7 @@ class _AddMeetRoomInformationPageWidgetState
                                                         .override(
                                                           fontFamily: 'Kanit',
                                                           color: Colors.white,
+                                                          letterSpacing: 0.0,
                                                         ),
                                                   ),
                                                   duration: Duration(
@@ -1093,6 +1169,7 @@ class _AddMeetRoomInformationPageWidgetState
                                                         .override(
                                                           fontFamily: 'Kanit',
                                                           color: Colors.white,
+                                                          letterSpacing: 0.0,
                                                         ),
                                                   ),
                                                   duration: Duration(
@@ -1116,6 +1193,7 @@ class _AddMeetRoomInformationPageWidgetState
                                                       .override(
                                                         fontFamily: 'Kanit',
                                                         color: Colors.white,
+                                                        letterSpacing: 0.0,
                                                       ),
                                                 ),
                                                 duration: Duration(
@@ -1138,6 +1216,7 @@ class _AddMeetRoomInformationPageWidgetState
                                                         .override(
                                                           fontFamily: 'Kanit',
                                                           color: Colors.white,
+                                                          letterSpacing: 0.0,
                                                         ),
                                               ),
                                               duration:
@@ -1160,6 +1239,7 @@ class _AddMeetRoomInformationPageWidgetState
                                                       .override(
                                                         fontFamily: 'Kanit',
                                                         color: Colors.white,
+                                                        letterSpacing: 0.0,
                                                       ),
                                             ),
                                             duration:
@@ -1181,6 +1261,7 @@ class _AddMeetRoomInformationPageWidgetState
                                                 .override(
                                                   fontFamily: 'Kanit',
                                                   color: Colors.white,
+                                                  letterSpacing: 0.0,
                                                 ),
                                           ),
                                           duration:
@@ -1205,6 +1286,7 @@ class _AddMeetRoomInformationPageWidgetState
                                         .override(
                                           fontFamily: 'Kanit',
                                           color: Colors.white,
+                                          letterSpacing: 0.0,
                                         ),
                                     elevation: 3.0,
                                     borderSide: BorderSide(

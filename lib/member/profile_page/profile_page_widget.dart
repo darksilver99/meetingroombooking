@@ -37,14 +37,16 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
       FFAppState().userRefBeforDelete = null;
     });
 
-    _model.fullnameController ??= TextEditingController(
+    _model.fullnameTextController ??= TextEditingController(
         text: valueOrDefault(currentUserDocument?.fullname, ''));
     _model.fullnameFocusNode ??= FocusNode();
 
-    _model.phoneController ??= TextEditingController(text: currentPhoneNumber);
+    _model.phoneTextController ??=
+        TextEditingController(text: currentPhoneNumber);
     _model.phoneFocusNode ??= FocusNode();
 
-    _model.emailController ??= TextEditingController(text: currentUserEmail);
+    _model.emailTextController ??=
+        TextEditingController(text: currentUserEmail);
     _model.emailFocusNode ??= FocusNode();
   }
 
@@ -57,21 +59,10 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -84,6 +75,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                   fontFamily: 'Kanit',
                   color: Colors.white,
                   fontSize: 22.0,
+                  letterSpacing: 0.0,
                 ),
           ),
           actions: [],
@@ -185,6 +177,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                             fontFamily: 'Kanit',
                                             color: FlutterFlowTheme.of(context)
                                                 .primary,
+                                            letterSpacing: 0.0,
                                             decoration:
                                                 TextDecoration.underline,
                                           ),
@@ -197,25 +190,33 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                     0.0, 8.0, 0.0, 0.0),
                                 child: AuthUserStreamWidget(
                                   builder: (context) => TextFormField(
-                                    controller: _model.fullnameController,
+                                    controller: _model.fullnameTextController,
                                     focusNode: _model.fullnameFocusNode,
                                     onChanged: (_) => EasyDebounce.debounce(
-                                      '_model.fullnameController',
+                                      '_model.fullnameTextController',
                                       Duration(milliseconds: 500),
                                       () async {
-                                        setState(() {
-                                          FFAppState().isChangeProfileDetail =
-                                              true;
-                                        });
+                                        FFAppState().isChangeProfileDetail =
+                                            true;
+                                        setState(() {});
                                       },
                                     ),
+                                    autofocus: false,
                                     obscureText: false,
                                     decoration: InputDecoration(
                                       labelText: 'ชื่อ-สกุล',
                                       labelStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium,
+                                          .labelMedium
+                                          .override(
+                                            fontFamily: 'Kanit',
+                                            letterSpacing: 0.0,
+                                          ),
                                       hintStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium,
+                                          .labelMedium
+                                          .override(
+                                            fontFamily: 'Kanit',
+                                            letterSpacing: 0.0,
+                                          ),
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                           color: FlutterFlowTheme.of(context)
@@ -253,10 +254,14 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                             BorderRadius.circular(8.0),
                                       ),
                                     ),
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyMedium,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          letterSpacing: 0.0,
+                                        ),
                                     validator: _model
-                                        .fullnameControllerValidator
+                                        .fullnameTextControllerValidator
                                         .asValidator(context),
                                   ),
                                 ),
@@ -266,25 +271,33 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                     0.0, 16.0, 0.0, 0.0),
                                 child: AuthUserStreamWidget(
                                   builder: (context) => TextFormField(
-                                    controller: _model.phoneController,
+                                    controller: _model.phoneTextController,
                                     focusNode: _model.phoneFocusNode,
                                     onChanged: (_) => EasyDebounce.debounce(
-                                      '_model.phoneController',
+                                      '_model.phoneTextController',
                                       Duration(milliseconds: 500),
                                       () async {
-                                        setState(() {
-                                          FFAppState().isChangeProfileDetail =
-                                              true;
-                                        });
+                                        FFAppState().isChangeProfileDetail =
+                                            true;
+                                        setState(() {});
                                       },
                                     ),
+                                    autofocus: false,
                                     obscureText: false,
                                     decoration: InputDecoration(
                                       labelText: 'เบอร์โทร',
                                       labelStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium,
+                                          .labelMedium
+                                          .override(
+                                            fontFamily: 'Kanit',
+                                            letterSpacing: 0.0,
+                                          ),
                                       hintStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium,
+                                          .labelMedium
+                                          .override(
+                                            fontFamily: 'Kanit',
+                                            letterSpacing: 0.0,
+                                          ),
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                           color:
@@ -322,10 +335,15 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                             BorderRadius.circular(8.0),
                                       ),
                                     ),
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyMedium,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          letterSpacing: 0.0,
+                                        ),
                                     keyboardType: TextInputType.phone,
-                                    validator: _model.phoneControllerValidator
+                                    validator: _model
+                                        .phoneTextControllerValidator
                                         .asValidator(context),
                                     inputFormatters: [
                                       FilteringTextInputFormatter.allow(
@@ -338,16 +356,25 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 16.0, 0.0, 16.0),
                                 child: TextFormField(
-                                  controller: _model.emailController,
+                                  controller: _model.emailTextController,
                                   focusNode: _model.emailFocusNode,
+                                  autofocus: false,
                                   readOnly: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'อีเมล์',
                                     labelStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          letterSpacing: 0.0,
+                                        ),
                                     hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          letterSpacing: 0.0,
+                                        ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color:
@@ -384,10 +411,14 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                     fillColor:
                                         FlutterFlowTheme.of(context).alternate,
                                   ),
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        letterSpacing: 0.0,
+                                      ),
                                   keyboardType: TextInputType.emailAddress,
-                                  validator: _model.emailControllerValidator
+                                  validator: _model.emailTextControllerValidator
                                       .asValidator(context),
                                 ),
                               ),
@@ -406,9 +437,9 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                       await currentUserReference!
                                           .update(createUsersRecordData(
                                         fullname:
-                                            _model.fullnameController.text,
+                                            _model.fullnameTextController.text,
                                         phoneNumber:
-                                            _model.phoneController.text,
+                                            _model.phoneTextController.text,
                                         updateDate: getCurrentTimestamp,
                                         updateBy: currentUserReference,
                                       ));
@@ -422,6 +453,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                                 .override(
                                                   fontFamily: 'Kanit',
                                                   color: Colors.white,
+                                                  letterSpacing: 0.0,
                                                 ),
                                           ),
                                           duration:
@@ -431,10 +463,9 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                                   .secondary,
                                         ),
                                       );
-                                      setState(() {
-                                        FFAppState().isChangeProfileDetail =
-                                            false;
-                                      });
+                                      FFAppState().isChangeProfileDetail =
+                                          false;
+                                      setState(() {});
                                     },
                                     text: 'บันทึกข้อมูล',
                                     options: FFButtonOptions(
@@ -451,6 +482,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                           .override(
                                             fontFamily: 'Kanit',
                                             color: Colors.white,
+                                            letterSpacing: 0.0,
                                           ),
                                       elevation: 3.0,
                                       borderSide: BorderSide(
@@ -511,6 +543,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                                 .override(
                                                   fontFamily: 'Kanit',
                                                   color: Colors.white,
+                                                  letterSpacing: 0.0,
                                                 ),
                                           ),
                                           duration:
@@ -544,6 +577,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                                         .override(
                                           fontFamily: 'Kanit',
                                           color: Colors.white,
+                                          letterSpacing: 0.0,
                                         ),
                                     elevation: 3.0,
                                     borderSide: BorderSide(
@@ -580,6 +614,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                               fontFamily: 'Kanit',
                               color: FlutterFlowTheme.of(context).primary,
                               fontSize: 16.0,
+                              letterSpacing: 0.0,
                               decoration: TextDecoration.underline,
                             ),
                       ),
@@ -596,6 +631,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Kanit',
                             color: FlutterFlowTheme.of(context).secondaryText,
+                            letterSpacing: 0.0,
                           ),
                     ),
                   ),

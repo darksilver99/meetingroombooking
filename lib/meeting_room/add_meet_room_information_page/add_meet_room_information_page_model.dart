@@ -28,9 +28,9 @@ class AddMeetRoomInformationPageModel
   final formKey = GlobalKey<FormState>();
   // State field(s) for name widget.
   FocusNode? nameFocusNode;
-  TextEditingController? nameController;
-  String? Function(BuildContext, String?)? nameControllerValidator;
-  String? _nameControllerValidator(BuildContext context, String? val) {
+  TextEditingController? nameTextController;
+  String? Function(BuildContext, String?)? nameTextControllerValidator;
+  String? _nameTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
     }
@@ -40,9 +40,10 @@ class AddMeetRoomInformationPageModel
 
   // State field(s) for support_total widget.
   FocusNode? supportTotalFocusNode;
-  TextEditingController? supportTotalController;
-  String? Function(BuildContext, String?)? supportTotalControllerValidator;
-  String? _supportTotalControllerValidator(BuildContext context, String? val) {
+  TextEditingController? supportTotalTextController;
+  String? Function(BuildContext, String?)? supportTotalTextControllerValidator;
+  String? _supportTotalTextControllerValidator(
+      BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
     }
@@ -52,8 +53,8 @@ class AddMeetRoomInformationPageModel
 
   // State field(s) for detail widget.
   FocusNode? detailFocusNode;
-  TextEditingController? detailController;
-  String? Function(BuildContext, String?)? detailControllerValidator;
+  TextEditingController? detailTextController;
+  String? Function(BuildContext, String?)? detailTextControllerValidator;
   bool isDataUploading = false;
   FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));
@@ -78,28 +79,21 @@ class AddMeetRoomInformationPageModel
   set choiceChipsValues(List<String>? val) =>
       choiceChipsValueController?.value = val;
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {
-    nameControllerValidator = _nameControllerValidator;
-    supportTotalControllerValidator = _supportTotalControllerValidator;
+    nameTextControllerValidator = _nameTextControllerValidator;
+    supportTotalTextControllerValidator = _supportTotalTextControllerValidator;
   }
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     nameFocusNode?.dispose();
-    nameController?.dispose();
+    nameTextController?.dispose();
 
     supportTotalFocusNode?.dispose();
-    supportTotalController?.dispose();
+    supportTotalTextController?.dispose();
 
     detailFocusNode?.dispose();
-    detailController?.dispose();
+    detailTextController?.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }
