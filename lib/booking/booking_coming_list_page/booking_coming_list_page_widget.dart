@@ -6,7 +6,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
@@ -48,21 +47,8 @@ class _BookingComingListPageWidgetState
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -75,6 +61,7 @@ class _BookingComingListPageWidgetState
                   fontFamily: 'Kanit',
                   color: Colors.white,
                   fontSize: 22.0,
+                  letterSpacing: 0.0,
                 ),
           ),
           actions: [],
@@ -95,7 +82,11 @@ class _BookingComingListPageWidgetState
                         labelColor: FlutterFlowTheme.of(context).primaryText,
                         unselectedLabelColor:
                             FlutterFlowTheme.of(context).secondaryText,
-                        labelStyle: FlutterFlowTheme.of(context).titleMedium,
+                        labelStyle:
+                            FlutterFlowTheme.of(context).titleMedium.override(
+                                  fontFamily: 'Kanit',
+                                  letterSpacing: 0.0,
+                                ),
                         unselectedLabelStyle: TextStyle(),
                         indicatorColor: FlutterFlowTheme.of(context).primary,
                         padding: EdgeInsets.all(4.0),
@@ -158,6 +149,7 @@ class _BookingComingListPageWidgetState
                               if (listViewBookingListRecordList.isEmpty) {
                                 return NoDataWidget();
                               }
+
                               return ListView.builder(
                                 padding: EdgeInsets.zero,
                                 scrollDirection: Axis.vertical,
@@ -245,15 +237,23 @@ class _BookingComingListPageWidgetState
                                                               ),
                                                             );
                                                           }
+
                                                           final textMeetingRoomListRecord =
                                                               snapshot.data!;
+
                                                           return Text(
                                                             textMeetingRoomListRecord
                                                                 .name,
                                                             maxLines: 1,
                                                             style: FlutterFlowTheme
                                                                     .of(context)
-                                                                .bodyMedium,
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Kanit',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
                                                           );
                                                         },
                                                       ),
@@ -277,6 +277,7 @@ class _BookingComingListPageWidgetState
                                                                 : FlutterFlowTheme.of(
                                                                         context)
                                                                     .success,
+                                                            letterSpacing: 0.0,
                                                           ),
                                                     ),
                                                   ],
@@ -288,7 +289,7 @@ class _BookingComingListPageWidgetState
                                                       MainAxisAlignment.end,
                                                   children: [
                                                     Text(
-                                                      'วันที่จอง ${dateTimeFormat('d/M/y', listViewBookingListRecord.bookingDate)} ${listViewBookingListRecord.bookingStartTime}-${listViewBookingListRecord.bookingEndTime}',
+                                                      'วันที่จอง ${dateTimeFormat("d/M/y", listViewBookingListRecord.bookingDate)} ${listViewBookingListRecord.bookingStartTime}-${listViewBookingListRecord.bookingEndTime}',
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
@@ -298,6 +299,7 @@ class _BookingComingListPageWidgetState
                                                                     .of(context)
                                                                 .secondaryText,
                                                             fontSize: 12.0,
+                                                            letterSpacing: 0.0,
                                                             fontWeight:
                                                                 FontWeight.w200,
                                                           ),
@@ -445,15 +447,23 @@ class _BookingComingListPageWidgetState
                                                             ),
                                                           );
                                                         }
+
                                                         final textMeetingRoomListRecord =
                                                             snapshot.data!;
+
                                                         return Text(
                                                           textMeetingRoomListRecord
                                                               .name,
                                                           maxLines: 1,
                                                           style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .bodyMedium,
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Kanit',
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
                                                         );
                                                       },
                                                     ),
@@ -488,6 +498,8 @@ class _BookingComingListPageWidgetState
                                                                       .success;
                                                                 }
                                                               }(),
+                                                              letterSpacing:
+                                                                  0.0,
                                                             ),
                                                   ),
                                                 ],
@@ -498,7 +510,7 @@ class _BookingComingListPageWidgetState
                                                     MainAxisAlignment.end,
                                                 children: [
                                                   Text(
-                                                    'วันที่จอง ${dateTimeFormat('d/M/y', listViewBookingListRecord.bookingDate)} ${listViewBookingListRecord.bookingStartTime}-${listViewBookingListRecord.bookingEndTime}',
+                                                    'วันที่จอง ${dateTimeFormat("d/M/y", listViewBookingListRecord.bookingDate)} ${listViewBookingListRecord.bookingStartTime}-${listViewBookingListRecord.bookingEndTime}',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
@@ -508,6 +520,7 @@ class _BookingComingListPageWidgetState
                                                                   .of(context)
                                                               .secondaryText,
                                                           fontSize: 12.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w200,
                                                         ),

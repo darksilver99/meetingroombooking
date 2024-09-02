@@ -2,7 +2,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'app_update_dialog_view_model.dart';
@@ -70,6 +69,7 @@ class _AppUpdateDialogViewWidgetState extends State<AppUpdateDialogViewWidget> {
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Kanit',
                           fontSize: 20.0,
+                          letterSpacing: 0.0,
                         ),
                   ),
                 ),
@@ -95,6 +95,7 @@ class _AppUpdateDialogViewWidgetState extends State<AppUpdateDialogViewWidget> {
                           FlutterFlowTheme.of(context).titleSmall.override(
                                 fontFamily: 'Kanit',
                                 color: Colors.white,
+                                letterSpacing: 0.0,
                               ),
                       elevation: 3.0,
                       borderSide: BorderSide(

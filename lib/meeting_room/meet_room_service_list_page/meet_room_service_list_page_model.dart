@@ -9,7 +9,6 @@ import 'meet_room_service_list_page_widget.dart'
     show MeetRoomServiceListPageWidget;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
@@ -22,17 +21,9 @@ class MeetRoomServiceListPageModel
   // Stores action output result for [Custom Action - checkMaximumCreateMeetingRoom] action in FloatingActionButton widget.
   bool? isCanCreateMoreRoom;
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
+  void dispose() {}
 }

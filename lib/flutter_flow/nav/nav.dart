@@ -128,8 +128,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 ['meeting_room_list'], MeetingRoomListRecord.fromSnapshot),
           },
           builder: (context, params) => MeetDetailPageWidget(
-            meetingRoomParamameter:
-                params.getParam('meetingRoomParamameter', ParamType.Document),
+            meetingRoomParamameter: params.getParam(
+              'meetingRoomParamameter',
+              ParamType.Document,
+            ),
           ),
         ),
         FFRoute(
@@ -156,9 +158,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'MeetRoomListProvincePage',
           path: '/meetRoomListProvincePage',
           builder: (context, params) => MeetRoomListProvincePageWidget(
-            province: params.getParam('province', ParamType.String),
-            amphur: params.getParam('amphur', ParamType.String),
-            tambon: params.getParam('tambon', ParamType.String),
+            province: params.getParam(
+              'province',
+              ParamType.String,
+            ),
+            amphur: params.getParam(
+              'amphur',
+              ParamType.String,
+            ),
+            tambon: params.getParam(
+              'tambon',
+              ParamType.String,
+            ),
           ),
         ),
         FFRoute(
@@ -170,8 +181,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'AddBookingPage',
           path: '/addBookingPage',
           builder: (context, params) => AddBookingPageWidget(
-            dateSeleceteParameter:
-                params.getParam('dateSeleceteParameter', ParamType.DateTime),
+            dateSeleceteParameter: params.getParam(
+              'dateSeleceteParameter',
+              ParamType.DateTime,
+            ),
           ),
         ),
         FFRoute(
@@ -192,34 +205,56 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 getDoc(['booking_list'], BookingListRecord.fromSnapshot),
           },
           builder: (context, params) => BookingDetailPageWidget(
-            bookingDetailParameter:
-                params.getParam('bookingDetailParameter', ParamType.Document),
+            bookingDetailParameter: params.getParam(
+              'bookingDetailParameter',
+              ParamType.Document,
+            ),
           ),
         ),
         FFRoute(
           name: 'MeetRoomListAmphurPage',
           path: '/meetRoomListAmphurPage',
           builder: (context, params) => MeetRoomListAmphurPageWidget(
-            province: params.getParam('province', ParamType.String),
-            amphur: params.getParam('amphur', ParamType.String),
-            tambon: params.getParam('tambon', ParamType.String),
+            province: params.getParam(
+              'province',
+              ParamType.String,
+            ),
+            amphur: params.getParam(
+              'amphur',
+              ParamType.String,
+            ),
+            tambon: params.getParam(
+              'tambon',
+              ParamType.String,
+            ),
           ),
         ),
         FFRoute(
           name: 'MeetRoomListTambonPage',
           path: '/meetRoomListTambonPage',
           builder: (context, params) => MeetRoomListTambonPageWidget(
-            province: params.getParam('province', ParamType.String),
-            amphur: params.getParam('amphur', ParamType.String),
-            tambon: params.getParam('tambon', ParamType.String),
+            province: params.getParam(
+              'province',
+              ParamType.String,
+            ),
+            amphur: params.getParam(
+              'amphur',
+              ParamType.String,
+            ),
+            tambon: params.getParam(
+              'tambon',
+              ParamType.String,
+            ),
           ),
         ),
         FFRoute(
           name: 'MapPickerPage',
           path: '/mapPickerPage',
           builder: (context, params) => MapPickerCustomPageWidget(
-            currentLocation:
-                params.getParam('currentLocation', ParamType.LatLng),
+            currentLocation: params.getParam(
+              'currentLocation',
+              ParamType.LatLng,
+            ),
           ),
         ),
         FFRoute(
@@ -230,8 +265,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 ['meeting_room_list'], MeetingRoomListRecord.fromSnapshot),
           },
           builder: (context, params) => EditMeetRoomInformationPageWidget(
-            meetRoomParameter:
-                params.getParam('meetRoomParameter', ParamType.Document),
+            meetRoomParameter: params.getParam(
+              'meetRoomParameter',
+              ParamType.Document,
+            ),
           ),
         ),
         FFRoute(
@@ -253,8 +290,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'WebViewPage',
           path: '/webViewPage',
           builder: (context, params) => WebViewPageWidget(
-            title: params.getParam('title', ParamType.String),
-            url: params.getParam('url', ParamType.String),
+            title: params.getParam(
+              'title',
+              ParamType.String,
+            ),
+            url: params.getParam(
+              'url',
+              ParamType.String,
+            ),
           ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
@@ -332,7 +375,7 @@ extension _GoRouterStateExtensions on GoRouterState {
       extra != null ? extra as Map<String, dynamic> : {};
   Map<String, dynamic> get allParams => <String, dynamic>{}
     ..addAll(pathParameters)
-    ..addAll(queryParameters)
+    ..addAll(uri.queryParameters)
     ..addAll(extraMap);
   TransitionInfo get transitionInfo => extraMap.containsKey(kTransitionInfoKey)
       ? extraMap[kTransitionInfoKey] as TransitionInfo
@@ -351,7 +394,7 @@ class FFParameters {
   // present is the special extra parameter reserved for the transition info.
   bool get isEmpty =>
       state.allParams.isEmpty ||
-      (state.extraMap.length == 1 &&
+      (state.allParams.length == 1 &&
           state.extraMap.containsKey(kTransitionInfoKey));
   bool isAsyncParam(MapEntry<String, dynamic> param) =>
       asyncParams.containsKey(param.key) && param.value is String;
@@ -372,10 +415,10 @@ class FFParameters {
 
   dynamic getParam<T>(
     String paramName,
-    ParamType type, [
+    ParamType type, {
     bool isList = false,
     List<String>? collectionNamePath,
-  ]) {
+  }) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
     }
@@ -388,8 +431,12 @@ class FFParameters {
       return param;
     }
     // Return serialized value.
-    return deserializeParam<T>(param, type, isList,
-        collectionNamePath: collectionNamePath);
+    return deserializeParam<T>(
+      param,
+      type,
+      isList,
+      collectionNamePath: collectionNamePath,
+    );
   }
 }
 
@@ -421,12 +468,13 @@ class FFRoute {
           }
 
           if (requireAuth && !appStateNotifier.loggedIn) {
-            appStateNotifier.setRedirectLocationIfUnset(state.location);
+            appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
             return '/loginPage';
           }
           return null;
         },
         pageBuilder: (context, state) {
+          fixStatusBarOniOS16AndBelow(context);
           final ffParams = FFParameters(state, asyncParams);
           final page = ffParams.hasFutures
               ? FutureBuilder(
@@ -506,8 +554,8 @@ class _RouteErrorBuilderState extends State<_RouteErrorBuilder> {
   void initState() {
     super.initState();
     // Handle erroneous links from Firebase Dynamic Links.
-    if (widget.state.location.startsWith('/link') &&
-        widget.state.location.contains('request_ip_version')) {
+    if (widget.state.uri.toString().startsWith('/link') &&
+        widget.state.uri.toString().contains('request_ip_version')) {
       SchedulerBinding.instance.addPostFrameCallback((_) => context.go('/'));
     }
   }
@@ -524,7 +572,7 @@ class RootPageContext {
   static bool isInactiveRootPage(BuildContext context) {
     final rootPageContext = context.read<RootPageContext?>();
     final isRootPage = rootPageContext?.isRootPage ?? false;
-    final location = GoRouter.of(context).location;
+    final location = GoRouterState.of(context).uri.toString();
     return isRootPage &&
         location != '/' &&
         location != rootPageContext?.errorRoute;
@@ -534,4 +582,14 @@ class RootPageContext {
         value: RootPageContext(true, errorRoute),
         child: child,
       );
+}
+
+extension GoRouterLocationExtension on GoRouter {
+  String getCurrentLocation() {
+    final RouteMatch lastMatch = routerDelegate.currentConfiguration.last;
+    final RouteMatchList matchList = lastMatch is ImperativeRouteMatch
+        ? lastMatch.matches
+        : routerDelegate.currentConfiguration;
+    return matchList.uri.toString();
+  }
 }

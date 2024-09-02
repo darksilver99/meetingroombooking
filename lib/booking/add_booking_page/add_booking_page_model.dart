@@ -8,7 +8,6 @@ import 'add_booking_page_widget.dart' show AddBookingPageWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
@@ -20,9 +19,9 @@ class AddBookingPageModel extends FlutterFlowModel<AddBookingPageWidget> {
   final formKey = GlobalKey<FormState>();
   // State field(s) for startTime widget.
   FocusNode? startTimeFocusNode;
-  TextEditingController? startTimeController;
-  String? Function(BuildContext, String?)? startTimeControllerValidator;
-  String? _startTimeControllerValidator(BuildContext context, String? val) {
+  TextEditingController? startTimeTextController;
+  String? Function(BuildContext, String?)? startTimeTextControllerValidator;
+  String? _startTimeTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
     }
@@ -33,9 +32,9 @@ class AddBookingPageModel extends FlutterFlowModel<AddBookingPageWidget> {
   DateTime? datePicked1;
   // State field(s) for endTime widget.
   FocusNode? endTimeFocusNode;
-  TextEditingController? endTimeController;
-  String? Function(BuildContext, String?)? endTimeControllerValidator;
-  String? _endTimeControllerValidator(BuildContext context, String? val) {
+  TextEditingController? endTimeTextController;
+  String? Function(BuildContext, String?)? endTimeTextControllerValidator;
+  String? _endTimeTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
     }
@@ -46,31 +45,24 @@ class AddBookingPageModel extends FlutterFlowModel<AddBookingPageWidget> {
   DateTime? datePicked2;
   // State field(s) for remarkUsers widget.
   FocusNode? remarkUsersFocusNode;
-  TextEditingController? remarkUsersController;
-  String? Function(BuildContext, String?)? remarkUsersControllerValidator;
-
-  /// Initialization and disposal methods.
+  TextEditingController? remarkUsersTextController;
+  String? Function(BuildContext, String?)? remarkUsersTextControllerValidator;
 
   @override
   void initState(BuildContext context) {
-    startTimeControllerValidator = _startTimeControllerValidator;
-    endTimeControllerValidator = _endTimeControllerValidator;
+    startTimeTextControllerValidator = _startTimeTextControllerValidator;
+    endTimeTextControllerValidator = _endTimeTextControllerValidator;
   }
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     startTimeFocusNode?.dispose();
-    startTimeController?.dispose();
+    startTimeTextController?.dispose();
 
     endTimeFocusNode?.dispose();
-    endTimeController?.dispose();
+    endTimeTextController?.dispose();
 
     remarkUsersFocusNode?.dispose();
-    remarkUsersController?.dispose();
+    remarkUsersTextController?.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

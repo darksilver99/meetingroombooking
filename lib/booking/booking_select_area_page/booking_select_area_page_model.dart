@@ -9,7 +9,6 @@ import '/custom_code/actions/index.dart' as actions;
 import 'booking_select_area_page_widget.dart' show BookingSelectAreaPageWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -32,17 +31,9 @@ class BookingSelectAreaPageModel
   String? tambonValue;
   FormFieldController<String>? tambonValueController;
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
+  void dispose() {}
 }

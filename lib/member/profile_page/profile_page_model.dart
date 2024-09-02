@@ -21,9 +21,9 @@ class ProfilePageModel extends FlutterFlowModel<ProfilePageWidget> {
   final formKey = GlobalKey<FormState>();
   // State field(s) for fullname widget.
   FocusNode? fullnameFocusNode;
-  TextEditingController? fullnameController;
-  String? Function(BuildContext, String?)? fullnameControllerValidator;
-  String? _fullnameControllerValidator(BuildContext context, String? val) {
+  TextEditingController? fullnameTextController;
+  String? Function(BuildContext, String?)? fullnameTextControllerValidator;
+  String? _fullnameTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
     }
@@ -33,9 +33,9 @@ class ProfilePageModel extends FlutterFlowModel<ProfilePageWidget> {
 
   // State field(s) for phone widget.
   FocusNode? phoneFocusNode;
-  TextEditingController? phoneController;
-  String? Function(BuildContext, String?)? phoneControllerValidator;
-  String? _phoneControllerValidator(BuildContext context, String? val) {
+  TextEditingController? phoneTextController;
+  String? Function(BuildContext, String?)? phoneTextControllerValidator;
+  String? _phoneTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Field is required';
     }
@@ -45,31 +45,24 @@ class ProfilePageModel extends FlutterFlowModel<ProfilePageWidget> {
 
   // State field(s) for email widget.
   FocusNode? emailFocusNode;
-  TextEditingController? emailController;
-  String? Function(BuildContext, String?)? emailControllerValidator;
-
-  /// Initialization and disposal methods.
+  TextEditingController? emailTextController;
+  String? Function(BuildContext, String?)? emailTextControllerValidator;
 
   @override
   void initState(BuildContext context) {
-    fullnameControllerValidator = _fullnameControllerValidator;
-    phoneControllerValidator = _phoneControllerValidator;
+    fullnameTextControllerValidator = _fullnameTextControllerValidator;
+    phoneTextControllerValidator = _phoneTextControllerValidator;
   }
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     fullnameFocusNode?.dispose();
-    fullnameController?.dispose();
+    fullnameTextController?.dispose();
 
     phoneFocusNode?.dispose();
-    phoneController?.dispose();
+    phoneTextController?.dispose();
 
     emailFocusNode?.dispose();
-    emailController?.dispose();
+    emailTextController?.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

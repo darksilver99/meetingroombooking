@@ -7,7 +7,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
@@ -41,21 +40,8 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -68,6 +54,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                   fontFamily: 'Kanit',
                   color: Colors.white,
                   fontSize: 22.0,
+                  letterSpacing: 0.0,
                 ),
           ),
           actions: [],
@@ -104,6 +91,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                               fontFamily: 'Kanit',
                               color: FlutterFlowTheme.of(context).error,
                               fontSize: 17.0,
+                              letterSpacing: 0.0,
                               fontWeight: FontWeight.w500,
                             ),
                       ),
@@ -123,6 +111,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Kanit',
                               fontSize: 18.0,
+                              letterSpacing: 0.0,
                               fontWeight: FontWeight.w500,
                             ),
                       ),
@@ -142,6 +131,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                   .override(
                                     fontFamily: 'Kanit',
                                     fontSize: 16.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.normal,
                                   ),
                             ),
@@ -164,6 +154,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                   .override(
                                     fontFamily: 'Kanit',
                                     fontSize: 16.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.normal,
                                   ),
                             ),
@@ -186,6 +177,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                   .override(
                                     fontFamily: 'Kanit',
                                     fontSize: 16.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.normal,
                                   ),
                             ),
@@ -209,6 +201,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                               fontFamily: 'Kanit',
                               color: FlutterFlowTheme.of(context).secondaryText,
                               fontSize: 22.0,
+                              letterSpacing: 0.0,
                               fontWeight: FontWeight.w600,
                               decoration: TextDecoration.lineThrough,
                             ),
@@ -224,6 +217,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                               fontFamily: 'Kanit',
                               color: FlutterFlowTheme.of(context).error,
                               fontSize: 32.0,
+                              letterSpacing: 0.0,
                               fontWeight: FontWeight.w600,
                             ),
                       ),
@@ -281,7 +275,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                               child: AlertDialog(
                                 title: Text('ชำระเงินเสร็จสิ้น'),
                                 content: Text(
-                                    'ท่านสามารถใช้บริการได้ถึงวันที่ ${dateTimeFormat('d/M/y', functions.getNextDay(30))}'),
+                                    'ท่านสามารถใช้บริการได้ถึงวันที่ ${dateTimeFormat("d/M/y", functions.getNextDay(30))}'),
                                 actions: [
                                   TextButton(
                                     onPressed: () =>
@@ -311,6 +305,7 @@ class _PaymentPageWidgetState extends State<PaymentPageWidget> {
                                 fontFamily: 'Kanit',
                                 color: Colors.white,
                                 fontSize: 22.0,
+                                letterSpacing: 0.0,
                               ),
                       elevation: 3.0,
                       borderSide: BorderSide(

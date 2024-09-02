@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'no_data_model.dart';
@@ -38,8 +37,6 @@ class _NoDataWidgetState extends State<NoDataWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Container(
       decoration: BoxDecoration(),
       child: Column(
@@ -58,6 +55,7 @@ class _NoDataWidgetState extends State<NoDataWidget> {
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     fontFamily: 'Kanit',
                     fontSize: 22.0,
+                    letterSpacing: 0.0,
                     fontWeight: FontWeight.normal,
                   ),
             ),

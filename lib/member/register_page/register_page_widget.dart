@@ -29,19 +29,19 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
     super.initState();
     _model = createModel(context, () => RegisterPageModel());
 
-    _model.fullnameController ??= TextEditingController();
+    _model.fullnameTextController ??= TextEditingController();
     _model.fullnameFocusNode ??= FocusNode();
 
-    _model.phoneController ??= TextEditingController();
+    _model.phoneTextController ??= TextEditingController();
     _model.phoneFocusNode ??= FocusNode();
 
-    _model.usernameController ??= TextEditingController();
+    _model.usernameTextController ??= TextEditingController();
     _model.usernameFocusNode ??= FocusNode();
 
-    _model.passwordController ??= TextEditingController();
+    _model.passwordTextController ??= TextEditingController();
     _model.passwordFocusNode ??= FocusNode();
 
-    _model.password2Controller ??= TextEditingController();
+    _model.password2TextController ??= TextEditingController();
     _model.password2FocusNode ??= FocusNode();
   }
 
@@ -54,21 +54,8 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -81,6 +68,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                   fontFamily: 'Kanit',
                   color: Colors.white,
                   fontSize: 22.0,
+                  letterSpacing: 0.0,
                 ),
           ),
           actions: [],
@@ -117,15 +105,24 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               TextFormField(
-                                controller: _model.fullnameController,
+                                controller: _model.fullnameTextController,
                                 focusNode: _model.fullnameFocusNode,
+                                autofocus: false,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'ชื่อ-สกุล',
-                                  labelStyle:
-                                      FlutterFlowTheme.of(context).labelMedium,
-                                  hintStyle:
-                                      FlutterFlowTheme.of(context).labelMedium,
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        letterSpacing: 0.0,
+                                      ),
+                                  hintStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        letterSpacing: 0.0,
+                                      ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context).line,
@@ -156,23 +153,38 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                 ),
-                                style: FlutterFlowTheme.of(context).bodyMedium,
-                                validator: _model.fullnameControllerValidator
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Kanit',
+                                      letterSpacing: 0.0,
+                                    ),
+                                validator: _model
+                                    .fullnameTextControllerValidator
                                     .asValidator(context),
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 16.0, 0.0, 0.0),
                                 child: TextFormField(
-                                  controller: _model.phoneController,
+                                  controller: _model.phoneTextController,
                                   focusNode: _model.phoneFocusNode,
+                                  autofocus: false,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'เบอร์โทร',
                                     labelStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          letterSpacing: 0.0,
+                                        ),
                                     hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          letterSpacing: 0.0,
+                                        ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color:
@@ -206,10 +218,14 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                   ),
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        letterSpacing: 0.0,
+                                      ),
                                   keyboardType: TextInputType.phone,
-                                  validator: _model.phoneControllerValidator
+                                  validator: _model.phoneTextControllerValidator
                                       .asValidator(context),
                                   inputFormatters: [
                                     FilteringTextInputFormatter.allow(
@@ -221,15 +237,24 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 16.0, 0.0, 0.0),
                                 child: TextFormField(
-                                  controller: _model.usernameController,
+                                  controller: _model.usernameTextController,
                                   focusNode: _model.usernameFocusNode,
+                                  autofocus: false,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'E-mail',
                                     labelStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          letterSpacing: 0.0,
+                                        ),
                                     hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          letterSpacing: 0.0,
+                                        ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color:
@@ -263,10 +288,15 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                   ),
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        letterSpacing: 0.0,
+                                      ),
                                   keyboardType: TextInputType.emailAddress,
-                                  validator: _model.usernameControllerValidator
+                                  validator: _model
+                                      .usernameTextControllerValidator
                                       .asValidator(context),
                                 ),
                               ),
@@ -274,15 +304,24 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 16.0, 0.0, 0.0),
                                 child: TextFormField(
-                                  controller: _model.passwordController,
+                                  controller: _model.passwordTextController,
                                   focusNode: _model.passwordFocusNode,
+                                  autofocus: false,
                                   obscureText: !_model.passwordVisibility,
                                   decoration: InputDecoration(
                                     labelText: 'รหัสผ่าน',
                                     labelStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          letterSpacing: 0.0,
+                                        ),
                                     hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          letterSpacing: 0.0,
+                                        ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color:
@@ -331,9 +370,14 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                       ),
                                     ),
                                   ),
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
-                                  validator: _model.passwordControllerValidator
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        letterSpacing: 0.0,
+                                      ),
+                                  validator: _model
+                                      .passwordTextControllerValidator
                                       .asValidator(context),
                                 ),
                               ),
@@ -341,15 +385,24 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 16.0, 0.0, 0.0),
                                 child: TextFormField(
-                                  controller: _model.password2Controller,
+                                  controller: _model.password2TextController,
                                   focusNode: _model.password2FocusNode,
+                                  autofocus: false,
                                   obscureText: !_model.password2Visibility,
                                   decoration: InputDecoration(
                                     labelText: 'ยืนยันรหัสผ่าน',
                                     labelStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          letterSpacing: 0.0,
+                                        ),
                                     hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          letterSpacing: 0.0,
+                                        ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color:
@@ -398,9 +451,14 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                       ),
                                     ),
                                   ),
-                                  style:
-                                      FlutterFlowTheme.of(context).bodyMedium,
-                                  validator: _model.password2ControllerValidator
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        letterSpacing: 0.0,
+                                      ),
+                                  validator: _model
+                                      .password2TextControllerValidator
                                       .asValidator(context),
                                 ),
                               ),
@@ -425,6 +483,11 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                         setState(() =>
                                             _model.checkboxValue = newValue!);
                                       },
+                                      side: BorderSide(
+                                        width: 2,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                      ),
                                       activeColor:
                                           FlutterFlowTheme.of(context).primary,
                                       checkColor: FlutterFlowTheme.of(context)
@@ -458,6 +521,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                           .override(
                                             fontFamily: 'Kanit',
                                             color: Color(0xFF1C15EF),
+                                            letterSpacing: 0.0,
                                             fontWeight: FontWeight.normal,
                                             decoration:
                                                 TextDecoration.underline,
@@ -479,8 +543,8 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                     }
                                     if (_model.checkboxValue!) {
                                       GoRouter.of(context).prepareAuthEvent();
-                                      if (_model.passwordController.text !=
-                                          _model.password2Controller.text) {
+                                      if (_model.passwordTextController.text !=
+                                          _model.password2TextController.text) {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
                                           SnackBar(
@@ -495,8 +559,8 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                       final user = await authManager
                                           .createAccountWithEmail(
                                         context,
-                                        _model.usernameController.text,
-                                        _model.passwordController.text,
+                                        _model.usernameTextController.text,
+                                        _model.passwordTextController.text,
                                       );
                                       if (user == null) {
                                         return;
@@ -505,16 +569,16 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                       await UsersRecord.collection
                                           .doc(user.uid)
                                           .update(createUsersRecordData(
-                                            email:
-                                                _model.usernameController.text,
-                                            password:
-                                                _model.passwordController.text,
-                                            fullname:
-                                                _model.fullnameController.text,
+                                            email: _model
+                                                .usernameTextController.text,
+                                            password: _model
+                                                .passwordTextController.text,
+                                            fullname: _model
+                                                .fullnameTextController.text,
                                             status: 1,
                                             createDate: getCurrentTimestamp,
                                             phoneNumber:
-                                                _model.phoneController.text,
+                                                _model.phoneTextController.text,
                                             createdTime: getCurrentTimestamp,
                                             isPay: true,
                                             isFirstTime: true,
@@ -563,6 +627,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
                                         .override(
                                           fontFamily: 'Kanit',
                                           color: Colors.white,
+                                          letterSpacing: 0.0,
                                         ),
                                     elevation: 3.0,
                                     borderSide: BorderSide(

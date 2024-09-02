@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'booking_dialog_view_model.dart';
@@ -91,13 +90,14 @@ class _BookingDialogViewWidgetState extends State<BookingDialogViewWidget> {
                       children: [
                         Expanded(
                           child: Text(
-                            'ต้องการจองวันที่ ${dateTimeFormat('d/M/y', widget.selectedDate)}',
+                            'ต้องการจองวันที่ ${dateTimeFormat("d/M/y", widget!.selectedDate)}',
                             textAlign: TextAlign.center,
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Kanit',
                                   fontSize: 24.0,
+                                  letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
                                 ),
                           ),
@@ -117,13 +117,13 @@ class _BookingDialogViewWidgetState extends State<BookingDialogViewWidget> {
                               'booking_date',
                               isGreaterThanOrEqualTo:
                                   functions.setNewDateTimeForQuery(
-                                      'start', widget.selectedDate),
+                                      'start', widget!.selectedDate),
                             )
                             .where(
                               'booking_date',
                               isLessThanOrEqualTo:
                                   functions.setNewDateTimeForQuery(
-                                      'end', widget.selectedDate),
+                                      'end', widget!.selectedDate),
                             )
                             .orderBy('booking_date')
                             .orderBy('booking_start_time'),
@@ -145,6 +145,7 @@ class _BookingDialogViewWidgetState extends State<BookingDialogViewWidget> {
                         }
                         List<BookingListRecord> containerBookingListRecordList =
                             snapshot.data!;
+
                         return Container(
                           height: MediaQuery.sizeOf(context).height * 0.72,
                           decoration: BoxDecoration(
@@ -161,6 +162,7 @@ class _BookingDialogViewWidgetState extends State<BookingDialogViewWidget> {
                               if (resultBookingList.isEmpty) {
                                 return NoDataWidget();
                               }
+
                               return ListView.builder(
                                 padding: EdgeInsets.zero,
                                 primary: false,
@@ -183,7 +185,11 @@ class _BookingDialogViewWidgetState extends State<BookingDialogViewWidget> {
                                                 'เวลาจอง ${resultBookingListItem.bookingStartTime} - ${resultBookingListItem.bookingEndTime}',
                                                 style:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyMedium,
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Kanit',
+                                                          letterSpacing: 0.0,
+                                                        ),
                                               ),
                                             ),
                                             Expanded(
@@ -213,6 +219,7 @@ class _BookingDialogViewWidgetState extends State<BookingDialogViewWidget> {
                                                                 : FlutterFlowTheme.of(
                                                                         context)
                                                                     .secondary,
+                                                            letterSpacing: 0.0,
                                                           ),
                                                 ),
                                               ),
@@ -264,6 +271,7 @@ class _BookingDialogViewWidgetState extends State<BookingDialogViewWidget> {
                                       fontFamily: 'Kanit',
                                       color: Colors.white,
                                       fontSize: 18.0,
+                                      letterSpacing: 0.0,
                                       fontWeight: FontWeight.bold,
                                     ),
                                 elevation: 3.0,
@@ -288,7 +296,7 @@ class _BookingDialogViewWidgetState extends State<BookingDialogViewWidget> {
                                   'AddBookingPage',
                                   queryParameters: {
                                     'dateSeleceteParameter': serializeParam(
-                                      widget.selectedDate,
+                                      widget!.selectedDate,
                                       ParamType.DateTime,
                                     ),
                                   }.withoutNulls,
@@ -308,6 +316,7 @@ class _BookingDialogViewWidgetState extends State<BookingDialogViewWidget> {
                                       fontFamily: 'Kanit',
                                       color: Colors.white,
                                       fontSize: 18.0,
+                                      letterSpacing: 0.0,
                                       fontWeight: FontWeight.bold,
                                     ),
                                 elevation: 3.0,

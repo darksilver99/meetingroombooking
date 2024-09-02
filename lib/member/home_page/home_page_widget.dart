@@ -10,7 +10,6 @@ import '/custom_code/actions/index.dart' as actions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
@@ -90,21 +89,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -175,6 +163,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             .override(
                                               fontFamily: 'Kanit',
                                               fontSize: 28.0,
+                                              letterSpacing: 0.0,
                                             ),
                                       ),
                                     ],
@@ -286,6 +275,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             );
                                           }
                                           int stackCount = snapshot.data!;
+
                                           return Stack(
                                             children: [
                                               Padding(
@@ -314,6 +304,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                           .override(
                                                             fontFamily: 'Kanit',
                                                             fontSize: 22.0,
+                                                            letterSpacing: 0.0,
                                                           ),
                                                     ),
                                                   ],
@@ -355,6 +346,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .secondaryBackground,
+                                                                letterSpacing:
+                                                                    0.0,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
@@ -386,10 +379,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    FFAppState().update(() {
-                                      FFAppState().isChangeProfileDetail =
-                                          false;
-                                    });
+                                    FFAppState().isChangeProfileDetail = false;
+                                    FFAppState().update(() {});
 
                                     context.pushNamed('ProfilePage');
                                   },
@@ -430,6 +421,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       .override(
                                                         fontFamily: 'Kanit',
                                                         fontSize: 22.0,
+                                                        letterSpacing: 0.0,
                                                       ),
                                             ),
                                           ],

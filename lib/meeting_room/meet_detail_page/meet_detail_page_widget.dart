@@ -12,7 +12,6 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart'
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -51,39 +50,26 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         floatingActionButton: Visibility(
           visible:
-              widget.meetingRoomParamameter?.createBy == currentUserReference,
+              widget!.meetingRoomParamameter?.createBy == currentUserReference,
           child: FloatingActionButton(
             onPressed: () async {
               context.pushNamed(
                 'EditMeetRoomInformationPage',
                 queryParameters: {
                   'meetRoomParameter': serializeParam(
-                    widget.meetingRoomParamameter,
+                    widget!.meetingRoomParamameter,
                     ParamType.Document,
                   ),
                 }.withoutNulls,
                 extra: <String, dynamic>{
-                  'meetRoomParameter': widget.meetingRoomParamameter,
+                  'meetRoomParameter': widget!.meetingRoomParamameter,
                 },
               );
             },
@@ -106,6 +92,7 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                           fontFamily: 'Kanit',
                           color: Colors.white,
                           fontSize: 12.0,
+                          letterSpacing: 0.0,
                         ),
                   ),
                 ),
@@ -122,6 +109,7 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                   fontFamily: 'Kanit',
                   color: Colors.white,
                   fontSize: 22.0,
+                  letterSpacing: 0.0,
                 ),
           ),
           actions: [],
@@ -164,21 +152,26 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                               ),
                               child: Builder(
                                 builder: (context) {
-                                  final imageList = widget
+                                  final imageList = widget!
                                           .meetingRoomParamameter?.photo
                                           ?.toList() ??
                                       [];
+
                                   return Container(
                                     width: double.infinity,
                                     height: 500.0,
                                     child: Stack(
                                       children: [
                                         PageView.builder(
-                                          controller: _model
-                                                  .pageViewController ??=
-                                              PageController(
-                                                  initialPage: min(
-                                                      0, imageList.length - 1)),
+                                          controller:
+                                              _model.pageViewController ??=
+                                                  PageController(
+                                                      initialPage: max(
+                                                          0,
+                                                          min(
+                                                              0,
+                                                              imageList.length -
+                                                                  1))),
                                           scrollDirection: Axis.horizontal,
                                           itemCount: imageList.length,
                                           itemBuilder:
@@ -248,13 +241,15 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                                                     16.0, 0.0, 0.0, 16.0),
                                             child: smooth_page_indicator
                                                 .SmoothPageIndicator(
-                                              controller:
-                                                  _model.pageViewController ??=
-                                                      PageController(
-                                                          initialPage: min(
+                                              controller: _model
+                                                      .pageViewController ??=
+                                                  PageController(
+                                                      initialPage: max(
+                                                          0,
+                                                          min(
                                                               0,
                                                               imageList.length -
-                                                                  1)),
+                                                                  1))),
                                               count: imageList.length,
                                               axisDirection: Axis.horizontal,
                                               onDotClicked: (i) async {
@@ -265,6 +260,7 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                                                       milliseconds: 500),
                                                   curve: Curves.ease,
                                                 );
+                                                setState(() {});
                                               },
                                               effect: smooth_page_indicator
                                                   .ExpandingDotsEffect(
@@ -292,12 +288,13 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 16.0, 0.0, 0.0),
                               child: Text(
-                                widget.meetingRoomParamameter!.name,
+                                widget!.meetingRoomParamameter!.name,
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'Kanit',
                                       fontSize: 20.0,
+                                      letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
                                     ),
                               ),
@@ -311,7 +308,7 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   if (currentUserReference !=
-                                      widget.meetingRoomParamameter?.createBy)
+                                      widget!.meetingRoomParamameter?.createBy)
                                     InkWell(
                                       splashColor: Colors.transparent,
                                       focusColor: Colors.transparent,
@@ -319,10 +316,10 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
                                         FFAppState().meetingRoomSelectedRef =
-                                            widget.meetingRoomParamameter
+                                            widget!.meetingRoomParamameter
                                                 ?.reference;
                                         FFAppState().onwerRoomSelectedRef =
-                                            widget.meetingRoomParamameter
+                                            widget!.meetingRoomParamameter
                                                 ?.createBy;
 
                                         context.pushNamed('BookingMeetPage');
@@ -364,6 +361,7 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                                                         .override(
                                                           fontFamily: 'Kanit',
                                                           fontSize: 14.0,
+                                                          letterSpacing: 0.0,
                                                         ),
                                               ),
                                             ],
@@ -371,7 +369,7 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                                         ),
                                       ),
                                     ),
-                                  if (widget.meetingRoomParamameter
+                                  if (widget!.meetingRoomParamameter
                                           ?.hasLocation() ??
                                       true)
                                     InkWell(
@@ -381,7 +379,7 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
                                         await launchURL(
-                                            'https://www.google.com/maps/dir/?api=1&destination=${functions.getSplitLatLng('lat', widget.meetingRoomParamameter?.location)},${functions.getSplitLatLng('lng', widget.meetingRoomParamameter?.location)}');
+                                            'https://www.google.com/maps/dir/?api=1&destination=${functions.getSplitLatLng('lat', widget!.meetingRoomParamameter?.location)},${functions.getSplitLatLng('lng', widget!.meetingRoomParamameter?.location)}');
                                       },
                                       child: Material(
                                         color: Colors.transparent,
@@ -416,7 +414,11 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                                                 textAlign: TextAlign.center,
                                                 style:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyMedium,
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Kanit',
+                                                          letterSpacing: 0.0,
+                                                        ),
                                               ),
                                             ],
                                           ),
@@ -432,19 +434,26 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                               color: FlutterFlowTheme.of(context).alternate,
                             ),
                             Text(
-                              'ตำบล ${widget.meetingRoomParamameter?.tambon} อำเภอ ${widget.meetingRoomParamameter?.amphur} จังหวัด ${widget.meetingRoomParamameter?.province}',
+                              'ตำบล ${widget!.meetingRoomParamameter?.tambon} อำเภอ ${widget!.meetingRoomParamameter?.amphur} จังหวัด ${widget!.meetingRoomParamameter?.province}',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
                                     fontFamily: 'Kanit',
                                     fontSize: 16.0,
+                                    letterSpacing: 0.0,
                                   ),
                             ),
                             Text(
-                              widget.meetingRoomParamameter!.detail,
-                              style: FlutterFlowTheme.of(context).bodyMedium,
+                              widget!.meetingRoomParamameter!.detail,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Kanit',
+                                    letterSpacing: 0.0,
+                                  ),
                             ),
-                            if (widget.meetingRoomParamameter!.tools.length > 0)
+                            if (widget!.meetingRoomParamameter!.tools.length >
+                                0)
                               Column(
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -458,6 +467,7 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Kanit',
+                                            letterSpacing: 0.0,
                                             fontWeight: FontWeight.w500,
                                           ),
                                     ),
@@ -468,7 +478,7 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 8.0, 0.0, 0.0),
                                       child: FlutterFlowChoiceChips(
-                                        options: widget
+                                        options: widget!
                                             .meetingRoomParamameter!.tools
                                             .map((label) => ChipData(label))
                                             .toList(),
@@ -486,6 +496,7 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                                                     fontFamily: 'Kanit',
                                                     color: Colors.white,
                                                     fontSize: 18.0,
+                                                    letterSpacing: 0.0,
                                                   ),
                                           iconColor: Colors.white,
                                           iconSize: 18.0,
@@ -504,6 +515,7 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                                                     fontFamily: 'Kanit',
                                                     color: Colors.white,
                                                     fontSize: 18.0,
+                                                    letterSpacing: 0.0,
                                                   ),
                                           iconColor: Colors.white,
                                           iconSize: 18.0,
@@ -532,8 +544,7 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 16.0, 0.0, 0.0),
                                 child: RichText(
-                                  textScaleFactor:
-                                      MediaQuery.of(context).textScaleFactor,
+                                  textScaler: MediaQuery.of(context).textScaler,
                                   text: TextSpan(
                                     children: [
                                       TextSpan(
@@ -546,8 +557,8 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                                       ),
                                       TextSpan(
                                         text: dateTimeFormat(
-                                            'd/M/y',
-                                            widget.meetingRoomParamameter!
+                                            "d/M/y",
+                                            widget!.meetingRoomParamameter!
                                                 .updateDate!),
                                         style: TextStyle(),
                                       )
@@ -559,6 +570,7 @@ class _MeetDetailPageWidgetState extends State<MeetDetailPageWidget> {
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryText,
                                           fontSize: 10.0,
+                                          letterSpacing: 0.0,
                                         ),
                                   ),
                                 ),
